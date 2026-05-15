@@ -20,7 +20,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.UseAction;
-import org.BsXinQin.kinswathe.packet.roles.ArbiterC2SPacket;
 import org.BsXinQin.kinswathe.roles.arbiter.ArbiterAbility;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.component.GameSafeComponent;
