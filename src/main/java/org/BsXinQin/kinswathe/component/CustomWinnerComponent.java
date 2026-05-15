@@ -41,9 +41,7 @@ public class CustomWinnerComponent implements AutoSyncedComponent {
             NbtList list = tag.getList(listName, NbtElement.INT_ARRAY_TYPE);
             for (NbtElement e : list) {
                 Optional<UUID> uuidOptional = Optional.of(NbtHelper.toUuid(e));
-                if (uuidOptional.isPresent()) {
-                    result.add(uuidOptional.get());
-                }
+                uuidOptional.ifPresent(result::add);
             }
         }
         return result;
@@ -53,14 +51,20 @@ public class CustomWinnerComponent implements AutoSyncedComponent {
         return this.winningTextId != null;
     }
 
-    public void sync() {CustomWinnerComponent.KEY.sync(this.world);}
+    public void sync() { KEY.sync(this.world); }
 
     public void reset() {
         this.winningTextId = null;
-        this.winners = new ArrayList<>();
-        this.color = 0x000000;sync();
+        this.winners.clear();
+        this.color = 0x000000;
         this.sync();
     }
+
+    // 以下为显式实现 getter/setter（尽管用了 Lombok，但保险起见）
+    public List<ServerPlayerEntity> getWinners() { return winners; }
+    public void setWinningTextId(String id) { this.winningTextId = id; }
+    public void setWinners(List<ServerPlayerEntity> list) { this.winners = list; }
+    public void setColor(int c) { this.color = c; }
 
     @Override
     public void writeToNbt(@NotNull NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
@@ -91,8 +95,9 @@ public class CustomWinnerComponent implements AutoSyncedComponent {
                     }
                 }
             }
-            this.winners = new ArrayList<>(loadedWinners);} else {
-            this.winners = new ArrayList<>();
+            this.winners = loadedWinners;
+        } else {
+            this.winners.clear();
         }
         this.color = tag.contains("color") ? tag.getInt("color") : 0x000000;
     }
