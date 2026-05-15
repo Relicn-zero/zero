@@ -56,7 +56,8 @@ public class KinsWatheInitializeClient {
                             KinsWatheRoles.DETECTIVE,
                             KinsWatheRoles.HUNTER,
                             KinsWatheRoles.ROBOT,
-                            KinsWatheRoles.CLEANER
+                            KinsWatheRoles.CLEANER,
+                            KinsWatheRoles.ARBITER
                     };
                     for (Role role : rolesWithAbility) {
                         if (gameWorld.isRole(MinecraftClient.getInstance().player, role)) sendAbilityPacket = true;
