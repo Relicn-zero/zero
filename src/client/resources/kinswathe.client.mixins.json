@@ -70,6 +70,7 @@
     "roles.physician.PhysicianDeathReasonMixin",
     "roles.physician.PhysicianInstinctMixin",
     "roles.robot.RobotMoodMixin",
-    "roles.technician.TechnicianInstinctMixin"
+    "roles.technician.TechnicianInstinctMixin",
+    "roles.arbiter.ArbiterHudMixin"
   ]
 }
