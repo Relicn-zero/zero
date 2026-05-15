@@ -19,8 +19,9 @@
   "announcement.role.kinswathe.cook": "厨师",
   "announcement.goals.kinswathe.cook": "透过墙壁看见吃过东西的玩家！",
 
-  "role.kinswathe.arbiter": "裁决者",
-  "tip.kinswathe.arbiter.verdict_executed": "§c裁决已执行...",
+     "announcement.role.kinswathe.arbiter": "裁决者",
+    "announcement.goals.kinswathe.arbiter": "用你的裁决，终结邪恶！",
+    "hud.kinswathe.arbiter.target": "按下 §e%s §r执行裁决",
 
   "announcement.role.kinswathe.detective": "侦探",
   "announcement.goals.kinswathe.detective": "调查出一切！",
