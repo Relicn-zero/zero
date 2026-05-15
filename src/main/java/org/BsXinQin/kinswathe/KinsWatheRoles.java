@@ -460,8 +460,8 @@ public static void registerRolesAbility() {
         JudgeAbility.register(payload, context.player());
     });
     ServerPlayNetworking.registerGlobalReceiver(ArbiterC2SPacket.PACKET_ID, (payload, context) -> {
-        ArbiterAbility.register(context.player(), payload.targetUuid());
-    });
+    ArbiterAbility.register(context.player(), payload.targetUuid());
+});
 }
 
     /// 限制词条自动启用配置
