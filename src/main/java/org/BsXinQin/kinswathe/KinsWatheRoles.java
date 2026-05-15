@@ -88,8 +88,8 @@ public class KinsWatheRoles {
     /// 收入身份列表
     public static List<Role> rolesHaveTaskIncome() {
         List<Role> roles = new ArrayList<>();
-        roles.add(WatheRoles.KILLER); roles.add(BELLRINGER);roles.add(ARBITER); roles.add(BODYMAKER); roles.add(CLEANER); roles.add(COOK); roles.add(DETECTIVE); roles.add(DRUGMAKER); roles.add(HUNTER); roles.add(JUDGE); roles.add(KIDNAPPER); roles.add(LICENSED_VILLAIN); roles.add(PHYSICIAN); roles.add(TECHNICIAN);
-        if (KinsWatheConfig.HANDLER.instance().HackerHasShop) roles.add(HACKER);
+        roles.add(WatheRoles.KILLER); roles.add(BELLRINGER);roles.add(BODYMAKER); roles.add(CLEANER); roles.add(COOK); roles.add(DETECTIVE); roles.add(DRUGMAKER); roles.add(HUNTER); roles.add(JUDGE); roles.add(KIDNAPPER); roles.add(LICENSED_VILLAIN); roles.add(PHYSICIAN); roles.add(TECHNICIAN);
+        if (KinsWatheConfig.HANDLER.instance().HackerHasShop) roles.add(HACKER);roles.add(ARBITER);
         if (FabricLoader.getInstance().isModLoaded("noellesroles")) { roles.add(noellesrolesRoles("PHANTOM")); roles.add(noellesrolesRoles("SWAPPER")); roles.add(noellesrolesRoles("TRAPPER")); roles.add(noellesrolesRoles("RECALLER")); roles.add(noellesrolesRoles("BARTENDER")); roles.add(noellesrolesRoles("MORPHLING")); roles.add(noellesrolesRoles("NOISEMAKER")); roles.add(noellesrolesRoles("THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES")); }
         return List.copyOf(roles);
     }
