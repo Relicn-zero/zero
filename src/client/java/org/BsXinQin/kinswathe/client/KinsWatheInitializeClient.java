@@ -62,7 +62,7 @@ public class KinsWatheInitializeClient {
                         if (gameWorld.isRole(MinecraftClient.getInstance().player, role)) sendAbilityPacket = true;
                     }
                     if (!sendAbilityPacket) return;
-                    ClientPlayNetworking.send(new AbilityC2SPacket());
+                    //ClientPlayNetworking.send(new AbilityC2SPacket());
                 });
             }
         });
