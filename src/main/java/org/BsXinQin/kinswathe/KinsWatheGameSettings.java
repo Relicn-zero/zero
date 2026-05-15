@@ -25,7 +25,6 @@ import org.BsXinQin.kinswathe.roles.arbiter.ArbiterAbility;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.component.GameSafeComponent;
 import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
-import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
 import org.BsXinQin.kinswathe.packet.items.BlowgunC2SPacket;
 import org.BsXinQin.kinswathe.packet.items.HuntingKnifeC2SPacket;
 import org.BsXinQin.kinswathe.packet.items.PanC2SPacket;
