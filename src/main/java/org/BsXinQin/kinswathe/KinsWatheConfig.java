@@ -69,6 +69,17 @@ public class KinsWatheConfig {
     @SerialEntry
     public int CleanerAbilityCooldown = GameConstants.getInTicks(2,30) / 20;
 
+    @SerialEntry(comment = "Arbiter: modify starting coins, glow duration and verdict delay.")
+public int ArbiterStartingCoins = 50;
+@SerialEntry
+public int ArbiterGlowDuration = 10;      // 发光持续时间（秒）
+@SerialEntry
+public int ArbiterVerdictDelay = 10;      // 发光后延迟死亡时间（秒）
+@SerialEntry
+public int ArbiterAbilityPrice = 200;     // 技能消耗金币
+@SerialEntry
+public int ArbiterCooldown = 180;         // 技能冷却时间（秒）
+    
     @SerialEntry(comment = "Cook: modify price of Pan.")
     public int CookPanPrice = 250;
 
