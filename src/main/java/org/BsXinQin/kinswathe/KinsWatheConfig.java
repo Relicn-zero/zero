@@ -145,13 +145,6 @@ public int ArbiterCooldown = 180;         // 技能冷却时间（秒）
     @SerialEntry
     public int RobotAbilityCooldown = GameConstants.getInTicks(1,30) / 20;
 
-    @SerialEntry(comment = "Arbiter: modify price, glow duration and cooldown of ability.")
-    public int ArbiterAbilityPrice = 200;
-    @SerialEntry
-    public int ArbiterGlowDuration = 10;
-    @SerialEntry
-    public int ArbiterCooldown = GameConstants.getInTicks(3,0) / 20;
-
     @SerialEntry(comment = "Technician: modify price of props and Capture Device parameter.")
     public int TechnicianWrenchPrice = 100;
     @SerialEntry
