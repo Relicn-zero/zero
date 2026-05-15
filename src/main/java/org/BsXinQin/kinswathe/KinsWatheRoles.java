@@ -137,6 +137,9 @@ public class KinsWatheRoles {
                 if (!gameWorld.isInnocent(player) && !gameWorld.canUseKillerFeatures(player)) playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialNeutralIncome);
                 if (gameWorld.canUseKillerFeatures(player)) playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialKillerIncome - 100);
             }
+            if (role.equals(ARBITER)) {
+    playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().ArbiterStartingCoins);
+}
             if (role.equals(CLEANER)) player.giveItemStack(KinsWatheItems.SULFURIC_ACID_BARREL.getDefaultStack());
             if (role.equals(DREAMER)) { player.giveItemStack(new ItemStack(KinsWatheItems.DREAM_IMPRINT, KinsWatheConfig.HANDLER.instance().DreamerInitialItemQuantity)); playerDreamer.setDreamerRequired(); }
             if (role.equals(HACKER)) {
