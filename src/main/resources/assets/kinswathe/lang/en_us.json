@@ -37,8 +37,9 @@
   "tip.kinswathe.drugmaker.poison_failed": "It seems to be immune to poisoning...",
   "tip.kinswathe.drugmaker.poisoned": "Someone was poisoned",
 
-  "role.kinswathe.arbiter": "Arbiter",
-  "tip.kinswathe.arbiter.verdict_executed": "§cThe verdict has been executed...",
+  "announcement.role.kinswathe.arbiter": "Arbiter",
+  "announcement.goals.kinswathe.arbiter": "Pronounce your verdict!",
+  "hud.kinswathe.arbiter.target": "Press §e%s §rto execute verdict",
 
   "announcement.role.kinswathe.hacker": "Hacker",
   "announcement.goals.kinswathe.hacker": "Attempting to hack into the entire train...",
