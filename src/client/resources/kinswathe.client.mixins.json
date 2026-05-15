@@ -65,7 +65,6 @@
     "roles.hacker.HackerInstinctMixin",
     "roles.hacker.HackerMoodMixin",
     "roles.hacker.HackerTargetHudMixin",
-    "roles.arbiter.ArbiterScreenMixin",
     "roles.licensed_villain.LicensedVillainInstinctMixin",
     "roles.licensed_villain.LicensedVillainMoodMixin",
     "roles.physician.PhysicianDeathReasonMixin",
