@@ -459,8 +459,8 @@ public class KinsWatheRoles {
         });
         // 裁决者能力注册
         ServerPlayNetworking.registerGlobalReceiver(ArbiterC2SPacket.PACKET_ID, (payload, context) -> {
-            ArbiterAbility.register(context.player());
-        });
+    ArbiterAbility.register(context.player());
+});
     }
 
     /// 限制词条自动启用配置
