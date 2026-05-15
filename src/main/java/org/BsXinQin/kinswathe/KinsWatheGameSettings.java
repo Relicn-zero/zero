@@ -138,7 +138,7 @@ public class KinsWatheGameSettings {
 
     /// 注册网络数据包
 public static void registerPackets() {
-    PayloadTypeRegistry.playC2S().register(AbilityC2SPacket.ID, AbilityC2SPacket.CODEC);
+    // PayloadTypeRegistry.playC2S().register(AbilityC2SPacket.ID, AbilityC2SPacket.CODEC);  // 暂时禁用
     PayloadTypeRegistry.playC2S().register(BodymakerC2SPacket.ID, BodymakerC2SPacket.CODEC);
     PayloadTypeRegistry.playC2S().register(JudgeC2SPacket.ID, JudgeC2SPacket.CODEC);
     PayloadTypeRegistry.playC2S().register(BlowgunC2SPacket.ID, BlowgunC2SPacket.CODEC);
@@ -150,7 +150,6 @@ public static void registerPackets() {
     PayloadTypeRegistry.playC2S().register(ArbiterC2SPacket.PACKET_ID, ArbiterC2SPacket.CODEC);
     ServerPlayNetworking.registerGlobalReceiver(ArbiterC2SPacket.PACKET_ID, new ArbiterC2SPacket.Receiver());
 }
-
     /// 注册游戏事件
     public static void registerEvents() {
         //死亡事件
