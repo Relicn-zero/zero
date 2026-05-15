@@ -20,10 +20,10 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.UseAction;
-import org.BsXinQin.kinswathe.roles.arbiter.ArbiterAbility;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.component.GameSafeComponent;
 import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
+import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
 import org.BsXinQin.kinswathe.packet.items.BlowgunC2SPacket;
 import org.BsXinQin.kinswathe.packet.items.HuntingKnifeC2SPacket;
 import org.BsXinQin.kinswathe.packet.items.PanC2SPacket;
@@ -46,47 +46,29 @@ public class KinsWatheGameSettings {
     private static boolean GAME_START = false;
     private static boolean GAME_STOP = false;
 
-    /// 初始化配置文件
-    public static void initializeConfig() {
-        KinsWatheConfig.HANDLER.load();
-    }
+    public static void initializeConfig() { KinsWatheConfig.HANDLER.load(); }
+    public static void initializeCommands() { KinsWatheCommands.register(); }
 
-    /// 初始化指令
-    public static void initializeCommands() {
-        KinsWatheCommands.register();
-    }
-
-    /// 设置游戏开始和结束功能
     public static void betterGameSettings() {
-        //注册游戏开始时事件
-        GameEvents.ON_GAME_START.register((gameMode) -> {GAME_START = true;});
+        GameEvents.ON_GAME_START.register((gameMode) -> GAME_START = true);
         ServerTickEvents.START_SERVER_TICK.register(server -> {
             if (GAME_START) {
-                //切换物品栏
-                for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                    player.getInventory().selectedSlot = 8;
-                }
-                //指令
+                for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) player.getInventory().selectedSlot = 8;
                 setCommands(server);
-                //游戏安全时间
                 setGameSafeTime(server);
                 GAME_START = false;
             }
         });
-        //注册游戏结束时事件
-        GameEvents.ON_GAME_STOP.register((gameMode) -> {GAME_STOP = true;});
+        GameEvents.ON_GAME_STOP.register((gameMode) -> GAME_STOP = true);
         ServerTickEvents.START_SERVER_TICK.register(server -> {
             if (GAME_STOP) {
-                //指令
                 setCommands(server);
-                //游戏安全时间
                 GameSafeComponent.KEY.get(server.getOverworld()).reset();
                 GAME_STOP = false;
             }
         });
     }
 
-    /// 设置指令
     public static void setCommands(@NotNull MinecraftServer server) {
         server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "kill @e[type=kinswathe:capture_device]");
         server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "kill @e[type=wathe:player_body]");
@@ -100,68 +82,54 @@ public class KinsWatheGameSettings {
         }
     }
 
-    /// 设置游戏安全时间
     public static void setGameSafeTime(@NotNull MinecraftServer server) {
         if (!KinsWatheConfig.HANDLER.instance().EnableStartSafeTime) return;
         if (GameWorldComponent.KEY.get(server.getOverworld()).getGameMode() == WatheGameModes.DISCOVERY || GameWorldComponent.KEY.get(server.getOverworld()).getGameMode() == WatheGameModes.LOOSE_ENDS) return;
         GameSafeComponent.KEY.get(server.getOverworld()).startGameSafe();
         for (ServerPlayerEntity serverPlayer : server.getPlayerManager().getPlayerList()) {
             if (serverPlayer == null) continue;
-            //KinsWathe物品安全时间
             serverPlayer.getItemCooldownManager().set(KinsWatheItems.BLOWGUN, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             serverPlayer.getItemCooldownManager().set(KinsWatheItems.HUNTING_KNIFE, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             serverPlayer.getItemCooldownManager().set(KinsWatheItems.KNOCKOUT_DRUG, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             serverPlayer.getItemCooldownManager().set(KinsWatheItems.POISON_INJECTOR, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
-            //Wathe物品安全时间
             serverPlayer.getItemCooldownManager().set(WatheItems.DERRINGER, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             serverPlayer.getItemCooldownManager().set(WatheItems.KNIFE, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             serverPlayer.getItemCooldownManager().set(WatheItems.GRENADE, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             serverPlayer.getItemCooldownManager().set(WatheItems.REVOLVER, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             serverPlayer.getItemCooldownManager().set(WatheItems.PSYCHO_MODE, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
-            //HarpySimpleRoles物品安全时间
             if (FabricLoader.getInstance().isModLoaded("harpysimpleroles")) {
                 serverPlayer.getItemCooldownManager().set(Registries.ITEM.get(Identifier.of("harpysimpleroles", "toxin")), GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
                 serverPlayer.getItemCooldownManager().set(Registries.ITEM.get(Identifier.of("harpysimpleroles", "bandit_revolver")), GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             }
-            //StarryExpress物品安全时间
             if (FabricLoader.getInstance().isModLoaded("starexpress")) {
                 serverPlayer.getItemCooldownManager().set(Registries.ITEM.get(Identifier.of("starexpress", "tape")), GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             }
-            //StupidExpress物品安全时间
             if (FabricLoader.getInstance().isModLoaded("stupid_express")) {
                 serverPlayer.getItemCooldownManager().set(Registries.ITEM.get(Identifier.of("stupid_express", "lighter")), GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             }
         }
     }
 
-    /// 注册网络数据包
-public static void registerPackets() {
-    // PayloadTypeRegistry.playC2S().register(AbilityC2SPacket.ID, AbilityC2SPacket.CODEC);  // 暂时禁用
-    PayloadTypeRegistry.playC2S().register(BodymakerC2SPacket.ID, BodymakerC2SPacket.CODEC);
-    PayloadTypeRegistry.playC2S().register(JudgeC2SPacket.ID, JudgeC2SPacket.CODEC);
-    PayloadTypeRegistry.playC2S().register(BlowgunC2SPacket.ID, BlowgunC2SPacket.CODEC);
-    PayloadTypeRegistry.playC2S().register(HuntingKnifeC2SPacket.ID, HuntingKnifeC2SPacket.CODEC);
-    PayloadTypeRegistry.playC2S().register(PanC2SPacket.ID, PanC2SPacket.CODEC);
-    ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
-    ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
+    public static void registerPackets() {
+        PayloadTypeRegistry.playC2S().register(AbilityC2SPacket.ID, AbilityC2SPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(BodymakerC2SPacket.ID, BodymakerC2SPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(JudgeC2SPacket.ID, JudgeC2SPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(BlowgunC2SPacket.ID, BlowgunC2SPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(HuntingKnifeC2SPacket.ID, HuntingKnifeC2SPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(PanC2SPacket.ID, PanC2SPacket.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
+        ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
+        ServerPlayNetworking.registerGlobalReceiver(PanC2SPacket.ID, new PanC2SPacket.Receiver());
+        // 已删除 ArbiterC2SPacket 的所有注册
+    }
 
-// 不要有 ServerPlayNetworking.registerGlobalReceiver 这一行
-
-    
-}
-    /// 注册游戏事件
     public static void registerEvents() {
-        //死亡事件
         AllowPlayerDeath.EVENT.register(((player, killer, identifier) -> {
             GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
             DreamerComponent playerDream = DreamerComponent.KEY.get(player);
             PhysicianComponent playerPhysician = PhysicianComponent.KEY.get(player);
             PlayerPoisonComponent.KEY.get(player).reset();
-            //安全时间死亡事件
-            if (GameSafeComponent.KEY.get(player.getWorld()).isSafe()) {
-                return identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN;
-            }
-            //厨师死亡事件
+            if (GameSafeComponent.KEY.get(player.getWorld()).isSafe()) return identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN;
             if (player.getMainHandStack().isOf(KinsWatheItems.PAN) && player.isUsingItem() && player.getActiveItem().getItem().getUseAction(player.getActiveItem()) == UseAction.SPEAR) {
                 if (identifier == GameConstants.DeathReasons.GUN) {
                     KinsWatheItems.setItemAfterUsing(player, KinsWatheItems.PAN, Hand.MAIN_HAND);
@@ -169,38 +137,23 @@ public static void registerPackets() {
                     return false;
                 }
             }
-            //梦者死亡事件
-            if (playerDream.dreamArmor > 0) {
-                playerDream.teleportToDreamer();
-                playerDream.reset();
-                return false;
-            }
-            //医师死亡事件
+            if (playerDream.dreamArmor > 0) { playerDream.teleportToDreamer(); playerDream.reset(); return false; }
             if (playerPhysician.physicianArmor > 0) {
                 if (identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) return true;
-                playerPhysician.armorSound();
-                playerPhysician.reset();
-                return false;
+                playerPhysician.armorSound(); playerPhysician.reset(); return false;
             }
-            //狂信死亡事件
             if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
                 if (KinsWatheConfig.HANDLER.instance().EnableNoellesRolesModify && KinsWatheConfig.HANDLER.instance().JesterAttackKillerModify) {
-                    if (killer != null) {
-                        if (gameWorld.getRole(player).canUseKiller() && gameWorld.isRole(killer, KinsWatheRoles.noellesrolesRoles("JESTER")) && PlayerPsychoComponent.KEY.get(killer).psychoTicks > 0) {
-                            return identifier != GameConstants.DeathReasons.BAT;
-                        }
+                    if (killer != null && gameWorld.getRole(player).canUseKiller() && gameWorld.isRole(killer, KinsWatheRoles.noellesrolesRoles("JESTER")) && PlayerPsychoComponent.KEY.get(killer).psychoTicks > 0) {
+                        return identifier != GameConstants.DeathReasons.BAT;
                     }
                 }
             }
             return true;
         }));
-        //攻击事件
-        AllowPlayerPunching.EVENT.register(((attacker, victim) -> {
-            return attacker.getMainHandStack().isOf(KinsWatheItems.HUNTING_KNIFE);
-        }));
+        AllowPlayerPunching.EVENT.register(((attacker, victim) -> attacker.getMainHandStack().isOf(KinsWatheItems.HUNTING_KNIFE)));
     }
 
-    /// 重置事件
     public static void resetEvents() {
         ResetPlayerEvent.EVENT.register(player -> {
             GameSafeComponent.KEY.get(player.getWorld()).reset();
@@ -218,19 +171,12 @@ public static void registerPackets() {
         });
     }
 
-    /// 初始化方法
     public static void init() {
-        //初始化配置文件
         initializeConfig();
-        //初始化指令
         initializeCommands();
-        //设置游戏开始和结束功能
         betterGameSettings();
-        //注册网络数据包
         registerPackets();
-        //注册游戏事件
         registerEvents();
-        //重置事件
         resetEvents();
     }
 }
