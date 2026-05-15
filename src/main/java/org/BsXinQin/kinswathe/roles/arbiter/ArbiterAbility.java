@@ -20,7 +20,6 @@ import java.util.UUID;
 public class ArbiterAbility {
 
     public static void register(@NotNull PlayerEntity player, UUID targetUuid) {
-        // 获取目标玩家实体
         ServerPlayerEntity target = player.getServer().getPlayerManager().getPlayer(targetUuid);
         if (target == null) return;
 
