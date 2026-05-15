@@ -148,7 +148,7 @@ public class KinsWatheGameSettings {
         ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
         ServerPlayNetworking.registerGlobalReceiver(PanC2SPacket.ID, new PanC2SPacket.Receiver());
         PayloadTypeRegistry.playC2S().register(ArbiterC2SPacket.PACKET_ID, ArbiterC2SPacket.CODEC);
-        ServerPlayNetworking.registerGlobalReceiver(ArbiterC2SPacket.PACKET_ID, new ArbiterC2SPacket.Receiver());
+ServerPlayNetworking.registerGlobalReceiver(ArbiterC2SPacket.PACKET_ID, new ArbiterC2SPacket.Receiver());
     }
 
     /// 注册游戏事件
