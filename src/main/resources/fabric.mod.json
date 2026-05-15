@@ -42,7 +42,8 @@
       "kinswathe:hunter",
       "kinswathe:kidnapper",
       "kinswathe:physician",
-      "kinswathe:technician"
+      "kinswathe:technician",
+      "kinswathe:arbiter"
     ]
   },
   "mixins": [
