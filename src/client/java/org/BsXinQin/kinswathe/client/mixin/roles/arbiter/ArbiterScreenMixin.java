@@ -41,7 +41,7 @@ public class ArbiterScreenMixin {
                         players.get(i),
                         MinecraftClient.getInstance().player.networkHandler.getPlayerListEntry(players.get(i))
                 );
-                ((HandledScreen<?>) (Object) this).addDrawableChild(widget);
+                ((HandledScreen<?>) (Object) this).this.addDrawableChild(widget);
             }
         }
     }
