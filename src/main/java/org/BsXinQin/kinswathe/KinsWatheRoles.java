@@ -450,7 +450,7 @@ public class KinsWatheRoles {
             DetectiveAbility.register(context.player());
             HunterAbility.register(context.player());
             RobotAbility.register(context.player());
-            ArbiterAbility.register(context.player());
+            
         });
         ServerPlayNetworking.registerGlobalReceiver(BodymakerC2SPacket.ID, (payload, context) -> {
             BodymakerAbility.register(payload, context.player());
