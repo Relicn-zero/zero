@@ -146,6 +146,7 @@ public static void registerPackets() {
     ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
     ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
     ServerPlayNetworking.registerGlobalReceiver(PanC2SPacket.ID, new PanC2SPacket.Receiver());
+// 不要有 ServerPlayNetworking.registerGlobalReceiver 这一行
 
     
 }
