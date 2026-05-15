@@ -137,19 +137,21 @@ public class KinsWatheGameSettings {
     }
 
     /// 注册网络数据包
-    public static void registerPackets() {
-        PayloadTypeRegistry.playC2S().register(AbilityC2SPacket.ID, AbilityC2SPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(BodymakerC2SPacket.ID, BodymakerC2SPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(JudgeC2SPacket.ID, JudgeC2SPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(BlowgunC2SPacket.ID, BlowgunC2SPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(HuntingKnifeC2SPacket.ID, HuntingKnifeC2SPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(PanC2SPacket.ID, PanC2SPacket.CODEC);
-        ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
-        ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
-        ServerPlayNetworking.registerGlobalReceiver(PanC2SPacket.ID, new PanC2SPacket.Receiver());
-        PayloadTypeRegistry.playC2S().register(ArbiterC2SPacket.PACKET_ID, ArbiterC2SPacket.CODEC);
-ServerPlayNetworking.registerGlobalReceiver(ArbiterC2SPacket.PACKET_ID, new ArbiterC2SPacket.Receiver());
-    }
+public static void registerPackets() {
+    PayloadTypeRegistry.playC2S().register(AbilityC2SPacket.ID, AbilityC2SPacket.CODEC);
+    PayloadTypeRegistry.playC2S().register(BodymakerC2SPacket.ID, BodymakerC2SPacket.CODEC);
+    PayloadTypeRegistry.playC2S().register(JudgeC2SPacket.ID, JudgeC2SPacket.CODEC);
+    PayloadTypeRegistry.playC2S().register(BlowgunC2SPacket.ID, BlowgunC2SPacket.CODEC);
+    PayloadTypeRegistry.playC2S().register(HuntingKnifeC2SPacket.ID, HuntingKnifeC2SPacket.CODEC);
+    PayloadTypeRegistry.playC2S().register(PanC2SPacket.ID, PanC2SPacket.CODEC);
+    PayloadTypeRegistry.playC2S().register(ArbiterC2SPacket.PACKET_ID, ArbiterC2SPacket.CODEC);
+    
+    ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
+    ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
+    ServerPlayNetworking.registerGlobalReceiver(PanC2SPacket.ID, new PanC2SPacket.Receiver());
+    
+    // 注意：ArbiterC2SPacket 的接收器不在 GameSettings 里注册，而是在 Roles 中注册（见下方）
+}
 
     /// 注册游戏事件
     public static void registerEvents() {
