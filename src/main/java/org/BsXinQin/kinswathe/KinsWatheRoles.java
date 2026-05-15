@@ -444,21 +444,22 @@ public class KinsWatheRoles {
 
    /// 注册身份技能
 public static void registerRolesAbility() {
+    // 暂时禁用 AbilityC2SPacket（裁决者不使用它，其他角色如果需要可恢复）
+    /*
     ServerPlayNetworking.registerGlobalReceiver(AbilityC2SPacket.ID, (payload, context) -> {
         BellringerAbility.register(context.player());
         CleanerAbility.register(context.player());
         DetectiveAbility.register(context.player());
         HunterAbility.register(context.player());
         RobotAbility.register(context.player());
-        // 注意：裁决者不使用这个通用包，所以不在这里注册
     });
+    */
     ServerPlayNetworking.registerGlobalReceiver(BodymakerC2SPacket.ID, (payload, context) -> {
         BodymakerAbility.register(payload, context.player());
     });
     ServerPlayNetworking.registerGlobalReceiver(JudgeC2SPacket.ID, (payload, context) -> {
         JudgeAbility.register(payload, context.player());
     });
-    // 裁决者使用专用数据包，且需要传递 UUID
     ServerPlayNetworking.registerGlobalReceiver(ArbiterC2SPacket.PACKET_ID, (payload, context) -> {
         ArbiterAbility.register(context.player(), payload.targetUuid());
     });
