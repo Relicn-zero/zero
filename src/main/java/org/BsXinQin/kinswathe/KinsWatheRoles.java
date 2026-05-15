@@ -443,27 +443,22 @@ public class KinsWatheRoles {
 
    /// 注册身份技能
 public static void registerRolesAbility() {
-    // 暂时禁用 AbilityC2SPacket（裁决者不使用它，其他角色如果需要可恢复）
-    /*
     ServerPlayNetworking.registerGlobalReceiver(AbilityC2SPacket.ID, (payload, context) -> {
         BellringerAbility.register(context.player());
         CleanerAbility.register(context.player());
         DetectiveAbility.register(context.player());
         HunterAbility.register(context.player());
         RobotAbility.register(context.player());
+        ArbiterAbility.register(context.player());   // 添加这一行
     });
-    */
     ServerPlayNetworking.registerGlobalReceiver(BodymakerC2SPacket.ID, (payload, context) -> {
         BodymakerAbility.register(payload, context.player());
     });
     ServerPlayNetworking.registerGlobalReceiver(JudgeC2SPacket.ID, (payload, context) -> {
         JudgeAbility.register(payload, context.player());
     });
-    ServerPlayNetworking.registerGlobalReceiver(ArbiterC2SPacket.PACKET_ID, (payload, context) -> {
-    ArbiterAbility.register(context.player(), payload.targetUuid());
-});
+    // 删除 ArbiterC2SPacket 的注册块
 }
-
     /// 限制词条自动启用配置
     public static void limitModifiersGenerateConfig() {
         if (!KinsWatheConfig.HANDLER.instance().ViolatorEnabled) {
