@@ -146,7 +146,7 @@ public static void registerPackets() {
     ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
     ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
     ServerPlayNetworking.registerGlobalReceiver(PanC2SPacket.ID, new PanC2SPacket.Receiver());
-    PayloadTypeRegistry.playC2S().register(ArbiterC2SPacket.PACKET_ID, ArbiterC2SPacket.CODEC);
+
     
 }
     /// 注册游戏事件
