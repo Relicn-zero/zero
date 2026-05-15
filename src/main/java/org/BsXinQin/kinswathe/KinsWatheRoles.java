@@ -458,7 +458,7 @@ public class KinsWatheRoles {
             JudgeAbility.register(payload, context.player());
         });
         // 裁决者能力注册
-        ServerPlayNetworking.registerGlobalReceiver(ArbiterC2SPacket.ID, (payload, context) -> {
+        ServerPlayNetworking.registerGlobalReceiver(ArbiterC2SPacket.PACKET_ID, (payload, context) -> {
             ArbiterAbility.register(context.player());
         });
     }
