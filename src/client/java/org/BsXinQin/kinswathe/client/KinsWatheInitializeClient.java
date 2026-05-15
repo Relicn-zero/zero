@@ -20,6 +20,7 @@ import org.BsXinQin.kinswathe.KinsWatheRoles;
 import org.BsXinQin.kinswathe.client.items.ItemExtraModel;
 import org.BsXinQin.kinswathe.client.items.ItemToolTip;
 import org.BsXinQin.kinswathe.client.roles.technician.CaptureDeviceEntityRenderer;
+import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
 import org.agmas.noellesroles.client.NoellesrolesClient;
 import org.lwjgl.glfw.GLFW;
 
@@ -28,12 +29,9 @@ public class KinsWatheInitializeClient {
     public static KeyBinding abilityBind;
     public static long BLACKOUT_TIME = 0;
 
-    /// 设置技能按键
     public static void registerAbilityKey() {
         if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
-            if (abilityBind == null) ClientTickEvents.START_CLIENT_TICK.register(client -> {
-                abilityBind = NoellesrolesClient.abilityBind;
-            });
+            if (abilityBind == null) ClientTickEvents.START_CLIENT_TICK.register(client -> abilityBind = NoellesrolesClient.abilityBind);
         } else if (!FabricLoader.getInstance().isModLoaded("noellesroles") && FabricLoader.getInstance().isModLoaded("starexpress")) {
             abilityBind = KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + KinsWathe.MOD_ID + ".ability", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, "category.wathe.keybinds"));
         } else {
@@ -41,7 +39,6 @@ public class KinsWatheInitializeClient {
         }
     }
 
-    /// 设置有技能的角色
     public static void setRoleAbilityPackets() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (abilityBind == null) return;
@@ -56,27 +53,24 @@ public class KinsWatheInitializeClient {
                             KinsWatheRoles.HUNTER,
                             KinsWatheRoles.ROBOT,
                             KinsWatheRoles.CLEANER,
-                            KinsWatheRoles.ARBITER
+                            KinsWatheRoles.ARBITER   // 裁决者加入能力键
                     };
                     for (Role role : rolesWithAbility) {
                         if (gameWorld.isRole(MinecraftClient.getInstance().player, role)) sendAbilityPacket = true;
                     }
                     if (!sendAbilityPacket) return;
-                    //ClientPlayNetworking.send(new AbilityC2SPacket());
+                    ClientPlayNetworking.send(new AbilityC2SPacket());
                 });
             }
         });
     }
 
-    /// 注册实体渲染
     public static void registerEntityRender() {
         EntityRendererRegistry.register(KinsWatheEntities.CAPTURE_DEVICE, CaptureDeviceEntityRenderer::new);
     }
 
-    /// 添加物品描述和模型
     public static void addItemTipAndModel() {
         ItemTooltipCallback.EVENT.register(((itemStack, tooltipContext, tooltipType, list) -> {
-            //添加KinsWathe物品描述
             ItemToolTip.addItemtip(KinsWatheItems.BLOWGUN, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.CAPTURE_DEVICE, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.DREAM_IMPRINT, itemStack, list);
@@ -88,29 +82,22 @@ public class KinsWatheInitializeClient {
             ItemToolTip.addItemtip(KinsWatheItems.POISON_INJECTOR, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.SULFURIC_ACID_BARREL, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.WRENCH, itemStack, list);
-            //添加NoellreRoles物品冷却描述
             if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
                 ItemToolTip.addCooldowntip(Registries.ITEM.get(Identifier.of("noellesroles", "fake_revolver")), itemStack, list);
             }
-            //添加图标描述
             ItemToolTip.addItemtip(KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.ICON_POTION_EFFECT_REFRESH, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.ICON_POWER_RESTORATION, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH, itemStack, list);
         }));
-        //注册物品额外材质
         ItemExtraModel.registerExtraModel(KinsWatheItems.PHONE);
         ItemExtraModel.registerExtraModel(KinsWatheItems.POISON_INJECTOR);
     }
 
     public static void init() {
-        //设置技能按键
         registerAbilityKey();
-        //添加有技能的角色
         setRoleAbilityPackets();
-        //注册实体渲染
         registerEntityRender();
-        //添加物品描述和模型
         addItemTipAndModel();
     }
 }
