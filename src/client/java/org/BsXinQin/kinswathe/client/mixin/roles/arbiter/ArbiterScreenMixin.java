@@ -3,9 +3,8 @@ package org.BsXinQin.kinswathe.client.mixin.roles.arbiter;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.client.network.ClientPlayerEntity;
 import org.BsXinQin.kinswathe.KinsWatheRoles;
 import org.BsXinQin.kinswathe.client.roles.arbiter.ArbiterPlayerWidget;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,7 +40,8 @@ public class ArbiterScreenMixin {
                         players.get(i),
                         MinecraftClient.getInstance().player.networkHandler.getPlayerListEntry(players.get(i))
                 );
-                ((HandledScreen<?>) (Object) this).this.addDrawableChild(widget);
+                // 直接调用 addDrawableChild（该方法在 Screen 中为 protected，Mixin 可以访问）
+                ((HandledScreen<?>) (Object) this).addDrawableChild(widget);
             }
         }
     }
