@@ -1,0 +1,144 @@
+{
+  "key.kinswathe.ability": "Ability",
+  "tip.kinswathe.cooldown": "Ability usable in %ss",
+  "tip.kinswathe.ability.can_use": "Use %s to activate ability",
+  "tip.kinswathe.ability.not_enough_money": "%s§f\uE781§r required to activate ability",
+
+  "tip.kinswathe.game_safe_time": "Remaining safe time: %ss",
+  "tip.kinswathe.game_no_safe_time": "Safe time has been exhausted!",
+
+  "announcement.role.kinswathe.bellringer": "Bellringer",
+  "announcement.goals.kinswathe.bellringer": "Check time, and modify time.",
+
+  "announcement.role.kinswathe.bodymaker": "Bodymaker",
+  "announcement.goals.kinswathe.bodymaker": "Fake bodies to confuse others.",
+
+  "announcement.role.kinswathe.cleaner": "Cleaner",
+  "announcement.goals.kinswathe.cleaner": "Remove all obstacles!",
+
+  "announcement.role.kinswathe.cook": "Cook",
+  "announcement.goals.kinswathe.cook": "See players that eat through walls!",
+
+  "announcement.role.kinswathe.detective": "Detective",
+  "announcement.goals.kinswathe.detective": "Investigate everything!",
+  "tip.kinswathe.detective.innocent": "%s is innocent",
+  "tip.kinswathe.detective.notinnocent": "%s is not innocent",
+  "hud.kinswathe.detective.target": "Use %s to investigate",
+
+  "announcement.role.kinswathe.dreamer": "Dreamer",
+  "announcement.goals.kinswathe.dreamer": "Make your world incredible!",
+  "tip.kinswathe.dreamer.imprint": "%s has left a mark on you",
+  "tip.kinswathe.dreamer.disconnect": "Marked player seems to disconnect...",
+  "tip.kinswathe.dreamer.counts": "%s/%s players has been deluded",
+  "tip.kinswathe.dreamer.fake_poisoned": "Someone was deluded",
+
+  "announcement.role.kinswathe.drugmaker": "Drugmaker",
+  "announcement.goals.kinswathe.drugmaker": "Conquer everyone with poison!",
+  "tip.kinswathe.drugmaker.poison_failed": "It seems to be immune to poisoning...",
+  "tip.kinswathe.drugmaker.poisoned": "Someone was poisoned",
+
+  "role.kinswathe.arbiter": "Arbiter",
+  "tip.kinswathe.arbiter.verdict_executed": "§cThe verdict has been executed...",
+
+  "announcement.role.kinswathe.hacker": "Hacker",
+  "announcement.goals.kinswathe.hacker": "Attempting to hack into the entire train...",
+  "hud.kinswathe.hacker.target": "Cracking role",
+  "hud.kinswathe.hacker.target_hacked": "Role cracking completed",
+  "hud.kinswathe.hacker.target_safe": "Unable to crack role in safe time",
+  "item.kinswathe.icon_ability_cooldown_refresh": "Refresh Ability Cooldown",
+  "item.kinswathe.icon_ability_cooldown_refresh.tooltip": "Refresh cooldown of all killers' ability and Psycho Mode\nActivated instantly on purchase, 5 minutes cooldown",
+  "tip.kinswathe.hacker.ability_cooldown_refresh": "Hacker refresh ability cooldown for you",
+  "item.kinswathe.icon_potion_effect_refresh": "Refresh Potion Effect",
+  "item.kinswathe.icon_potion_effect_refresh.tooltip": "Clear killers' potion effect\nActivated instantly on purchase, 3 minutes cooldown",
+  "tip.kinswathe.hacker.potion_effect_refresh": "Hacker clear potion effect for you",
+  "item.kinswathe.icon_weapon_cooldown_refresh": "Refresh Weapon Cooldown",
+  "item.kinswathe.icon_weapon_cooldown_refresh.tooltip": "Refresh cooldown of all killers' weapon\nActivated instantly on purchase, 5 minutes cooldown",
+  "tip.kinswathe.hacker.weapon_cooldown_refresh": "Hacker refresh weapon cooldown for you",
+
+  "announcement.role.kinswathe.hunter": "Hunter",
+  "announcement.goals.kinswathe.hunter": "Enjoy your prey to the fullest!",
+
+  "announcement.role.kinswathe.judge": "Judge",
+  "announcement.goals.kinswathe.judge": "Fair and just!",
+  "tip.kinswathe.judge.notification": "You are undergoing justice",
+  "tip.kinswathe.judge.ability_failed": "Target seems not to be present...",
+  "hud.kinswathe.judge.ready": "Ready to judge",
+
+  "announcement.role.kinswathe.kidnapper": "Kidnapper",
+  "announcement.goals.kinswathe.kidnapper": "Kidnap passenger to a concealed corner.",
+  "tip.kinswathe.kidnapper.daze_failed": "It seems to be immune to dazing...",
+  "tip.kinswathe.kidnapper.warning": "You are being kidnapping!",
+  "tip.kinswathe.kidnapper.timeleft": "Remaining kidnap time: %ss",
+  "tip.kinswathe.kidnapper.release": "Kidnap has ended",
+
+  "announcement.role.kinswathe.licensed_villain": "Licensed Villain",
+  "announcement.goals.kinswathe.licensed_villain": "You might still retain a shred of conscience...",
+  "announcement.win.kinswathe.licensed_villain": "Licensed Villain Win!",
+  "tip.kinswathe.licensed_villain.weapon": "Licensed Villain has obtained weapon!",
+  "game.win.kinswathe.licensed_villain": "The licensed villain ended everyone's life!",
+
+  "announcement.role.kinswathe.physician": "Physician",
+  "announcement.goals.kinswathe.physician": "See poisoned players through walls and treat them.",
+  "tip.kinswathe.physician.medical_kit": "You feel much better now",
+  "tip.kinswathe.physician.poisoned": "Someone seems to be poisoned",
+
+  "announcement.role.kinswathe.robot": "Robot",
+  "announcement.goals.kinswathe.robot": "A machine devoid of any emotion.",
+
+  "announcement.role.kinswathe.technician": "Technician",
+  "announcement.goals.kinswathe.technician": "Use technology to solve problems!",
+  "tip.kinswathe.technician.captured": "%s was captured",
+  "item.kinswathe.icon_power_restoration": "Power Restoration",
+  "item.kinswathe.icon_power_restoration.tooltip": "Instantly end blackout effect\nActivated instantly on purchase, 3 minutes cooldown",
+
+  "announcement.modifier.kinswathe.magnate": "Magnate",
+  "announcement.modifier.kinswathe.taskmaster": "Taskmaster",
+  "announcement.modifier.kinswathe.violator": "Violator",
+
+  "item.kinswathe.blowgun": "Blowgun",
+  "item.kinswathe.blowgun.tooltip": "Point, right-click and shoot\nTarget that be shooted will be poisoned\n1 minute cooldown",
+
+  "item.kinswathe.capture_device": "Capture Device",
+  "item.kinswathe.capture_device.tooltip": "Right-click to place down on floors\nTrap passing player and inform the user\nCapture Device will automatically disappear after a period of time\nInvisible to other players, both placed and in hand\n1 minute cooldown",
+
+  "item.kinswathe.dream_imprint": "Dream Imprint",
+  "item.kinswathe.dream_imprint.tooltip": "Use on a player to protect one extra hit of life\nTarget will teleport to user if it dies and give a delusion count\nSingle use",
+
+  "item.kinswathe.hunting_knife": "Hunting Knife",
+  "item.kinswathe.hunting_knife.tooltip": "Right-click, hold for a second and get close to your victim\nCompared to Knife, it has a longer holding-time\nIf stop holding after sprinting, two times holding-time cooldown\nAfter a kill, cannot be used for 45 seconds\nAttack to knock back / push a player (no cooldown)",
+
+  "item.kinswathe.knockout_drug": "Knockout Drug",
+  "item.kinswathe.knockout_drug.tooltip": "Use on a player to daze it for 20 seconds\nThe affected player will follow you\nUse sneaking key to release it\nSingle use, 45 seconds cooldown",
+
+  "item.kinswathe.medical_kit": "Medical Kit",
+  "item.kinswathe.medical_kit.tooltip": "Use on a player to remove poison\n1 minute cooldown",
+
+  "item.kinswathe.pan": "Pan",
+  "item.kinswathe.pan.tooltip": "Right-click, hold for a second and stun target for 5 seconds\nIf shot during holding, destroy pan to protects player one extra hit of life\n45 seconds cooldown",
+
+  "item.kinswathe.phone": "Phone",
+  "item.kinswathe.phone.tooltip": "Right-click to switch between Free-Voice-Group and Killer-Voice-Group",
+
+  "item.kinswathe.pill": "Pill",
+  "item.kinswathe.pill.tooltip": "Right-click to eat\nProtects player one extra hit of life\nSingle use, 3 minutes cooldown",
+
+  "item.kinswathe.poison_injector": "Poison Injector",
+  "item.kinswathe.poison_injector.tooltip": "Use on a player to poison it\nIf target have been poisoned, directly cause death\n1 minute cooldown",
+
+  "item.kinswathe.sulfuric_acid_barrel": "Sulfuric Acid Barrel",
+  "item.kinswathe.sulfuric_acid_barrel.tooltip": "Use on a dead body to dissolve it\n1 minute cooldown",
+
+  "item.kinswathe.wrench": "Wrench",
+  "item.kinswathe.wrench.tooltip": "Use on any jammed or pried door to restore to normal\n2 minutes cooldown",
+
+  "shop.purchase_failed": "Purchase Failed",
+  "tip.cooldown_temporary": "On cooldown...",
+
+  "hud.death_info": "Died %ss ago to ",
+  "death_reason.wathe.gun_shot": "a bullet.",
+  "death_reason.wathe.knife_stab": "a knife!",
+  "death_reason.wathe.generic": "unknown causes.",
+  "death_reason.wathe.bat_hit": "blunt force!",
+  "death_reason.wathe.grenade": "an explosion!",
+  "death_reason.wathe.poison": "poison!",
+  "death_reason.wathe.fell_out_of_train": "being ran over."}

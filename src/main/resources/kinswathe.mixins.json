@@ -1,0 +1,51 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.BsXinQin.kinswathe.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "host.AddDeathReasonMixin",
+    "host.CustomWinnerCheckMixin",
+    "host.GameFnctionsMixin",
+    "host.GiveCoinsForMoodMixin",
+    "host.KillerNoBackfireMixin",
+    "host.MoneyIncreaseMixin",
+    "host.PassiveIncomeMixin",
+    "host.PlayerEffectMixin",
+    "host.SprintTimeFixMixin",
+    "modifiers.magnate.MagnatePassiveIncomeMixin",
+    "modifiers.taskmaster.TaskmasterGiveCoinsMixin",
+    "noellesroles.framing.DelusionVialApplyMixin",
+    "noellesroles.framing.DoNotApplyFakePoisonMixin",
+    "noellesroles.roles.jester.JesterJestMixin",
+    "roles.cook.CookFinishEatMixin",
+    "roles.cook.CookShopMixin",
+    "roles.dreamer.DreamerAddCountsMixin",
+    "roles.dreamer.DreamerShopMixin",
+    "roles.drugmaker.DrugmakerGiveCoinsMixin",
+    "roles.drugmaker.DrugmakerShopMixin",
+    "roles.hacker.HackerAvoidMimicMixin",
+    "roles.hacker.HackerGiveCoinsMixin",
+    "roles.hacker.HackerShopMixin",
+    "roles.hunter.HunterLockSlotMixin",
+    "roles.hunter.HunterShopMixin",
+    "roles.hunter.HunterSprintMixin",
+    "roles.kidnapper.KidnapperMoneyIncreaseMixin",
+    "roles.kidnapper.KidnapperShopMixin",
+    "roles.licensed_villain.LicensedVillainGiveCoinsMixin",
+    "roles.licensed_villain.LicensedVillainKeepGameMixin",
+    "roles.licensed_villain.LicensedVillainNoBackfireMixin",
+    "roles.licensed_villain.LicensedVillainNoPickupMixin",
+    "roles.licensed_villain.LicensedVillainShopMixin",
+    "roles.physician.PhysicianShopMixin",
+    "roles.physician.PhysicianTipPoisonMixin",
+    "roles.robot.RobotNoPoisonMixin",
+    "roles.technician.TechnicianShopMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "kinswathe",
+  "version": "${version}",
+  "name": "KinsWathe",
+  "description": "Kin's Wathe is an addon mod for WATHE by doctor4t. And it also undergoes some balance modifications and fix some issues present in Noelle's Roles.",
+  "authors": ["Bsxin"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/kinswathe/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "org.BsXinQin.kinswathe.client.KinsWatheDataGenerator"
+    ],
+    "client": [
+      "org.BsXinQin.kinswathe.client.KinsWatheClient"
+    ],
+    "main": [
+      "org.BsXinQin.kinswathe.KinsWathe"
+    ],
+    "cardinal-components": [
+      "org.BsXinQin.kinswathe.KinsWatheComponents"
+    ],
+    "voicechat": [
+      "org.BsXinQin.kinswathe.KinsWatheVoiceChatPlugin"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "kinswathe:safe",
+      "kinswathe:body",
+      "kinswathe:effect",
+      "kinswathe:ability",
+      "kinswathe:config",
+      "kinswathe:winner",
+      "kinswathe:cook",
+      "kinswathe:dreamer",
+      "kinswathe:dreamer_killer",
+      "kinswathe:hacker",
+      "kinswathe:hacker_phone",
+      "kinswathe:hunter",
+      "kinswathe:kidnapper",
+      "kinswathe:physician",
+      "kinswathe:technician"
+    ]
+  },
+  "mixins": [
+    "kinswathe.mixins.json",
+    {
+      "config": "kinswathe.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}",
+    "harpymodloader": "*"
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "key.kinswathe.ability": "能力",
+  "tip.kinswathe.cooldown": "能力在 %s 秒后可用",
+  "tip.kinswathe.ability.can_use": "按下 %s 键发动能力",
+  "tip.kinswathe.ability.not_enough_money": "需要 %s§f\uE781§r 发动能力",
+
+  "tip.kinswathe.game_safe_time": "剩余安全时间：%s 秒",
+  "tip.kinswathe.game_no_safe_time": "安全时间结束！",
+
+  "announcement.role.kinswathe.bellringer": "敲钟人",
+  "announcement.goals.kinswathe.bellringer": "查看时间，并修改时间。",
+
+  "announcement.role.kinswathe.bodymaker": "造尸怪",
+  "announcement.goals.kinswathe.bodymaker": "伪造尸体，混淆视听",
+
+  "announcement.role.kinswathe.cleaner": "清道夫",
+  "announcement.goals.kinswathe.cleaner": "扫除一切障碍！",
+
+  "announcement.role.kinswathe.cook": "厨师",
+  "announcement.goals.kinswathe.cook": "透过墙壁看见吃过东西的玩家！",
+
+  "role.kinswathe.arbiter": "裁决者",
+  "tip.kinswathe.arbiter.verdict_executed": "§c裁决已执行...",
+
+  "announcement.role.kinswathe.detective": "侦探",
+  "announcement.goals.kinswathe.detective": "调查出一切！",
+  "tip.kinswathe.detective.innocent": "%s 是平民",
+  "tip.kinswathe.detective.notinnocent": "%s 不是平民",
+  "hud.kinswathe.detective.target": "按下 %s 键调查该目标身份",
+
+  "announcement.role.kinswathe.dreamer": "梦者",
+  "announcement.goals.kinswathe.dreamer": "让你的世界变得不可思议！",
+  "tip.kinswathe.dreamer.imprint": "%s 与你烙下了印记",
+  "tip.kinswathe.dreamer.disconnect": "烙印之人似乎与你而去了...",
+  "tip.kinswathe.dreamer.counts": "已服用幻觉试剂的玩家 %s/%s",
+  "tip.kinswathe.dreamer.fake_poisoned": "有人陷入了幻觉",
+
+  "announcement.role.kinswathe.drugmaker": "制毒师",
+  "announcement.goals.kinswathe.drugmaker": "用毒药征服所有人！",
+  "tip.kinswathe.drugmaker.poison_failed": "它似乎无法中毒...",
+  "tip.kinswathe.drugmaker.poisoned": "有人中毒了",
+
+  "announcement.role.kinswathe.hacker": "黑客",
+  "announcement.goals.kinswathe.hacker": "试图黑入整个列车系统...",
+  "hud.kinswathe.hacker.target": "正在破解角色身份",
+  "hud.kinswathe.hacker.target_hacked": "角色身份已被破解",
+  "hud.kinswathe.hacker.target_safe": "安全时间内无法破解角色身份",
+  "item.kinswathe.icon_ability_cooldown_refresh": "刷新技能冷却",
+  "item.kinswathe.icon_ability_cooldown_refresh.tooltip": "刷新所有杀手的技能与疯魔模式冷却\n购买后立即生效，冷却 5 分钟",
+  "tip.kinswathe.hacker.ability_cooldown_refresh": "黑客为你刷新了技能冷却",
+  "item.kinswathe.icon_potion_effect_refresh": "刷新药水状态",
+  "item.kinswathe.icon_potion_effect_refresh.tooltip": "清除所有杀手的药水状态\n购买后立即生效，冷却 3 分钟",
+  "tip.kinswathe.hacker.potion_effect_refresh": "黑客为你清除了药水状态",
+  "item.kinswathe.icon_weapon_cooldown_refresh": "刷新武器冷却",
+  "item.kinswathe.icon_weapon_cooldown_refresh.tooltip": "刷新所有杀手的武器冷却\n购买后立即生效，冷却 3 分钟",
+  "tip.kinswathe.hacker.weapon_cooldown_refresh": "黑客为你刷新了武器冷却",
+
+  "announcement.role.kinswathe.hunter": "追猎者",
+  "announcement.goals.kinswathe.hunter": "尽情享受你的猎物！",
+
+  "announcement.role.kinswathe.judge": "大法官",
+  "announcement.goals.kinswathe.judge": "公平公正!",
+  "tip.kinswathe.judge.notification": "你正在接受审判",
+  "tip.kinswathe.judge.ability_failed": "对方似乎不在场...",
+  "hud.kinswathe.judge.ready": "审判准备就绪",
+
+  "announcement.role.kinswathe.kidnapper": "绑匪",
+  "announcement.goals.kinswathe.kidnapper": "将乘客绑架到隐蔽的角落。",
+  "tip.kinswathe.kidnapper.daze_failed": "它似乎无法被迷晕...",
+  "tip.kinswathe.kidnapper.warning": "你正在被绑匪劫持！",
+  "tip.kinswathe.kidnapper.timeleft": "剩余劫持时间：%s 秒",
+  "tip.kinswathe.kidnapper.release": "劫持已结束",
+
+  "announcement.role.kinswathe.licensed_villain": "执照恶棍",
+  "announcement.goals.kinswathe.licensed_villain": "你或许还尚存有一丝良知...",
+  "announcement.win.kinswathe.licensed_villain": "执照恶棍胜利！",
+  "tip.kinswathe.licensed_villain.weapon": "执照恶棍已经获取了武器！",
+  "game.win.kinswathe.licensed_villain": "执照恶棍终结了所有人的生命！",
+
+  "announcement.role.kinswathe.physician": "医师",
+  "announcement.goals.kinswathe.physician": "透过墙壁看见中毒的玩家，然后治疗他们",
+  "tip.kinswathe.physician.medical_kit": "你感觉好多了",
+  "tip.kinswathe.physician.poisoned": "有人似乎中毒了",
+
+  "announcement.role.kinswathe.robot": "机器人",
+  "announcement.goals.kinswathe.robot": "毫无感情可言的机器。",
+
+  "announcement.role.kinswathe.technician": "技术员",
+  "announcement.goals.kinswathe.technician": "用技术解决问题！",
+  "tip.kinswathe.technician.captured": "%s 被捕捉装置困住了",
+  "item.kinswathe.icon_power_restoration": "电力恢复",
+  "item.kinswathe.icon_power_restoration.tooltip": "立即结束停电效果\n购买后立即生效，冷却 3 分钟",
+
+  "announcement.modifier.kinswathe.magnate": "富豪",
+  "announcement.modifier.kinswathe.taskmaster": "任务大师",
+  "announcement.modifier.kinswathe.violator": "违禁者",
+
+  "item.kinswathe.blowgun": "吹矢",
+  "item.kinswathe.blowgun.tooltip": "瞄准、右键点击并射击\n被射中的目标将会中毒\n冷却 1 分钟",
+
+  "item.kinswathe.capture_device": "捕捉装置",
+  "item.kinswathe.capture_device.tooltip": "右键点击放置在地板上\n困住路过的玩家并告知使用者\n捕捉装置将会在一段时间后自动消失\n对其他玩家不可见，无论是放置后还是手中持有时\n冷却 1 分钟",
+
+  "item.kinswathe.dream_imprint": "梦之印记",
+  "item.kinswathe.dream_imprint.tooltip": "用于玩家，使其额外承受一次伤害\n对方受到伤害后传送到使用者身边，并给予一个服用幻觉试剂次数\n一次性物品",
+
+  "item.kinswathe.hunting_knife": "猎刀",
+  "item.kinswathe.hunting_knife.tooltip": "右键蓄力一秒，靠近目标即可发动暗杀\n相较于匕首，拥有更持久的蓄力时间\n如果疾跑后停止蓄力，冷却两倍蓄力时间\n击杀后冷却 45 秒\n攻击可击退玩家（无冷却）",
+
+  "item.kinswathe.knockout_drug": "迷药",
+  "item.kinswathe.knockout_drug.tooltip": "用于玩家，可迷晕其 20 秒\n被作用的玩家将会一直跟随你\n按下潜行键可以释放玩家\n一次性物品，冷却 45 秒",
+
+  "item.kinswathe.medical_kit": "医疗箱",
+  "item.kinswathe.medical_kit.tooltip": "用于玩家，可移除其中毒效果\n冷却 1 分钟",
+
+  "item.kinswathe.pan": "平底锅",
+  "item.kinswathe.pan.tooltip": "右键蓄力一秒，靠近目标即可击晕 5 秒\n当蓄力期间遭受枪击，则摧毁平底锅来抵消此次伤害\n冷却 45 秒",
+
+  "item.kinswathe.phone": "手机",
+  "item.kinswathe.phone.tooltip": "右键可以在自由语音频道和杀手语音频道间切换",
+
+  "item.kinswathe.pill": "药丸",
+  "item.kinswathe.pill.tooltip": "右键食用\n让玩家额外承受一次伤害\n一次性物品，冷却 3 分钟",
+
+  "item.kinswathe.poison_injector": "毒液注射器",
+  "item.kinswathe.poison_injector.tooltip": "用于玩家，使其中毒\n如果目标已经中毒，则直接致死\n冷却 1 分钟",
+
+  "item.kinswathe.sulfuric_acid_barrel": "硫酸桶",
+  "item.kinswathe.sulfuric_acid_barrel.tooltip": "用于尸体，可将其溶解移除\n冷却 1 分钟",
+
+  "item.kinswathe.wrench": "扳手",
+  "item.kinswathe.wrench.tooltip": "用于任意被堵死或撬开的门将其恢复正常\n冷却 2 分钟",
+
+  "shop.purchase_failed": "购买失败",
+  "tip.cooldown_temporary": "冷却中...",
+
+  "hud.death_info": "死于 %s 秒前，死因是",
+  "death_reason.wathe.gun_shot": "被左轮射杀",
+  "death_reason.wathe.knife_stab": "被匕首刺死",
+  "death_reason.wathe.generic": "未知",
+  "death_reason.wathe.bat_hit": "遭受钝器重击",
+  "death_reason.wathe.grenade": "被手雷炸死",
+  "death_reason.wathe.poison": "中毒而亡",
+  "death_reason.wathe.fell_out_of_train": "被列车碾死"
+}
