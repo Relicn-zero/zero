@@ -149,25 +149,8 @@ public class KinsWatheShops {
         return FRAMING_ROLES_SHOP;
     }
 
-    /// 商店处理方法
+    /// 商店处理方法（已移除土匪特殊逻辑）
     public static boolean handlePurchase(@NotNull PlayerEntity player, int balance, @NotNull Item item, int price) {
-        // 土匪特殊价格替换 + 禁用物品
-        GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
-        if (gameWorld.isRole(player, KinsWatheRoles.BANDIT)) {
-            // 禁用物品：手雷、疯魔模式、撬锁器
-            if (item == WatheItems.GRENADE || item == WatheItems.PSYCHO_MODE || item == WatheItems.LOCKPICK) {
-                player.sendMessage(Text.translatable("shop.purchase_failed"), true);
-                return false;
-            }
-            // 折扣价格
-            if (item == WatheItems.REVOLVER) {
-                price = 150;
-            } else if (item == WatheItems.KNIFE) {
-                price = 300;
-            }
-        }
-
-        // 以下为原有代码，不用修改
         if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
             if (item == WatheItems.NOTE) player.giveItemStack((new ItemStack(WatheItems.NOTE, 4)));
             else if (item == WatheItems.BLACKOUT) PlayerShopComponent.useBlackout(player);
