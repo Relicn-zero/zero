@@ -1,5 +1,6 @@
 package org.BsXinQin.kinswathe.client.mixin.roles.bandit;
 
+import com.llamalad7.mixinextras.injector.ModifyVariable;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
 import dev.doctor4t.wathe.util.ShopEntry;
