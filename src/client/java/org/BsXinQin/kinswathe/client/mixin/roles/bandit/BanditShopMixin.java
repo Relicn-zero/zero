@@ -1,5 +1,6 @@
 package org.BsXinQin.kinswathe.client.mixin.roles.bandit;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
 import dev.doctor4t.wathe.util.ShopEntry;
@@ -10,7 +11,8 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
@@ -19,12 +21,13 @@ public class BanditShopMixin {
 
     @Shadow @Final public ClientPlayerEntity player;
 
-    @ModifyVariable(method = "init", at = @At(value = "STORE"), name = "entries")
-    private List<ShopEntry> getBanditShop(List<ShopEntry> originalEntries) {
+    @Inject(method = "init", at = @At(value = "INVOKE", target = "Ljava/util/List;size()I", ordinal = 0), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void replaceShopEntries(CallbackInfo ci, @Local List<ShopEntry> entries) {
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
         if (gameWorld.isRole(player, KinsWatheRoles.BANDIT)) {
-            return KinsWatheShops.getBanditShop(player.getWorld());
+            List<ShopEntry> banditEntries = KinsWatheShops.getBanditShop(player.getWorld());
+            entries.clear();
+            entries.addAll(banditEntries);
         }
-        return originalEntries;
     }
 }
