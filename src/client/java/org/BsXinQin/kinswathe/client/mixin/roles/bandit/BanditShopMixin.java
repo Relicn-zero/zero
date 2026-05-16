@@ -20,7 +20,7 @@ public class BanditShopMixin {
     @Shadow @Final public ClientPlayerEntity player;
 
     @ModifyVariable(method = "init", at = @At(value = "STORE"), name = "entries")
-    private List<ShopEntry> getBanditShop(List<ShopEntry> originalEntries) {
+    private List<ShopEntry> replaceShopEntries(List<ShopEntry> originalEntries) {
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
         if (gameWorld.isRole(player, KinsWatheRoles.BANDIT)) {
             return KinsWatheShops.getBanditShop(player.getWorld());
