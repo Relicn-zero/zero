@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "host.AddDeathReasonMixin",
+    "roles.bandit.BanditServerShopMixin",
     "host.CustomWinnerCheckMixin",
     "host.GameFnctionsMixin",
     "host.GiveCoinsForMoodMixin",
