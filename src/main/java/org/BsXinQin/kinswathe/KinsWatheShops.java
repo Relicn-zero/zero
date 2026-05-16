@@ -151,11 +151,9 @@ public class KinsWatheShops {
         entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), 150, ShopEntry.Type.WEAPON));
         // 匕首 300
         entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
-        // 以下为普通杀手商店的其他物品（价格与原版相同，可参考 getHunterShop）
-        entries.add(new ShopEntry(WatheItems.GRENADE.getDefaultStack(), getItemPrice("GRENADE", 350), ShopEntry.Type.WEAPON));
-        entries.add(new ShopEntry(WatheItems.PSYCHO_MODE.getDefaultStack(), getItemPrice("PSYCHO_MODE", 300), ShopEntry.Type.WEAPON));
+        
+        // 其他物品（不添加手雷、疯魔模式、撬锁器）
         entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
-        entries.add(new ShopEntry(WatheItems.LOCKPICK.getDefaultStack(), getItemPrice("LOCKPICK", 50), ShopEntry.Type.TOOL));
         entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
         entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
         entries.add(new ShopEntry(WatheItems.BLACKOUT.getDefaultStack(), getItemPrice("BLACKOUT", 200), ShopEntry.Type.TOOL));
