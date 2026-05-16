@@ -145,18 +145,7 @@ public class KinsWatheShops {
         return FRAMING_ROLES_SHOP;
     }
 
-    public static List<ShopEntry> getBanditShop(World world) {
-    return Util.make(new ArrayList<>(), (entries) -> {
-        entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), 150, ShopEntry.Type.WEAPON));
-        entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
-        // 以下物品不添加手雷、疯魔模式、撬锁器
-        entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
-        entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
-        entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
-        entries.add(new ShopEntry(WatheItems.BLACKOUT.getDefaultStack(), getItemPrice("BLACKOUT", 200), ShopEntry.Type.TOOL));
-        entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
-    });
-}
+    
     /// 商店处理方法
     public static boolean handlePurchase(@NotNull PlayerEntity player, int balance, @NotNull Item item, int price) {
     // 土匪特殊价格替换 + 禁用物品
