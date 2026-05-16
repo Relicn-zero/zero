@@ -19,7 +19,7 @@ public class BanditServerShopMixin {
 
     @Shadow @Final @NotNull private PlayerEntity player;
     @Shadow private int balance;
-    @Shadow public abstract void sync();
+    // 注意：不需要 shadow sync()，直接调用 this.sync() 即可（PlayerShopComponent 有 sync 方法）
 
     @Inject(method = "tryBuy", at = @At("HEAD"), cancellable = true)
     void tryBuy(int index, @NotNull CallbackInfo ci) {
@@ -33,7 +33,7 @@ public class BanditServerShopMixin {
             ShopEntry entry = entries.get(index);
             if (KinsWatheShops.handlePurchase(player, this.balance, entry.stack().getItem(), entry.price())) {
                 this.balance -= entry.price();
-                this.sync();
+                ((PlayerShopComponent)(Object)this).sync(); // 显式调用 sync 方法
             }
             ci.cancel();
         }
