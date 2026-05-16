@@ -16,6 +16,7 @@ import net.minecraft.util.hit.HitResult;
 import org.BsXinQin.kinswathe.KinsWatheConfig;
 import org.BsXinQin.kinswathe.KinsWatheRoles;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
+import org.BsXinQin.kinswathe.component.ArbiterComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class ArbiterAbility {
@@ -32,19 +33,22 @@ public class ArbiterAbility {
             ServerPlayerEntity target = (hitResult instanceof EntityHitResult entityHitResult) ? (ServerPlayerEntity) entityHitResult.getEntity() : null;
             if (target == null || player.getUuid().equals(target.getUuid())) return;
 
+            // 扣除金币
             playerShop.balance -= KinsWatheConfig.HANDLER.instance().ArbiterAbilityPrice;
             playerShop.sync();
 
-            target.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING,
-                    KinsWatheConfig.HANDLER.instance().ArbiterGlowDuration * 20, 0, false, true));
+            // 发光效果
+            int glowDuration = KinsWatheConfig.HANDLER.instance().ArbiterGlowDuration;
+            target.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, glowDuration * 20, 0, false, true));
 
-            target.getServer().execute(() -> {
-                if (target.isAlive() && !target.isSpectator()) {
-                    target.damage(target.getWorld().getDamageSources().magic(), Float.MAX_VALUE);
-                    target.sendMessage(Text.translatable("tip.kinswathe.arbiter.verdict_executed").withColor(0xAA0000), false);
-                }
-            });
+            // 设置延迟死亡（延迟时间 = 发光时长，或者单独配置）
+            int delaySeconds = KinsWatheConfig.HANDLER.instance().ArbiterVerdictDelay;
+            ArbiterComponent arbiterData = ArbiterComponent.KEY.get(player);
+            arbiterData.setDeathTicks(delaySeconds * 20);
+            arbiterData.setDeathTargetUuid(target.getUuid());
+            arbiterData.sync();
 
+            // 冷却
             ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().ArbiterCooldown);
             player.playSoundToPlayer(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.PLAYERS, 1.0f, 1.0f);
         }
