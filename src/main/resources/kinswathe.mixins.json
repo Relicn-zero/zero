@@ -18,6 +18,7 @@
     "noellesroles.framing.DelusionVialApplyMixin",
     "noellesroles.framing.DoNotApplyFakePoisonMixin",
     "noellesroles.roles.jester.JesterJestMixin",
+    "roles.bandit.BanditServerShopMixin",
     "roles.cook.CookFinishEatMixin",
     "roles.cook.CookShopMixin",
     "roles.dreamer.DreamerAddCountsMixin",
