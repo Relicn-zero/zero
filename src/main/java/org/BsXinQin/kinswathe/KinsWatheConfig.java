@@ -70,7 +70,6 @@ public class KinsWatheConfig {
     public int CleanerAbilityCooldown = GameConstants.getInTicks(2,30) / 20;
 
     @SerialEntry(comment = "Arbiter: starting coins, price, glow duration, verdict delay, cooldown.")
-    public int ArbiterStartingCoins = 50;
     @SerialEntry
     public int ArbiterAbilityPrice = 200;
     @SerialEntry
