@@ -14,25 +14,25 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
-
 @Mixin(PlayerShopComponent.class)
-public class BanditServerShopMixin {
+public abstract class BanditServerShopMixin {
 
     @Shadow @Final @NotNull private PlayerEntity player;
+    @Shadow private int balance;
+    @Shadow public abstract void sync();
 
-    /**
-     * 在 tryBuy 方法执行前，修改商店条目列表，为土匪替换为折扣列表。
-     * 注意：原模组中 tryBuy 方法内有一个局部变量 entries，我们可以通过 @ModifyVariable 来替换，
-     * 但这里使用 @Inject 配合 LocalCapture 可能更复杂。简单的方法：在 tryBuy 开头判断角色，然后直接修改价格逻辑。
-     * 不过为了保持结构一致，我们参考 DrugmakerShopMixin 的做法：使用 @ModifyVariable 修改 entries。
-     */
-    @ModifyVariable(method = "tryBuy", at = @At(value = "STORE"), name = "entries", ordinal = 0)
-    private List<ShopEntry> modifyShopEntries(List<ShopEntry> originalEntries) {
+    @Inject(method = "tryBuy", at = @At("HEAD"), cancellable = true)
+    void tryBuy(int index, @NotNull CallbackInfo ci) {
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
         if (gameWorld.isRole(player, KinsWatheRoles.BANDIT)) {
-            return KinsWatheShops.getBanditShop(player.getWorld());
+            var entries = KinsWatheShops.getBanditShop(player.getWorld());
+            if (index < 0 || index >= entries.size()) return;
+            ShopEntry entry = entries.get(index);
+            if (KinsWatheShops.handlePurchase(player, this.balance, entry.stack().getItem(), entry.price())) {
+                this.balance -= entry.price();
+                this.sync();
+            }
+            ci.cancel();
         }
-        return originalEntries;
     }
 }
