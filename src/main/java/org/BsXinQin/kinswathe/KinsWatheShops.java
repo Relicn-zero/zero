@@ -147,12 +147,9 @@ public class KinsWatheShops {
 
     public static List<ShopEntry> getBanditShop(World world) {
     return Util.make(new ArrayList<>(), (entries) -> {
-        // 左轮手枪 150
         entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), 150, ShopEntry.Type.WEAPON));
-        // 匕首 300
         entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
-        
-        // 其他物品（不添加手雷、疯魔模式、撬锁器）
+        // 以下物品不添加手雷、疯魔模式、撬锁器
         entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
         entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
         entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
@@ -160,7 +157,6 @@ public class KinsWatheShops {
         entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
     });
 }
-
     /// 商店处理方法
     public static boolean handlePurchase(@NotNull PlayerEntity player, int balance, @NotNull Item item, int price) {
         if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
