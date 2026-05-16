@@ -159,25 +159,41 @@ public class KinsWatheShops {
 }
     /// 商店处理方法
     public static boolean handlePurchase(@NotNull PlayerEntity player, int balance, @NotNull Item item, int price) {
-        if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
-            if (item == WatheItems.NOTE) player.giveItemStack((new ItemStack(WatheItems.NOTE, 4)));
-            else if (item == WatheItems.BLACKOUT) PlayerShopComponent.useBlackout(player);
-            else if (item == WatheItems.PSYCHO_MODE) PlayerShopComponent.usePsychoMode(player);
-            else if (item == KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH) HackerComponent.refreshWeaponCooldown(player);
-            else if (item == KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH) HackerComponent.refreshAbilityCooldown(player);
-            else if (item == KinsWatheItems.ICON_POTION_EFFECT_REFRESH) HackerComponent.refreshPotionEffect(player);
-            else if (item == KinsWatheItems.ICON_POWER_RESTORATION) TechnicianComponent.stopBlackout(player);
-            else player.giveItemStack(item.getDefaultStack());
-            if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
-                serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY, SoundCategory.PLAYERS,1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
-            }
-            return true;
-        } else {
-            player.sendMessage(Text.translatable("shop.purchase_failed").withColor(0xAA0000), true);
-            if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
-                serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY_FAIL, SoundCategory.PLAYERS,1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
-            }
+    // 土匪特殊价格替换 + 禁用物品
+    GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
+    if (gameWorld.isRole(player, KinsWatheRoles.BANDIT)) {
+        // 禁用物品：手雷、疯魔模式、撬锁器
+        if (item == WatheItems.GRENADE || item == WatheItems.PSYCHO_MODE || item == WatheItems.LOCKPICK) {
+            player.sendMessage(Text.translatable("shop.purchase_failed"), true);
             return false;
         }
+        // 折扣价格
+        if (item == WatheItems.REVOLVER) {
+            price = 150;
+        } else if (item == WatheItems.KNIFE) {
+            price = 300;
+        }
+    }
+    
+    // 以下为原有代码，不用修改
+    if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
+        if (item == WatheItems.NOTE) player.giveItemStack((new ItemStack(WatheItems.NOTE, 4)));
+        else if (item == WatheItems.BLACKOUT) PlayerShopComponent.useBlackout(player);
+        else if (item == WatheItems.PSYCHO_MODE) PlayerShopComponent.usePsychoMode(player);
+        else if (item == KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH) HackerComponent.refreshWeaponCooldown(player);
+        else if (item == KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH) HackerComponent.refreshAbilityCooldown(player);
+        else if (item == KinsWatheItems.ICON_POTION_EFFECT_REFRESH) HackerComponent.refreshPotionEffect(player);
+        else if (item == KinsWatheItems.ICON_POWER_RESTORATION) TechnicianComponent.stopBlackout(player);
+        else player.giveItemStack(item.getDefaultStack());
+        if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
+            serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY, SoundCategory.PLAYERS, 1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
+        }
+        return true;
+    } else {
+        player.sendMessage(Text.translatable("shop.purchase_failed").withColor(0xAA0000), true);
+        if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
+            serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY_FAIL, SoundCategory.PLAYERS, 1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
+        }
+        return false;
     }
 }
