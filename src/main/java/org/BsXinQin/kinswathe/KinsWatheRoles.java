@@ -62,7 +62,15 @@ public class KinsWatheRoles {
     public static Role PHYSICIAN = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "physician"), 0xFFE5CC, true, false, Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime() * 3 / 2, false));
     public static Role ROBOT = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "robot"), 0xC0C0C0, true, false, Role.MoodType.FAKE, -1, false));
     public static Role TECHNICIAN = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "technician"), 0x003366, true, false, Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(), false));
-
+    public static Role BANDIT = registerRole(new Role(
+    Identifier.of(KinsWathe.MOD_ID, "bandit"),
+    0x8B4513,  // 棕色
+    false,     // 不是平民
+    true,      // 是杀手
+    Role.MoodType.FAKE,
+    -1,        // 无限冲刺时间
+    true
+));
     /// 新增词条
     public static Modifier MAGNATE = registerModifier(new Modifier(Identifier.of(KinsWathe.MOD_ID, "magnate"), 0xFFFF00, null, new ArrayList<>(rolesHavePassiveIncome()), false, false));
     public static Modifier TASKMASTER = registerModifier(new Modifier(Identifier.of(KinsWathe.MOD_ID, "taskmaster"), 0xFF3399, null, new ArrayList<>(rolesHaveTaskIncome()), false, false));
