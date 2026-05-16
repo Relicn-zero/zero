@@ -1,5 +1,6 @@
 package org.BsXinQin.kinswathe;
 
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.index.WatheItems;
@@ -30,7 +31,6 @@ public class KinsWatheShops {
     private static final Map<String, Integer> ITEM_PRICES = new HashMap<>();
     private static ArrayList<ShopEntry> FRAMING_ROLES_SHOP;
 
-    /// 提取其他模组商店物品价格
     static {
         for (@NotNull ShopEntry entry : GameConstants.SHOP_ENTRIES) {
             String itemKey = getItemKeyFromStack(entry.stack());
@@ -69,8 +69,7 @@ public class KinsWatheShops {
         return ITEM_PRICES.getOrDefault(itemKey, defaultValue);
     }
 
-    /// 身份商店
-    //制毒师商店
+    // 制毒师商店
     public static List<ShopEntry> getDrugmakerShop(@NotNull World world) {
         return Util.make(new ArrayList<>(), (entries) -> {
             entries.add(new ShopEntry(KinsWatheItems.POISON_INJECTOR.getDefaultStack(), ConfigWorldComponent.KEY.get(world).DrugmakerPoisonInjectorPrice, ShopEntry.Type.WEAPON));
@@ -86,7 +85,8 @@ public class KinsWatheShops {
             entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
         });
     }
-    //黑客商店
+
+    // 黑客商店
     public static List<ShopEntry> getHackerShop(@NotNull World world) {
         if (!KinsWatheConfig.HANDLER.instance().HackerHasShop) return null;
         return Util.make(new ArrayList<>(), (entries) -> {
@@ -99,7 +99,8 @@ public class KinsWatheShops {
             entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
         });
     }
-    //追猎者商店
+
+    // 追猎者商店
     public static List<ShopEntry> getHunterShop(@NotNull World world) {
         return Util.make(new ArrayList<>(), (entries) -> {
             entries.add(new ShopEntry(KinsWatheItems.HUNTING_KNIFE.getDefaultStack(), getItemPrice("KNIFE", 100), ShopEntry.Type.WEAPON));
@@ -115,7 +116,8 @@ public class KinsWatheShops {
             entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
         });
     }
-    //绑匪商店
+
+    // 绑匪商店
     public static List<ShopEntry> getKidnapperShop(@NotNull World world) {
         return Util.make(new ArrayList<>(), (entries) -> {
             entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), getItemPrice("KNIFE", 100), ShopEntry.Type.WEAPON));
@@ -132,7 +134,8 @@ public class KinsWatheShops {
             entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
         });
     }
-    //技术员商店
+
+    // 技术员商店
     public static List<ShopEntry> getTechnicianShop(@NotNull World world) {
         return Util.make(new ArrayList<>(), (entries) -> {
             entries.add(new ShopEntry(KinsWatheItems.WRENCH.getDefaultStack(), ConfigWorldComponent.KEY.get(world).TechnicianWrenchPrice, ShopEntry.Type.TOOL));
@@ -140,49 +143,50 @@ public class KinsWatheShops {
             entries.add(new ShopEntry(KinsWatheItems.ICON_POWER_RESTORATION.getDefaultStack(), ConfigWorldComponent.KEY.get(world).TechnicianPowerRestorationPrice, ShopEntry.Type.TOOL));
         });
     }
-    //杀手方中立商店
+
+    // 杀手方中立商店
     public static List<ShopEntry> getKillerNeutralRolesShop() {
         return FRAMING_ROLES_SHOP;
     }
 
-    
     /// 商店处理方法
     public static boolean handlePurchase(@NotNull PlayerEntity player, int balance, @NotNull Item item, int price) {
-    // 土匪特殊价格替换 + 禁用物品
-    GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
-    if (gameWorld.isRole(player, KinsWatheRoles.BANDIT)) {
-        // 禁用物品：手雷、疯魔模式、撬锁器
-        if (item == WatheItems.GRENADE || item == WatheItems.PSYCHO_MODE || item == WatheItems.LOCKPICK) {
-            player.sendMessage(Text.translatable("shop.purchase_failed"), true);
+        // 土匪特殊价格替换 + 禁用物品
+        GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
+        if (gameWorld.isRole(player, KinsWatheRoles.BANDIT)) {
+            // 禁用物品：手雷、疯魔模式、撬锁器
+            if (item == WatheItems.GRENADE || item == WatheItems.PSYCHO_MODE || item == WatheItems.LOCKPICK) {
+                player.sendMessage(Text.translatable("shop.purchase_failed"), true);
+                return false;
+            }
+            // 折扣价格
+            if (item == WatheItems.REVOLVER) {
+                price = 150;
+            } else if (item == WatheItems.KNIFE) {
+                price = 300;
+            }
+        }
+
+        // 以下为原有代码，不用修改
+        if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
+            if (item == WatheItems.NOTE) player.giveItemStack((new ItemStack(WatheItems.NOTE, 4)));
+            else if (item == WatheItems.BLACKOUT) PlayerShopComponent.useBlackout(player);
+            else if (item == WatheItems.PSYCHO_MODE) PlayerShopComponent.usePsychoMode(player);
+            else if (item == KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH) HackerComponent.refreshWeaponCooldown(player);
+            else if (item == KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH) HackerComponent.refreshAbilityCooldown(player);
+            else if (item == KinsWatheItems.ICON_POTION_EFFECT_REFRESH) HackerComponent.refreshPotionEffect(player);
+            else if (item == KinsWatheItems.ICON_POWER_RESTORATION) TechnicianComponent.stopBlackout(player);
+            else player.giveItemStack(item.getDefaultStack());
+            if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
+                serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY, SoundCategory.PLAYERS, 1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
+            }
+            return true;
+        } else {
+            player.sendMessage(Text.translatable("shop.purchase_failed").withColor(0xAA0000), true);
+            if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
+                serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY_FAIL, SoundCategory.PLAYERS, 1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
+            }
             return false;
         }
-        // 折扣价格
-        if (item == WatheItems.REVOLVER) {
-            price = 150;
-        } else if (item == WatheItems.KNIFE) {
-            price = 300;
-        }
-    }
-    
-    // 以下为原有代码，不用修改
-    if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
-        if (item == WatheItems.NOTE) player.giveItemStack((new ItemStack(WatheItems.NOTE, 4)));
-        else if (item == WatheItems.BLACKOUT) PlayerShopComponent.useBlackout(player);
-        else if (item == WatheItems.PSYCHO_MODE) PlayerShopComponent.usePsychoMode(player);
-        else if (item == KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH) HackerComponent.refreshWeaponCooldown(player);
-        else if (item == KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH) HackerComponent.refreshAbilityCooldown(player);
-        else if (item == KinsWatheItems.ICON_POTION_EFFECT_REFRESH) HackerComponent.refreshPotionEffect(player);
-        else if (item == KinsWatheItems.ICON_POWER_RESTORATION) TechnicianComponent.stopBlackout(player);
-        else player.giveItemStack(item.getDefaultStack());
-        if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
-            serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY, SoundCategory.PLAYERS, 1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
-        }
-        return true;
-    } else {
-        player.sendMessage(Text.translatable("shop.purchase_failed").withColor(0xAA0000), true);
-        if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
-            serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY_FAIL, SoundCategory.PLAYERS, 1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
-        }
-        return false;
     }
 }
