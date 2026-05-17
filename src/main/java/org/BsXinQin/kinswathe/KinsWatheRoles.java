@@ -160,6 +160,11 @@ public class KinsWatheRoles {
             if (role.equals(LICENSED_VILLAIN)) player.giveItemStack(WatheItems.LOCKPICK.getDefaultStack());
             if (role.equals(PHYSICIAN)) player.giveItemStack(KinsWatheItems.MEDICAL_KIT.getDefaultStack());
             if (role.equals(ARBITER)) { /* 初始物品留空 */ }
+            if (role.equals(TECHNICIAN)) {
+    if (KinsWatheConfig.HANDLER.instance().EnableTechnicianStartWithTrap) {
+        player.giveItemStack(KinsWatheItems.CAPTURE_DEVICE.getDefaultStack());
+    }
+}
         });
     }
 
