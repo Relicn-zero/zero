@@ -90,6 +90,11 @@ public boolean EnableTechnicianStartWithTrap = true;
 public boolean EnableJudgeSlownessEffect = true;
 @SerialEntry
 public boolean EnableRobotSpeedEffect = true;
+
+@SerialEntry(comment = "Technician: trap range (blocks)")
+public double TechnicianTrapRange = 1.5;
+@SerialEntry(comment = "Enable slowness effect on trapped player")
+public boolean EnableTechnicianSlowness = true;
     
     @SerialEntry(comment = "Cook: modify price of Pan.")
     public int CookPanPrice = 250;
