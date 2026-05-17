@@ -32,7 +32,12 @@ public class JudgeAbility {
                 playerShop.balance -= KinsWatheConfig.HANDLER.instance().JudgeAbilityPrice;
                 playerShop.sync();
                 target.sendMessage(Text.translatable("tip.kinswathe.judge.notification").withColor(KinsWatheRoles.JUDGE.color()), true);
-                target.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, KinsWatheConfig.HANDLER.instance().JudgeAbilityGlowing * 20, 0, false, true, true));
+                int glowDuration = KinsWatheConfig.HANDLER.instance().JudgeAbilityGlowing * 20;
+                target.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, glowDuration, 0, false, true, true));
+                // 增强：附加缓慢效果（可配置）
+                if (KinsWatheConfig.HANDLER.instance().EnableJudgeSlownessEffect) {
+                    target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, glowDuration, 1, false, true, true));
+                }
                 var lightning = new LightningEntity(net.minecraft.entity.EntityType.LIGHTNING_BOLT, target.getWorld());
                 lightning.refreshPositionAfterTeleport(target.getPos());
                 lightning.setCosmetic(true);
