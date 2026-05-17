@@ -168,6 +168,11 @@ public class KinsWatheGameSettings {
             KidnapperComponent.KEY.get(player).reset();
             PhysicianComponent.KEY.get(player).reset();
             TechnicianComponent.KEY.get(player).reset();
+            if (KinsWatheConfig.HANDLER.instance().EnableRobotSpeedEffect) {
+        GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
+        if (gameWorld.isRole(player, KinsWatheRoles.ROBOT)) {
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, Integer.MAX_VALUE, 0, false, false, true));
+        }
         });
     }
 
