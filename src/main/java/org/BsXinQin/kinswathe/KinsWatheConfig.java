@@ -77,6 +77,19 @@ public int ArbiterGlowDuration = 10;
 public int ArbiterVerdictDelay = 10;
 @SerialEntry
 public int ArbiterCooldown = 180;
+
+@SerialEntry(comment = "\n[Enhancements] Enable/disable role buffs:")
+public boolean EnableBellringerSpeedBoost = true;
+@SerialEntry
+public boolean EnablePhysicianDoubleStamina = true;
+@SerialEntry
+public boolean EnableTechnicianTrapBuff = true;
+@SerialEntry
+public boolean EnableTechnicianStartWithTrap = true;
+@SerialEntry
+public boolean EnableJudgeSlownessEffect = true;
+@SerialEntry
+public boolean EnableRobotSpeedEffect = true;
     
     @SerialEntry(comment = "Cook: modify price of Pan.")
     public int CookPanPrice = 250;
