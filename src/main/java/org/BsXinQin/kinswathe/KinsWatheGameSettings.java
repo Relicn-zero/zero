@@ -154,28 +154,31 @@ public class KinsWatheGameSettings {
         AllowPlayerPunching.EVENT.register(((attacker, victim) -> attacker.getMainHandStack().isOf(KinsWatheItems.HUNTING_KNIFE)));
     }
 
-    public static void resetEvents() {
-        ResetPlayerEvent.EVENT.register(player -> {
-            GameSafeComponent.KEY.get(player.getWorld()).reset();
-            PlayerEffectComponent.KEY.get(player).reset();
-            AbilityPlayerComponent.KEY.get(player).reset();
-            CookComponent.KEY.get(player).reset();
-            DreamerComponent.KEY.get(player).reset();
-            DreamerKillerComponent.KEY.get(player).reset();
-            HackerComponent.KEY.get(player).reset();
-            HackerPhoneComponent.KEY.get(player).reset();
-            HunterComponent.KEY.get(player).reset();
-            KidnapperComponent.KEY.get(player).reset();
-            PhysicianComponent.KEY.get(player).reset();
-            TechnicianComponent.KEY.get(player).reset();
-            if (KinsWatheConfig.HANDLER.instance().EnableRobotSpeedEffect) {
-        GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
-        if (gameWorld.isRole(player, KinsWatheRoles.ROBOT)) {
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, Integer.MAX_VALUE, 0, false, false, true));
-        }
-        });
-    }
+    /// 重置事件
+public static void resetEvents() {
+    ResetPlayerEvent.EVENT.register(player -> {
+        GameSafeComponent.KEY.get(player.getWorld()).reset();
+        PlayerEffectComponent.KEY.get(player).reset();
+        AbilityPlayerComponent.KEY.get(player).reset();
+        CookComponent.KEY.get(player).reset();
+        DreamerComponent.KEY.get(player).reset();
+        DreamerKillerComponent.KEY.get(player).reset();
+        HackerComponent.KEY.get(player).reset();
+        HackerPhoneComponent.KEY.get(player).reset();
+        HunterComponent.KEY.get(player).reset();
+        KidnapperComponent.KEY.get(player).reset();
+        PhysicianComponent.KEY.get(player).reset();
+        TechnicianComponent.KEY.get(player).reset();
 
+        // 机器人永久速度效果（重新添加）
+        if (KinsWatheConfig.HANDLER.instance().EnableRobotSpeedEffect) {
+            GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
+            if (gameWorld.isRole(player, KinsWatheRoles.ROBOT)) {
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, Integer.MAX_VALUE, 0, false, false, true));
+            }
+        }
+    });
+}
     public static void init() {
         initializeConfig();
         initializeCommands();
