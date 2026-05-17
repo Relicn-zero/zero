@@ -59,7 +59,7 @@ public class KinsWatheRoles {
     public static Role ARBITER = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "arbiter"), 0xAA0000, true, false, Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(), false));
     public static Role KIDNAPPER = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "kidnapper"), 0xCC0066, false, true, Role.MoodType.FAKE, -1, true));
     public static Role LICENSED_VILLAIN = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "licensed_villain"), 0x404040, false, false, Role.MoodType.FAKE, WatheRoles.CIVILIAN.getMaxSprintTime() * 3 / 2, false));
-    public static Role PHYSICIAN = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "physician"), 0xFFE5CC, true, false, Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime() * 3 / 2, false));
+    public static Role PHYSICIAN = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "physician"), 0xFFE5CC, true, false, Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime() * 3 , false));
     public static Role ROBOT = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "robot"), 0xC0C0C0, true, false, Role.MoodType.FAKE, -1, false));
     public static Role TECHNICIAN = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "technician"), 0x003366, true, false, Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(), false));
     public static Role BANDIT = registerRole(new Role(
