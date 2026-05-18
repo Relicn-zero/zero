@@ -196,11 +196,11 @@ public class KinsWatheRoles {
             
             // 机器人：永久速度加成（修改基础移动速度属性）
             if (role.equals(ROBOT)) {
-                player.removeStatusEffect(StatusEffects.SPEED); // 清除可能的速度状态
-                double originalSpeed = player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getBaseValue();
-                double boostedSpeed = originalSpeed * 1.2; // 20% 速度加成，可调整
-                player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(boostedSpeed);
-            }
+    player.removeStatusEffect(StatusEffects.SPEED);
+    double originalSpeed = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getBaseValue();
+    double boostedSpeed = originalSpeed * 1.2;
+    player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(boostedSpeed);
+}
         });
     }
 
