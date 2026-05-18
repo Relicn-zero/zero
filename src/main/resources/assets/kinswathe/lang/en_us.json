@@ -19,6 +19,14 @@
   "announcement.role.kinswathe.cleaner": "Cleaner",
   "announcement.goals.kinswathe.cleaner": "Remove all obstacles!",
 
+"announcement.role.kinswathe.judgelord": "Judge Lord",
+"announcement.goals.kinswathe.judgelord": "Monitor a player; if they kill, they die.",
+"tip.kinswathe.judgelord.no_uses_left": "§cNo remaining uses!",
+"tip.kinswathe.judgelord.invalid_target": "§cInvalid target!",
+"tip.kinswathe.judgelord.cannot_judge_self": "§cYou cannot judge yourself!",
+"tip.kinswathe.judgelord.verdict_executed": "§cThe judged player has committed murder and is executed!",
+"hud.kinswathe.judgelord.ready": "Ready to judge"
+  
   "announcement.role.kinswathe.cook": "Cook",
   "announcement.goals.kinswathe.cook": "See players that eat through walls!",
 
