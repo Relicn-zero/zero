@@ -22,15 +22,12 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.UseAction;
-import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
-import org.BsXinQin.kinswathe.component.GameSafeComponent;
-import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
+import org.BsXinQin.kinswathe.component.*;
 import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
 import org.BsXinQin.kinswathe.packet.items.BlowgunC2SPacket;
 import org.BsXinQin.kinswathe.packet.items.HuntingKnifeC2SPacket;
 import org.BsXinQin.kinswathe.packet.items.PanC2SPacket;
-import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
-import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
+import org.BsXinQin.kinswathe.packet.roles.*;
 import org.BsXinQin.kinswathe.roles.cook.CookComponent;
 import org.BsXinQin.kinswathe.roles.dreamer.DreamerComponent;
 import org.BsXinQin.kinswathe.roles.dreamer.DreamerKillerComponent;
@@ -40,6 +37,7 @@ import org.BsXinQin.kinswathe.roles.hunter.HunterComponent;
 import org.BsXinQin.kinswathe.roles.kidnapper.KidnapperComponent;
 import org.BsXinQin.kinswathe.roles.physician.PhysicianComponent;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianComponent;
+import org.BsXinQin.kinswathe.roles.judgelord.JudgeLordAbility;
 import org.agmas.harpymodloader.events.ResetPlayerEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -120,9 +118,9 @@ public class KinsWatheGameSettings {
         PayloadTypeRegistry.playC2S().register(HuntingKnifeC2SPacket.ID, HuntingKnifeC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(PanC2SPacket.ID, PanC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(JudgeLordC2SPacket.PACKET_ID, JudgeLordC2SPacket.CODEC);
-ServerPlayNetworking.registerGlobalReceiver(JudgeLordC2SPacket.PACKET_ID, (payload, context) -> {
-    JudgeLordAbility.register(payload, context.player());
-});
+        ServerPlayNetworking.registerGlobalReceiver(JudgeLordC2SPacket.PACKET_ID, (payload, context) -> {
+            JudgeLordAbility.register(payload, context.player());
+        });
         ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
         ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
         ServerPlayNetworking.registerGlobalReceiver(PanC2SPacket.ID, new PanC2SPacket.Receiver());
@@ -155,46 +153,46 @@ ServerPlayNetworking.registerGlobalReceiver(JudgeLordC2SPacket.PACKET_ID, (paylo
                     }
                 }
             }
-            // 在 AllowPlayerDeath.EVENT 回调内部，玩家死亡后，判断击杀者
-if (killer != null) {
-    // 通知所有审判长组件，检查击杀者是否是被监控的目标
-    for (ServerPlayerEntity p : killer.getServer().getPlayerManager().getPlayerList()) {
-        JudgeLordComponent lordData = JudgeLordComponent.KEY.get(p);
-        if (lordData != null) {
-            lordData.reportKillIfTargetMatches(killer.getUuid());
-        }
-    }
-}
+            // 审判长监控：如果击杀者是被监控的目标，则触发裁决
+            if (killer != null) {
+                for (ServerPlayerEntity p : killer.getServer().getPlayerManager().getPlayerList()) {
+                    JudgeLordComponent lordData = JudgeLordComponent.KEY.get(p);
+                    if (lordData != null) {
+                        lordData.reportKillIfTargetMatches(killer.getUuid());
+                    }
+                }
+            }
             return true;
         }));
         AllowPlayerPunching.EVENT.register(((attacker, victim) -> attacker.getMainHandStack().isOf(KinsWatheItems.HUNTING_KNIFE)));
     }
 
     /// 重置事件
-public static void resetEvents() {
-    ResetPlayerEvent.EVENT.register(player -> {
-        GameSafeComponent.KEY.get(player.getWorld()).reset();
-        PlayerEffectComponent.KEY.get(player).reset();
-        AbilityPlayerComponent.KEY.get(player).reset();
-        CookComponent.KEY.get(player).reset();
-        DreamerComponent.KEY.get(player).reset();
-        DreamerKillerComponent.KEY.get(player).reset();
-        HackerComponent.KEY.get(player).reset();
-        HackerPhoneComponent.KEY.get(player).reset();
-        HunterComponent.KEY.get(player).reset();
-        KidnapperComponent.KEY.get(player).reset();
-        PhysicianComponent.KEY.get(player).reset();
-        TechnicianComponent.KEY.get(player).reset();
+    public static void resetEvents() {
+        ResetPlayerEvent.EVENT.register(player -> {
+            GameSafeComponent.KEY.get(player.getWorld()).reset();
+            PlayerEffectComponent.KEY.get(player).reset();
+            AbilityPlayerComponent.KEY.get(player).reset();
+            CookComponent.KEY.get(player).reset();
+            DreamerComponent.KEY.get(player).reset();
+            DreamerKillerComponent.KEY.get(player).reset();
+            HackerComponent.KEY.get(player).reset();
+            HackerPhoneComponent.KEY.get(player).reset();
+            HunterComponent.KEY.get(player).reset();
+            KidnapperComponent.KEY.get(player).reset();
+            PhysicianComponent.KEY.get(player).reset();
+            TechnicianComponent.KEY.get(player).reset();
 
-        // 机器人永久速度效果（重新添加）
-        if (KinsWatheConfig.HANDLER.instance().EnableRobotSpeedEffect) {
-            GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
-            if (gameWorld.isRole(player, KinsWatheRoles.ROBOT)) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, Integer.MAX_VALUE, 0, false, false, true));
+            // 机器人永久速度效果（重新添加）
+            if (KinsWatheConfig.HANDLER.instance().EnableRobotSpeedEffect) {
+                GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
+                if (gameWorld.isRole(player, KinsWatheRoles.ROBOT)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, Integer.MAX_VALUE, 0, false, false, true));
+                }
             }
-        }
-    });
-}
+        });
+    }
+
     public static void init() {
         initializeConfig();
         initializeCommands();
