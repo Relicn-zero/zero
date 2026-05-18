@@ -202,6 +202,7 @@ public static Role KOBE = registerRole(new Role(
             HunterAbility.register(context.player());
             RobotAbility.register(context.player());
             ArbiterAbility.register(context.player());   // 裁决者使用通用能力键
+            KobeAbility.register(context.player());
         });
         ServerPlayNetworking.registerGlobalReceiver(BodymakerC2SPacket.ID, (payload, context) -> BodymakerAbility.register(payload, context.player()));
         ServerPlayNetworking.registerGlobalReceiver(JudgeC2SPacket.ID, (payload, context) -> JudgeAbility.register(payload, context.player()));
