@@ -22,7 +22,6 @@
 "announcement.role.kinswathe.judgelord": "审判长",
 "announcement.goals.kinswathe.judgelord": "监视一名玩家，若其杀人则死亡。",
 "tip.kinswathe.judgelord.no_uses_left": "§c没有剩余使用次数！",
-"tip.kinswathe.judgelord.invalid_target": "§c无效目标！",
 "tip.kinswathe.judgelord.cannot_judge_self": "§c不能审判自己！",
 "tip.kinswathe.judgelord.verdict_executed": "§c被审判的玩家犯下谋杀罪，已被处决！",
 "hud.kinswathe.judgelord.ready": "准备审判",
