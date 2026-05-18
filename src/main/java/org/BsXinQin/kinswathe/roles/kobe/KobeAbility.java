@@ -14,11 +14,9 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
 import org.BsXinQin.kinswathe.KinsWatheConfig;
 import org.BsXinQin.kinswathe.KinsWatheRoles;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
-import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -37,55 +35,47 @@ public class KobeAbility {
             playerShop.balance -= KinsWatheConfig.HANDLER.instance().KobeAbilityPrice;
             playerShop.sync();
 
-            // 冲刺方向上的长方体区域
-            double distance = KinsWatheConfig.HANDLER.instance().KobeDashDistance;
-            Vec3d start = player.getPos();
-            Vec3d direction = player.getRotationVector().normalize();
-            Vec3d end = start.add(direction.multiply(distance));
-            Box pathBox = new Box(start, end).expand(1.0);
-            List<ServerPlayerEntity> targets = player.getWorld().getEntitiesByClass(
+            // 检测周围玩家（范围可配置，默认3格）
+            double range = 3.0;
+            Box area = player.getBoundingBox().expand(range);
+            List<ServerPlayerEntity> nearby = player.getWorld().getEntitiesByClass(
                 ServerPlayerEntity.class,
-                pathBox,
+                area,
                 target -> target != player && GameFunctions.isPlayerAliveAndSurvival(target)
             );
 
-            // 击退并眩晕
-            int stunDuration = KinsWatheConfig.HANDLER.instance().KobeStunDuration * 20;
-            for (ServerPlayerEntity target : targets) {
-                // 击退方向（垂直于玩家面向方向）
-                Vec3d knockbackDir = direction.crossProduct(new Vec3d(0, 1, 0)).normalize();
-                Vec3d toTarget = target.getPos().subtract(player.getPos()).normalize();
-                if (toTarget.dotProduct(knockbackDir) < 0) knockbackDir = knockbackDir.negate();
-                knockbackDir = knockbackDir.add(0, 0.2, 0).normalize();
-                target.setVelocity(knockbackDir.multiply(1.2));
-                target.velocityModified = true;
+            // 计算速度持续时间：基础 + 每个附近玩家增加额外时间，不超过最大上限
+            int baseDuration = KinsWatheConfig.HANDLER.instance().KobeSpeedBaseDuration;
+            int perPlayerBonus = KinsWatheConfig.HANDLER.instance().KobeSpeedPerPlayerBonus;
+            int maxDuration = KinsWatheConfig.HANDLER.instance().KobeSpeedMaxDuration;
+            int totalSeconds = Math.min(baseDuration + nearby.size() * perPlayerBonus, maxDuration);
+            int durationTicks = totalSeconds * 20;
 
-                PlayerEffectComponent.KEY.get(target).setStunTicks(stunDuration);
-                target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, stunDuration, 2, false, true, true));
-            }
+            // 添加速度效果
+            int amplifier = KinsWatheConfig.HANDLER.instance().KobeSpeedAmplifier;
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, durationTicks, amplifier, false, false, true));
 
-            // 奖励：每击中一个玩家，给予额外金币，并增加情绪
-            if (!targets.isEmpty()) {
-                int reward = 25 * targets.size();
+            // 给予金币奖励和情绪增加
+            if (!nearby.isEmpty()) {
+                int reward = 25 * nearby.size();  // 每个附近玩家奖励25金币
                 playerShop.addToBalance(reward);
                 playerShop.sync();
                 player.sendMessage(Text.translatable("tip.kinswathe.kobe.reward", reward), true);
 
-                // 增加情绪（任务奖励）
+                // 增加情绪
                 PlayerMoodComponent mood = PlayerMoodComponent.KEY.get(player);
                 if (mood != null) {
                     mood.setMood(mood.getMood() + 10);
                 }
             }
 
-            // 冲刺视觉和音效
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 10, 4, false, false, true));
-            player.playSoundToPlayer(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 1.2f);
+            // 粒子效果和音效
             if (player.getWorld() instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(ParticleTypes.SWEEP_ATTACK, player.getX(), player.getY() + 0.5, player.getZ(), 1, 0.5, 0.5, 0.5, 0);
             }
+            player.playSoundToPlayer(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 1.2f);
 
-            // 冷却
+            // 设置冷却
             ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().KobeCooldown);
         }
     }
