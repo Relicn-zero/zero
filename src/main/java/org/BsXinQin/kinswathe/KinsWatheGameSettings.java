@@ -119,6 +119,10 @@ public class KinsWatheGameSettings {
         PayloadTypeRegistry.playC2S().register(BlowgunC2SPacket.ID, BlowgunC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(HuntingKnifeC2SPacket.ID, HuntingKnifeC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(PanC2SPacket.ID, PanC2SPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(JudgeLordC2SPacket.PACKET_ID, JudgeLordC2SPacket.CODEC);
+ServerPlayNetworking.registerGlobalReceiver(JudgeLordC2SPacket.PACKET_ID, (payload, context) -> {
+    JudgeLordAbility.register(payload, context.player());
+});
         ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
         ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
         ServerPlayNetworking.registerGlobalReceiver(PanC2SPacket.ID, new PanC2SPacket.Receiver());
