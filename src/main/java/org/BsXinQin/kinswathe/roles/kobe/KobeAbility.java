@@ -35,8 +35,8 @@ public class KobeAbility {
             playerShop.balance -= KinsWatheConfig.HANDLER.instance().KobeAbilityPrice;
             playerShop.sync();
 
-            // 检测周围玩家（范围可配置，默认3格）
-            double range = 3.0;
+            // 检测周围玩家（范围可配置，默认7格）
+            double range = 7;
             Box area = player.getBoundingBox().expand(range);
             List<ServerPlayerEntity> nearby = player.getWorld().getEntitiesByClass(
                 ServerPlayerEntity.class,
