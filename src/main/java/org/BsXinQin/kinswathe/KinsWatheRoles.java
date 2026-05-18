@@ -83,6 +83,16 @@ public static Role JUDGELORD = registerRole(new Role(
     WatheRoles.CIVILIAN.getMaxSprintTime(),
     false
 ));
+    // 科比 - 中立角色，冲刺击退眩晕
+public static Role KOBE = registerRole(new Role(
+    Identifier.of(KinsWathe.MOD_ID, "kobe"),
+    0xFFD700,   // 金色
+    false,      // 不是平民
+    false,      // 不是杀手
+    Role.MoodType.FAKE,
+    -1,         // 无限冲刺时间
+    false
+));
                                                       
     /// 新增词条
     public static Modifier MAGNATE = registerModifier(new Modifier(Identifier.of(KinsWathe.MOD_ID, "magnate"), 0xFFFF00, null, new ArrayList<>(rolesHavePassiveIncome()), false, false));
