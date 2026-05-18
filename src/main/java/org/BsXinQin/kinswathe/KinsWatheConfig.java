@@ -104,6 +104,20 @@ public int JudgeLordGlowDuration = 30;      // 发光持续时间（秒）
 public int JudgeLordCooldown = 120;         // 技能冷却时间（秒）
 @SerialEntry
 public int JudgeLordMaxUses = 1;            // 每局最大使用次数
+
+@SerialEntry(comment = "Kobe: ability settings.")
+public int KobeAbilityPrice = 150;
+@SerialEntry
+public int KobeDashDistance = 10;        // 冲刺距离（格）
+@SerialEntry
+public int KobeCooldown = 30;            // 冷却时间（秒）
+@SerialEntry
+public int KobeStunDuration = 3;         // 击退眩晕时间（秒）
+
+@SerialEntry(comment = "Kobe: movement and cramp settings.")
+public double KobeSpeedMultiplier = 1.2;  // 移动速度倍率
+@SerialEntry
+public double KobeCrampProbability = 0.1; // 抽筋概率（每10秒）
     
     @SerialEntry(comment = "Cook: modify price of Pan.")
     public int CookPanPrice = 250;
