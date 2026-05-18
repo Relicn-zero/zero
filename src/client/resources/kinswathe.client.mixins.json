@@ -72,6 +72,7 @@
     "roles.robot.RobotMoodMixin",
     "roles.technician.TechnicianInstinctMixin",
     "roles.arbiter.ArbiterHudMixin",
+    "roles.kobe.KobeHudMixin",
     "roles.judgelord.JudgeLordScreenMixin"
   ]
 }
