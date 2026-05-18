@@ -188,7 +188,17 @@ public static Role KOBE = registerRole(new Role(
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, Integer.MAX_VALUE, 0, false, false, true));
     }
 }
+            
+    if (KinsWatheConfig.HANDLER.instance().EnableWatheModify) {
+        if (gameWorld.isInnocent(player)) 
+            playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialCivilianIncome);
+        if (!gameWorld.isInnocent(player) && !gameWorld.canUseKillerFeatures(player)) 
+            playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialNeutralIncome);
+        if (gameWorld.canUseKillerFeatures(player)) 
+            playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialKillerIncome - 100);
+    }
 
+});
         });
     }
 
