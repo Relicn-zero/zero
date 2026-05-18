@@ -100,13 +100,12 @@ public boolean EnableTechnicianSlowness = true;
 @SerialEntry(comment = "JudgeLord: settings (no usage limit).")
 public int JudgeLordAbilityPrice = 400;
 @SerialEntry
-public int JudgeLordGlowDuration = 60;           // 发光时间（秒）
+public int JudgeLordGlowDuration = 60;
 @SerialEntry
-public int JudgeLordCooldown = 150;              // 冷却时间（秒）
+public int JudgeLordCooldown = 150;          // 冷却时间（秒）
 @SerialEntry
 public boolean EnableJudgeLordCooldownReduction = true;
-// 审判长冷却缩减配置
-@SerialEntry(comment = "JudgeLord: cooldown reduction amount per mood recovery (seconds).")
+@SerialEntry
 public int JudgeLordCooldownReductionAmount = 10;
 
 @SerialEntry(comment = "Kobe: ability settings.")
