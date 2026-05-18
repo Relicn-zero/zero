@@ -124,7 +124,6 @@ public class KinsWatheGameSettings {
         ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
         ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
         ServerPlayNetworking.registerGlobalReceiver(PanC2SPacket.ID, new PanC2SPacket.Receiver());
-        // 已删除 ArbiterC2SPacket 的所有注册
     }
 
     public static void registerEvents() {
@@ -153,7 +152,7 @@ public class KinsWatheGameSettings {
                     }
                 }
             }
-            // 审判长监控：如果击杀者是被监控的目标，则触发裁决
+            // 审判长监控
             if (killer != null) {
                 for (ServerPlayerEntity p : killer.getServer().getPlayerManager().getPlayerList()) {
                     JudgeLordComponent lordData = JudgeLordComponent.KEY.get(p);
