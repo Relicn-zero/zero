@@ -45,6 +45,7 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
     public int HackerRefreshPotionEffectPrice = 200;
     public int HunterAbilityPrice = 125;
     public int JudgeAbilityPrice = 300;
+    public int JudgeLordAbilityPrice = 300;
     public int KidnapperKnockoutDrugPrice = 250;
     public int LicensedVillainRevolverPrice = 300;
     public int PhysicianPillPrice = 300;
