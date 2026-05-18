@@ -81,6 +81,16 @@ public class JudgeLordComponent implements AutoSyncedComponent, ServerTickingCom
         }
     }
 
+/**
+ * 外部调用：通知组件某个玩家（killerUuid）杀人了。
+ * 如果当前正在监控的目标正是这个 killer，且监控尚未结束，则立即执行裁决。
+ */
+public void reportKillIfTargetMatches(UUID killerUuid) {
+    if (monitoredTarget != null && monitoredTarget.equals(killerUuid) && monitorTicks > 0 && !hasKilled) {
+        reportKill();   // 会立即杀死目标并清除监控
+    }
+}
+    
     private void stopMonitoring() {
         this.monitoredTarget = null;
         this.monitorTicks = 0;
