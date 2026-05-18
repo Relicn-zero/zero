@@ -4,8 +4,7 @@ import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerMoodComponent;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.game.GameFunctions;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -35,8 +34,18 @@ public class KobeAbility {
             playerShop.balance -= KinsWatheConfig.HANDLER.instance().KobeAbilityPrice;
             playerShop.sync();
 
-            // 检测周围玩家（范围可配置，默认7格）
-            double range = 7;
+            // 硬编码速度效果：直接修改移动速度属性
+            double originalSpeed = player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getBaseValue();
+            double boostedSpeed = originalSpeed * 2.5; // 2.5倍速度，可调整
+            player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(boostedSpeed);
+            // 5秒后恢复
+            player.getServer().execute(() -> {
+                try { Thread.sleep(5000); } catch (InterruptedException ignored) {}
+                player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(originalSpeed);
+            });
+
+            // 检测周围玩家（半径5格）给予奖励
+            double range = 5.0;
             Box area = player.getBoundingBox().expand(range);
             List<ServerPlayerEntity> nearby = player.getWorld().getEntitiesByClass(
                 ServerPlayerEntity.class,
@@ -44,28 +53,17 @@ public class KobeAbility {
                 target -> target != player && GameFunctions.isPlayerAliveAndSurvival(target)
             );
 
-            // 计算速度持续时间：基础 + 每个附近玩家增加额外时间，不超过最大上限
-            int baseDuration = KinsWatheConfig.HANDLER.instance().KobeSpeedBaseDuration;
-            int perPlayerBonus = KinsWatheConfig.HANDLER.instance().KobeSpeedPerPlayerBonus;
-            int maxDuration = KinsWatheConfig.HANDLER.instance().KobeSpeedMaxDuration;
-            int totalSeconds = Math.min(baseDuration + nearby.size() * perPlayerBonus, maxDuration);
-            int durationTicks = totalSeconds * 20;
-
-            // 添加速度效果
-            int amplifier = KinsWatheConfig.HANDLER.instance().KobeSpeedAmplifier;
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, durationTicks, amplifier, false, false, true));
-
-            // 给予金币奖励和情绪增加
             if (!nearby.isEmpty()) {
-                int reward = 25 * nearby.size();  // 每个附近玩家奖励25金币
-                playerShop.addToBalance(reward);
+                int rewardPerPlayer = KinsWatheConfig.HANDLER.instance().KobeRewardPerPlayer;
+                int totalReward = rewardPerPlayer * nearby.size();
+                playerShop.addToBalance(totalReward);
                 playerShop.sync();
-                player.sendMessage(Text.translatable("tip.kinswathe.kobe.reward", reward), true);
+                player.sendMessage(Text.translatable("tip.kinswathe.kobe.reward", totalReward), true);
 
                 // 增加情绪
                 PlayerMoodComponent mood = PlayerMoodComponent.KEY.get(player);
                 if (mood != null) {
-                    mood.setMood(mood.getMood() + 10);
+                    mood.setMood(mood.getMood() + 10 * nearby.size());
                 }
             }
 
