@@ -96,14 +96,17 @@ public double TechnicianTrapRange = 1.5;
 @SerialEntry(comment = "Enable slowness effect on trapped player")
 public boolean EnableTechnicianSlowness = true;
 
-@SerialEntry(comment = "JudgeLord: modify price, glow duration, cooldown and max uses.")
-public int JudgeLordAbilityPrice = 300;
+// 审判长技能配置（无次数限制）
+@SerialEntry(comment = "JudgeLord: settings (no usage limit).")
+public int JudgeLordAbilityPrice = 400;
 @SerialEntry
-public int JudgeLordGlowDuration = 30;      // 发光持续时间（秒）
+public int JudgeLordGlowDuration = 60;           // 发光时间（秒）
 @SerialEntry
-public int JudgeLordCooldown = 120;         // 技能冷却时间（秒）
+public int JudgeLordCooldown = 150;              // 冷却时间（秒）
 @SerialEntry
-public int JudgeLordMaxUses = 1;            // 每局最大使用次数
+public boolean EnableJudgeLordCooldownReduction = true;
+@SerialEntry
+public int JudgeLordCooldownReductionAmount = 10; // 每次恢复情绪减少冷却（秒）
 
 @SerialEntry(comment = "Kobe: ability settings.")
 public int KobeAbilityPrice = 150;
@@ -115,6 +118,8 @@ public int KobeSpeedBaseDuration = 5;        // 基础持续时间（秒）
 public int KobeSpeedPerPlayerBonus = 3;      // 每个附近玩家额外增加持续时间（秒）
 @SerialEntry
 public int KobeSpeedMaxDuration = 30;        // 最大持续时间（秒）
+@SerialEntry
+public int KobeRewardPerPlayer = 25;             // 每个附近玩家奖励金币
     
     @SerialEntry(comment = "Cook: modify price of Pan.")
     public int CookPanPrice = 250;
