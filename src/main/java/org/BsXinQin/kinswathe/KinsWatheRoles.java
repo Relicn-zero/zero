@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import org.BsXinQin.kinswathe.roles.kobe.KobeAbility;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
