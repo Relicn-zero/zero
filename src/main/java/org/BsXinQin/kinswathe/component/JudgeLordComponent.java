@@ -31,23 +31,15 @@ public class JudgeLordComponent implements AutoSyncedComponent, ServerTickingCom
         this.player = player;
     }
 
-    /**
-     * 返回剩余使用次数（无限使用，返回一个很大的数，避免 UI 显示为负数或 0）
-     */
+    // 无次数限制
     public int getRemainingUses() {
-        return Integer.MAX_VALUE; // 2147483647，表示无限
+        return Integer.MAX_VALUE;
     }
 
-    /**
-     * 减少使用次数（无效果，因为无限制）
-     */
     public void decrementRemainingUses() {
-        // 无次数限制，不做任何操作
+        // 无操作
     }
 
-    /**
-     * 开始监控目标
-     */
     public void startMonitoring(UUID targetUuid, int durationTicks) {
         this.monitoredTarget = targetUuid;
         this.monitorTicks = durationTicks;
@@ -55,9 +47,6 @@ public class JudgeLordComponent implements AutoSyncedComponent, ServerTickingCom
         sync();
     }
 
-    /**
-     * 目标杀人，执行裁决
-     */
     public void reportKill() {
         if (monitoredTarget != null && monitorTicks > 0 && !hasKilled) {
             hasKilled = true;
@@ -70,9 +59,6 @@ public class JudgeLordComponent implements AutoSyncedComponent, ServerTickingCom
         }
     }
 
-    /**
-     * 外部调用，检查击杀者是否是被监控的目标
-     */
     public void reportKillIfTargetMatches(UUID killerUuid) {
         if (monitoredTarget != null && monitoredTarget.equals(killerUuid) && monitorTicks > 0 && !hasKilled) {
             reportKill();
@@ -106,7 +92,6 @@ public class JudgeLordComponent implements AutoSyncedComponent, ServerTickingCom
 
     @Override
     public void writeToNbt(@NotNull NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
-        // 只存储监控相关数据，不存储次数
         if (monitoredTarget != null) {
             tag.putUuid("monitoredTarget", monitoredTarget);
             tag.putInt("monitorTicks", monitorTicks);
@@ -116,7 +101,6 @@ public class JudgeLordComponent implements AutoSyncedComponent, ServerTickingCom
 
     @Override
     public void readFromNbt(@NotNull NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
-        // 只读取监控相关数据
         if (tag.containsUuid("monitoredTarget")) {
             this.monitoredTarget = tag.getUuid("monitoredTarget");
             this.monitorTicks = tag.getInt("monitorTicks");
