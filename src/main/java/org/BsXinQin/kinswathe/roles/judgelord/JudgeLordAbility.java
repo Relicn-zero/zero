@@ -11,7 +11,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import org.BsXinQin.kinswathe.KinsWathe;
 import org.BsXinQin.kinswathe.KinsWatheConfig;
 import org.BsXinQin.kinswathe.KinsWatheRoles;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
@@ -28,9 +27,6 @@ public class JudgeLordAbility {
         AbilityPlayerComponent ability = AbilityPlayerComponent.KEY.get(player);
         PlayerShopComponent playerShop = PlayerShopComponent.KEY.get(player);
         JudgeLordComponent lordData = JudgeLordComponent.KEY.get(player);
-
-        // 调试日志
-        KinsWathe.LOGGER.info("JudgeLord triggered. Remaining uses: " + lordData.getRemainingUses() + ", balance: " + playerShop.balance);
 
         if (gameWorld.isRole(player, KinsWatheRoles.JUDGELORD) && GameFunctions.isPlayerAliveAndSurvival(player) && ability.cooldown <= 0) {
             if (lordData.getRemainingUses() <= 0) {
