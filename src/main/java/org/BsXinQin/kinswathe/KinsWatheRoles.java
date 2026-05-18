@@ -84,14 +84,14 @@ public static Role JUDGELORD = registerRole(new Role(
     WatheRoles.CIVILIAN.getMaxSprintTime(),
     false
 ));
-    // 科比 - 中立角色，冲刺击退眩晕
+    // 科比 - 中立角色，冲刺击退眩晕，拥有情绪（可获得情绪奖励）
 public static Role KOBE = registerRole(new Role(
     Identifier.of(KinsWathe.MOD_ID, "kobe"),
-    0xFFD700,   // 金色
+    0xFFD700,
     false,      // 不是平民
     false,      // 不是杀手
-    Role.MoodType.FAKE,
-    -1,         // 无限冲刺时间
+    Role.MoodType.REAL,   // 改为 REAL，使科比拥有情绪系统
+    -1,
     false
 ));
                                                       
