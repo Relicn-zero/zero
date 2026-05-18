@@ -1,9 +1,10 @@
 package org.BsXinQin.kinswathe.mixin.host;
 
-import net.minecraft.text.Text;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerMoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import org.BsXinQin.kinswathe.KinsWatheConfig;
 import org.BsXinQin.kinswathe.KinsWatheRoles;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
@@ -29,8 +30,9 @@ public class PlayerMoodComponentMixin {
                 int reductionTicks = KinsWatheConfig.HANDLER.instance().JudgeLordCooldownReductionAmount * 20;
                 ability.cooldown = Math.max(0, ability.cooldown - reductionTicks);
                 ability.sync();
-                // 可选：发送提示
-                player.sendMessage(Text.translatable("tip.kinswathe.judgelord.cooldown_reduced", KinsWatheConfig.HANDLER.instance().JudgeLordCooldownReductionAmount), true);
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    serverPlayer.sendMessage(Text.translatable("tip.kinswathe.judgelord.cooldown_reduced", KinsWatheConfig.HANDLER.instance().JudgeLordCooldownReductionAmount), true);
+                }
             }
         }
     }
