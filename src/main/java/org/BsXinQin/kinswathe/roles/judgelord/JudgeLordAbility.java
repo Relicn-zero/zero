@@ -26,10 +26,10 @@ public class JudgeLordAbility {
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
         AbilityPlayerComponent ability = AbilityPlayerComponent.KEY.get(player);
         PlayerShopComponent playerShop = PlayerShopComponent.KEY.get(player);
-        JudgeLordComponent lordData = JudgeLordComponent.KEY.get(player); // 保留但不用于次数
+        JudgeLordComponent lordData = JudgeLordComponent.KEY.get(player); // 保留用于监控，无次数限制
 
         if (gameWorld.isRole(player, KinsWatheRoles.JUDGELORD) && GameFunctions.isPlayerAliveAndSurvival(player) && ability.cooldown <= 0) {
-            // 检查金币（价格400）
+            // 检查金币
             if (playerShop.balance < KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice) {
                 player.sendMessage(Text.translatable("tip.kinswathe.ability.not_enough_money", KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice).withColor(Color.RED.getRGB()), true);
                 return;
@@ -49,7 +49,7 @@ public class JudgeLordAbility {
             playerShop.balance -= KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice;
             playerShop.sync();
 
-            // 发光效果（60秒）
+            // 发光效果（从配置读取时长，单位秒）
             int glowDuration = KinsWatheConfig.HANDLER.instance().JudgeLordGlowDuration * 20;
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, glowDuration, 0, false, true, true));
 
@@ -61,7 +61,7 @@ public class JudgeLordAbility {
 
             player.playSoundToPlayer(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.PLAYERS, 1.0f, 1.0f);
 
-            // 设置冷却（150秒）
+            // 设置冷却（秒 -> tick）
             ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().JudgeLordCooldown * 20);
 
             // 开始监控（杀人检测）
