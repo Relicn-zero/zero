@@ -71,6 +71,7 @@
     "roles.physician.PhysicianInstinctMixin",
     "roles.robot.RobotMoodMixin",
     "roles.technician.TechnicianInstinctMixin",
-    "roles.arbiter.ArbiterHudMixin"
+    "roles.arbiter.ArbiterHudMixin",
+    "roles.judgelord.JudgeLordScreenMixin"
   ]
 }
