@@ -107,6 +107,8 @@ public int JudgeLordMaxUses = 1;            // 每局最大使用次数
 
 @SerialEntry(comment = "Kobe: ability settings.")
 public int KobeAbilityPrice = 150;
+@SerialEntry(comment = "Kobe: whether can pick up vigilante's gun.")
+public boolean KobeCanPickupVigilanteGun = true;
 @SerialEntry
 public int KobeDashDistance = 10;        // 冲刺距离（格）
 @SerialEntry
