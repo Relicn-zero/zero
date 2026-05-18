@@ -96,18 +96,13 @@ public double TechnicianTrapRange = 1.5;
 @SerialEntry(comment = "Enable slowness effect on trapped player")
 public boolean EnableTechnicianSlowness = true;
 
-// 审判长技能配置（无次数限制）
+// 审判长配置
 @SerialEntry(comment = "JudgeLord: settings (no usage limit).")
 public int JudgeLordAbilityPrice = 400;
 @SerialEntry
-public int JudgeLordGlowDuration = 60;
+public int JudgeLordGlowDuration = 60;      // 发光时间（秒）
 @SerialEntry
-public int JudgeLordCooldown = 150;          // 冷却时间（秒）
-@SerialEntry
-public boolean EnableJudgeLordCooldownReduction = true;
-@SerialEntry
-public int JudgeLordCooldownReductionAmount = 10;
-
+public int JudgeLordCooldown = 150;         // 冷却时间（秒）
 @SerialEntry(comment = "Kobe: ability settings.")
 public int KobeAbilityPrice = 150;
 @SerialEntry(comment = "Kobe: speed boost settings.")
