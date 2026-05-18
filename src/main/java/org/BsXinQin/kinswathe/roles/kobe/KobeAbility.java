@@ -34,16 +34,16 @@ public class KobeAbility {
             playerShop.balance -= KinsWatheConfig.HANDLER.instance().KobeAbilityPrice;
             playerShop.sync();
 
-            // 硬编码速度效果：直接修改移动速度属性
-            double originalSpeed = player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getBaseValue();
-            double boostedSpeed = originalSpeed * 2.5; // 2.5倍速度，可调整
-            player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(boostedSpeed);
-            // 5秒后恢复
-            player.getServer().execute(() -> {
-                try { Thread.sleep(5000); } catch (InterruptedException ignored) {}
-                player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(originalSpeed);
-            });
-
+            // 获取原始速度
+        double originalSpeed = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getBaseValue();
+        double boostedSpeed = originalSpeed * 2.5; // 2.5倍速度
+        player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(boostedSpeed);
+        
+        // 5秒后恢复
+        player.getServer().execute(() -> {
+            try { Thread.sleep(5000); } catch (InterruptedException ignored) {}
+            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(originalSpeed);
+        });
             // 检测周围玩家（半径5格）给予奖励
             double range = 5.0;
             Box area = player.getBoundingBox().expand(range);
