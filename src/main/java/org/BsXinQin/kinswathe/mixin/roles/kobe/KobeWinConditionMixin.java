@@ -18,9 +18,6 @@ import java.util.List;
 @Mixin(MurderGameMode.class)
 public class KobeWinConditionMixin {
 
-    /**
-     * 在游戏 tick 循环中检查科比的胜利条件
-     */
     @Inject(method = "tickServerGameLoop", at = @At("TAIL"))
     private void checkKobeWin(ServerWorld world, GameWorldComponent gameWorld, CallbackInfo ci) {
         if (!gameWorld.isRunning()) return;
@@ -29,14 +26,14 @@ public class KobeWinConditionMixin {
             .filter(GameFunctions::isPlayerAliveAndSurvival)
             .toList();
 
-        // 检查是否有科比存活
         boolean kobeAlive = alivePlayers.stream().anyMatch(p -> gameWorld.isRole(p, KinsWatheRoles.KOBE));
         if (!kobeAlive) return;
 
-        // 条件：总存活人数 <= 2 且科比存活
+        // 存活人数 ≤ 2 且科比存活 → 科比获胜
         if (alivePlayers.size() <= 2) {
-            // 科比获胜
             CustomWinnerComponent customWinner = CustomWinnerComponent.KEY.get(world);
+            // 防止重复设置
+            if (customWinner.hasCustomWinner()) return;
             customWinner.setWinningTextId("kobe");
             customWinner.setWinners(alivePlayers.stream().filter(p -> gameWorld.isRole(p, KinsWatheRoles.KOBE)).toList());
             customWinner.setColor(KinsWatheRoles.KOBE.color());
