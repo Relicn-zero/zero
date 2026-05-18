@@ -3,6 +3,8 @@ package org.BsXinQin.kinswathe.roles.kobe;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.game.GameFunctions;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -20,9 +22,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-/**
- * 科比的冲刺能力
- */
 public class KobeAbility {
 
     public static void register(@NotNull PlayerEntity player) {
@@ -37,16 +36,45 @@ public class KobeAbility {
             playerShop.balance -= KinsWatheConfig.HANDLER.instance().KobeAbilityPrice;
             playerShop.sync();
 
-            // 执行冲刺
+            // 执行冲刺位移
             double distance = KinsWatheConfig.HANDLER.instance().KobeDashDistance;
             Vec3d start = player.getPos();
             Vec3d direction = player.getRotationVector().normalize();
             Vec3d end = start.add(direction.multiply(distance));
 
-            // 瞬移（模拟冲刺）
+            // 瞬移前检测沿途玩家
+            Box dashBox = new Box(start, end).expand(1.0); // 扩大检测范围
+            List<ServerPlayerEntity> targets = player.getWorld().getEntitiesByClass(
+                ServerPlayerEntity.class,
+                dashBox,
+                target -> target != player && GameFunctions.isPlayerAliveAndSurvival(target)
+            );
+
+            // 执行瞬移
             player.teleport(end.x, end.y, end.z);
-            // 播放冲刺音效
-            player.playSoundToPlayer(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 1.2f);
-            // 生成冲刺粒子效果
+
+            // 击退并眩晕沿途玩家
+            int stunDuration = KinsWatheConfig.HANDLER.instance().KobeStunDuration * 20; // 秒转 tick
+            for (ServerPlayerEntity target : targets) {
+                // 计算击退方向（从玩家位置指向目标，垂直方向保留）
+                Vec3d knockbackDir = target.getPos().subtract(player.getPos()).normalize();
+                knockbackDir = new Vec3d(knockbackDir.x, 0.2, knockbackDir.z).normalize();
+                target.setVelocity(knockbackDir.multiply(1.5));
+                target.velocityModified = true;
+                // 眩晕效果
+                PlayerEffectComponent.KEY.get(target).setStunTicks(stunDuration);
+                // 额外添加缓慢效果增强眩晕感
+                target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, stunDuration, 2, false, true, true));
+            }
+
+            // 特效和音效
             if (player.getWorld() instanceof ServerWorld serverWorld) {
-                serverWorld.spawnParticles(P
+                serverWorld.spawnParticles(ParticleTypes.SWEEP_ATTACK, end.x, end.y + 0.5, end.z, 10, 0.5, 0.5, 0.5, 0.1);
+            }
+            player.playSoundToPlayer(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 1.2f);
+
+            // 设置冷却
+            ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().KobeCooldown);
+        }
+    }
+}
