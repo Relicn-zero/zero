@@ -41,7 +41,6 @@
     "roles.physician.PhysicianTipPoisonMixin",
     "roles.robot.RobotNoPoisonMixin",
     "roles.kobe.KobeWinConditionMixin",
-    "roles.kobe.KobeMovementMixin",
     "roles.technician.TechnicianShopMixin"
   ],
   "injectors": {
