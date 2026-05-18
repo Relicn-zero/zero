@@ -97,6 +97,8 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         tag.putInt("ArbiterGlowDuration", this.ArbiterGlowDuration);
         ArbiterCooldown = KinsWatheConfig.HANDLER.instance().ArbiterCooldown;
         tag.putInt("ArbiterCooldown", this.ArbiterCooldown);
+        JudgeLordAbilityPrice = KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice;
+tag.putInt("JudgeLordAbilityPrice", this.JudgeLordAbilityPrice);
         //关于NoellesRoles修改
         EnableNoellesRolesModify = KinsWatheConfig.HANDLER.instance().EnableNoellesRolesModify; tag.putBoolean("EnableNoellesRolesModify", this.EnableNoellesRolesModify);
         ConductorInstinctModify = KinsWatheConfig.HANDLER.instance().ConductorInstinctModify; tag.putBoolean("ConductorInstinctModify", this.ConductorInstinctModify);
@@ -136,6 +138,7 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         if (tag.contains("ArbiterAbilityPrice")) this.ArbiterAbilityPrice = tag.getInt("ArbiterAbilityPrice");
         if (tag.contains("ArbiterGlowDuration")) this.ArbiterGlowDuration = tag.getInt("ArbiterGlowDuration");
         if (tag.contains("ArbiterCooldown")) this.ArbiterCooldown = tag.getInt("ArbiterCooldown");
+        if (tag.contains("JudgeLordAbilityPrice")) this.JudgeLordAbilityPrice = tag.getInt("JudgeLordAbilityPrice");
         //关于NoellesRoles修改
         if (tag.contains("EnableNoellesRolesModify"))   this.EnableNoellesRolesModify = tag.getBoolean("EnableNoellesRolesModify");
         if (tag.contains("ConductorInstinctModify"))   this.ConductorInstinctModify = tag.getBoolean("ConductorInstinctModify");
