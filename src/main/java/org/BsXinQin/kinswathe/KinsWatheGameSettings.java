@@ -151,6 +151,16 @@ public class KinsWatheGameSettings {
                     }
                 }
             }
+            // 在 AllowPlayerDeath.EVENT 回调内部，玩家死亡后，判断击杀者
+if (killer != null) {
+    // 通知所有审判长组件，检查击杀者是否是被监控的目标
+    for (ServerPlayerEntity p : killer.getServer().getPlayerManager().getPlayerList()) {
+        JudgeLordComponent lordData = JudgeLordComponent.KEY.get(p);
+        if (lordData != null) {
+            lordData.reportKillIfTargetMatches(killer.getUuid());
+        }
+    }
+}
             return true;
         }));
         AllowPlayerPunching.EVENT.register(((attacker, victim) -> attacker.getMainHandStack().isOf(KinsWatheItems.HUNTING_KNIFE)));
