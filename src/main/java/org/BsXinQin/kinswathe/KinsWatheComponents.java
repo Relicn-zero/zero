@@ -38,7 +38,11 @@ public class KinsWatheComponents implements EntityComponentInitializer, WorldCom
         registry.beginRegistration(PlayerEntity.class, ArbiterComponent.KEY)
                 .respawnStrategy(RespawnCopyStrategy.NEVER_COPY)
                 .end(ArbiterComponent::new);
+        registry.beginRegistration(PlayerEntity.class, JudgeLordComponent.KEY)
+    .respawnStrategy(RespawnCopyStrategy.NEVER_COPY)
+    .end(JudgeLordComponent::new);
     }
+    
 
     @Override
     public void registerWorldComponentFactories(@NotNull WorldComponentFactoryRegistry registry) {
