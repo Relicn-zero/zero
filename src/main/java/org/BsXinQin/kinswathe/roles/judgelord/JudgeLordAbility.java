@@ -11,6 +11,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import org.BsXinQin.kinswathe.KinsWathe;
 import org.BsXinQin.kinswathe.KinsWatheConfig;
 import org.BsXinQin.kinswathe.KinsWatheRoles;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
@@ -20,9 +21,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-/**
- * 审判长能力核心逻辑
- */
 public class JudgeLordAbility {
 
     public static void register(@NotNull JudgeLordC2SPacket payload, @NotNull PlayerEntity player) {
@@ -31,16 +29,19 @@ public class JudgeLordAbility {
         PlayerShopComponent playerShop = PlayerShopComponent.KEY.get(player);
         JudgeLordComponent lordData = JudgeLordComponent.KEY.get(player);
 
-        // 检查角色、存活、冷却、剩余使用次数
+        // 调试日志
+        KinsWathe.LOGGER.info("JudgeLord triggered. Remaining uses: " + lordData.getRemainingUses() + ", balance: " + playerShop.balance);
+
         if (gameWorld.isRole(player, KinsWatheRoles.JUDGELORD) && GameFunctions.isPlayerAliveAndSurvival(player) && ability.cooldown <= 0) {
-            // 剩余使用次数检查
             if (lordData.getRemainingUses() <= 0) {
                 player.sendMessage(Text.translatable("tip.kinswathe.judgelord.no_uses_left").withColor(Color.RED.getRGB()), true);
                 return;
             }
-            if (playerShop.balance < KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice) return;
+            if (playerShop.balance < KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice) {
+                player.sendMessage(Text.translatable("tip.kinswathe.ability.not_enough_money", KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice).withColor(Color.RED.getRGB()), true);
+                return;
+            }
 
-            // 获取目标玩家
             ServerPlayerEntity target = player.getServer().getPlayerManager().getPlayer(payload.target());
             if (target == null || !GameFunctions.isPlayerAliveAndSurvival(target)) {
                 player.sendMessage(Text.translatable("tip.kinswathe.judgelord.invalid_target").withColor(Color.RED.getRGB()), true);
@@ -51,11 +52,9 @@ public class JudgeLordAbility {
                 return;
             }
 
-            // 扣除金币
+            // 扣除金币和使用次数
             playerShop.balance -= KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice;
             playerShop.sync();
-
-            // 扣除使用次数
             lordData.decrementRemainingUses();
             lordData.sync();
 
@@ -63,20 +62,17 @@ public class JudgeLordAbility {
             int glowDuration = KinsWatheConfig.HANDLER.instance().JudgeLordGlowDuration * 20;
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, glowDuration, 0, false, true, true));
 
-            // 召唤视觉闪电
+            // 闪电
             LightningEntity lightning = new LightningEntity(net.minecraft.entity.EntityType.LIGHTNING_BOLT, target.getWorld());
             lightning.refreshPositionAfterTeleport(target.getPos());
             lightning.setCosmetic(true);
             target.getWorld().spawnEntity(lightning);
 
-            // 播放音效
             player.playSoundToPlayer(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.PLAYERS, 1.0f, 1.0f);
 
-            // 设置冷却
             ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().JudgeLordCooldown);
 
-            // 启动监控任务：在发光期间监听目标是否杀人
-            // 使用 JudgeLordComponent 来存储监控状态
+            // 开始监控
             lordData.startMonitoring(target.getUuid(), glowDuration);
         }
     }
