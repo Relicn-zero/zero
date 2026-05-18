@@ -19,7 +19,7 @@
 "tip.kinswathe.judgelord.invalid_target": "§c无效目标！",
 "tip.kinswathe.judgelord.cannot_judge_self": "§c不能审判自己！",
 "tip.kinswathe.judgelord.verdict_executed": "§c被审判的玩家犯下谋杀罪，已被处决！",
-"hud.kinswathe.judgelord.ready": "准备审判"
+"hud.kinswathe.judgelord.ready": "准备审判",
   
   "announcement.role.kinswathe.bodymaker": "造尸怪",
   "announcement.goals.kinswathe.bodymaker": "伪造尸体，混淆视听",
