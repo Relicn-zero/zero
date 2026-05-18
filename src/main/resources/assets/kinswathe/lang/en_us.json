@@ -7,6 +7,12 @@
   "tip.kinswathe.game_safe_time": "Remaining safe time: %ss",
   "tip.kinswathe.game_no_safe_time": "Safe time has been exhausted!",
 
+"announcement.role.kinswathe.kobe": "Kobe",
+"announcement.goals.kinswathe.kobe": "Dash to knock back and stun enemies. Win when you are the last one with only one other player.",
+"tip.kinswathe.kobe.cramp": "§cCramp! You cannot sprint for a moment.",
+"announcement.win.kinswathe.kobe": "Kobe Wins!",
+"game.win.kinswathe.kobe": "Kobe proved his dominance!"
+  
   "announcement.role.kinswathe.bellringer": "Bellringer",
   "announcement.goals.kinswathe.bellringer": "Check time, and modify time.",
 
