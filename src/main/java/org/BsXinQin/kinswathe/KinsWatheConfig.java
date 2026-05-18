@@ -112,6 +112,8 @@ public int JudgeLordCooldownReductionAmount = 10; // 每次恢复情绪减少冷
 public int KobeAbilityPrice = 150;
 @SerialEntry(comment = "Kobe: speed boost settings.")
 public int KobeSpeedAmplifier = 4;           // 速度等级（0-4，4为速度V）
+@SerialEntry(comment = "Kobe: cooldown (seconds).")
+public int KobeCooldown = 30;
 @SerialEntry
 public int KobeSpeedBaseDuration = 5;        // 基础持续时间（秒）
 @SerialEntry
