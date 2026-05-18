@@ -53,7 +53,8 @@ public class KinsWatheInitializeClient {
                             KinsWatheRoles.HUNTER,
                             KinsWatheRoles.ROBOT,
                             KinsWatheRoles.CLEANER,
-                            KinsWatheRoles.ARBITER   // 裁决者加入能力键
+                            KinsWatheRoles.ARBITER,   // 裁决者加入能力键
+                            KinsWatheRoles.KOBE
                     };
                     for (Role role : rolesWithAbility) {
                         if (gameWorld.isRole(MinecraftClient.getInstance().player, role)) sendAbilityPacket = true;
