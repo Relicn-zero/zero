@@ -95,6 +95,15 @@ public boolean EnableRobotSpeedEffect = true;
 public double TechnicianTrapRange = 1.5;
 @SerialEntry(comment = "Enable slowness effect on trapped player")
 public boolean EnableTechnicianSlowness = true;
+
+@SerialEntry(comment = "JudgeLord: modify price, glow duration, cooldown and max uses.")
+public int JudgeLordAbilityPrice = 300;
+@SerialEntry
+public int JudgeLordGlowDuration = 30;      // 发光持续时间（秒）
+@SerialEntry
+public int JudgeLordCooldown = 120;         // 技能冷却时间（秒）
+@SerialEntry
+public int JudgeLordMaxUses = 1;            // 每局最大使用次数
     
     @SerialEntry(comment = "Cook: modify price of Pan.")
     public int CookPanPrice = 250;
