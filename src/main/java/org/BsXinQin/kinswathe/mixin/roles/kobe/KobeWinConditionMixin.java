@@ -28,10 +28,10 @@ public class KobeWinConditionMixin {
         boolean kobeAlive = alivePlayers.stream().anyMatch(p -> gameWorld.isRole(p, KinsWatheRoles.KOBE));
         if (!kobeAlive) return;
 
-        // 胜利条件：存活玩家总数 ≤ 2 且科比存活
+        // 存活玩家总数 ≤ 2 且科比存活 → 科比获胜
         if (alivePlayers.size() <= 2) {
             CustomWinnerComponent customWinner = CustomWinnerComponent.KEY.get(world);
-            if (customWinner.hasCustomWinner()) return; // 已经有人获胜则不再重复
+            if (customWinner.hasCustomWinner()) return;
             customWinner.setWinningTextId("kobe");
             customWinner.setWinners(alivePlayers.stream().filter(p -> gameWorld.isRole(p, KinsWatheRoles.KOBE)).toList());
             customWinner.setColor(KinsWatheRoles.KOBE.color());
