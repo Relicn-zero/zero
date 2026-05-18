@@ -167,7 +167,7 @@ public class KinsWatheGameSettings {
     }
 
     /// 重置事件
-    public static void resetEvents() {
+     public static void resetEvents() {
         ResetPlayerEvent.EVENT.register(player -> {
             GameSafeComponent.KEY.get(player.getWorld()).reset();
             PlayerEffectComponent.KEY.get(player).reset();
@@ -182,13 +182,7 @@ public class KinsWatheGameSettings {
             PhysicianComponent.KEY.get(player).reset();
             TechnicianComponent.KEY.get(player).reset();
 
-            // 机器人永久速度效果（重新添加）
-            if (KinsWatheConfig.HANDLER.instance().EnableRobotSpeedEffect) {
-                GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
-                if (gameWorld.isRole(player, KinsWatheRoles.ROBOT)) {
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, Integer.MAX_VALUE, 0, false, false, true));
-                }
-            }
+            // 注意：移除了重新添加机器人速度效果的代码
         });
     }
 
