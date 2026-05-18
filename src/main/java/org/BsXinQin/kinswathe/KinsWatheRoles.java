@@ -88,7 +88,7 @@ public static Role JUDGELORD = registerRole(new Role(
 public static Role KOBE = registerRole(new Role(
     Identifier.of(KinsWathe.MOD_ID, "kobe"),
     0xFFD700,
-    false,      // 不是平民
+    true,      // 不是平民
     false,      // 不是杀手
     Role.MoodType.REAL,   // 改为 REAL，使科比拥有情绪系统
     -1,
