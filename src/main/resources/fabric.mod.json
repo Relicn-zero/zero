@@ -28,24 +28,25 @@
   },
   "custom": {
     "cardinal-components": [
-      "kinswathe:safe",
-      "kinswathe:body",
-      "kinswathe:effect",
-      "kinswathe:ability",
-      "kinswathe:config",
-      "kinswathe:winner",
-      "kinswathe:cook",
-      "kinswathe:dreamer",
-      "kinswathe:dreamer_killer",
-      "kinswathe:hacker",
-      "kinswathe:hacker_phone",
-      "kinswathe:hunter",
-      "kinswathe:kidnapper",
-      "kinswathe:physician",
-      "kinswathe:technician",
-      "kinswathe:arbiter"
+        "kinswathe:effect",
+        "kinswathe:ability",
+        "kinswathe:body",
+        "kinswathe:config",
+        "kinswathe:safe",
+        "kinswathe:winner",
+        "kinswathe:cook",
+        "kinswathe:dreamer",
+        "kinswathe:dreamer_killer",
+        "kinswathe:hacker",
+        "kinswathe:hacker_phone",
+        "kinswathe:hunter",
+        "kinswathe:kidnapper",
+        "kinswathe:physician",
+        "kinswathe:technician",
+        "kinswathe:arbiter",
+        "kinswathe:judgelord"
     ]
-  },
+},
   "mixins": [
     "kinswathe.mixins.json",
     {
