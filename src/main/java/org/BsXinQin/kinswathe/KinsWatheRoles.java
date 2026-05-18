@@ -136,7 +136,7 @@ public static Role KOBE = registerRole(new Role(
     public static final ArrayList<Role> NEUTRAL_ROLES = new ArrayList<>();
     public static final ArrayList<Role> KILLER_NEUTRAL_ROLES = new ArrayList<>();
     public static void addNewRoleCamps() { addNeutralRoles(); addKillerNeutralRoles(); }
-    public static void addNeutralRoles() { NEUTRAL_ROLES.add(LICENSED_VILLAIN); }
+    public static void addNeutralRoles() { NEUTRAL_ROLES.add(LICENSED_VILLAIN); NEUTRAL_ROLES.add(KOBE);}
     public static void addKillerNeutralRoles() { KILLER_NEUTRAL_ROLES.add(HACKER); if (FabricLoader.getInstance().isModLoaded("noellesroles")) { KILLER_NEUTRAL_ROLES.add(DREAMER); Harpymodloader.setRoleMaximum(DREAMER, 1); } }
 
     /// 限制人数
