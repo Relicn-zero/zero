@@ -1,6 +1,5 @@
 package org.BsXinQin.kinswathe.mixin.roles.kobe;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.game.GameFunctions;
 import dev.doctor4t.wathe.game.gamemode.MurderGameMode;
@@ -23,17 +22,16 @@ public class KobeWinConditionMixin {
         if (!gameWorld.isRunning()) return;
 
         List<ServerPlayerEntity> alivePlayers = world.getPlayers().stream()
-            .filter(GameFunctions::isPlayerAliveAndSurvival)
-            .toList();
+                .filter(GameFunctions::isPlayerAliveAndSurvival)
+                .toList();
 
         boolean kobeAlive = alivePlayers.stream().anyMatch(p -> gameWorld.isRole(p, KinsWatheRoles.KOBE));
         if (!kobeAlive) return;
 
-        // 存活人数 ≤ 2 且科比存活 → 科比获胜
+        // 胜利条件：存活玩家总数 ≤ 2 且科比存活
         if (alivePlayers.size() <= 2) {
             CustomWinnerComponent customWinner = CustomWinnerComponent.KEY.get(world);
-            // 防止重复设置
-            if (customWinner.hasCustomWinner()) return;
+            if (customWinner.hasCustomWinner()) return; // 已经有人获胜则不再重复
             customWinner.setWinningTextId("kobe");
             customWinner.setWinners(alivePlayers.stream().filter(p -> gameWorld.isRole(p, KinsWatheRoles.KOBE)).toList());
             customWinner.setColor(KinsWatheRoles.KOBE.color());
