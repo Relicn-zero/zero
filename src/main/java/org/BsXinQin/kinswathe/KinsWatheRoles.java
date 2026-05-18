@@ -126,12 +126,32 @@ public static Role KOBE = registerRole(new Role(
         return List.copyOf(roles);
     }
     public static List<Role> rolesHavePassiveIncome() {
-        List<Role> roles = new ArrayList<>();
-        roles.add(WatheRoles.KILLER); roles.add(BODYMAKER);roles.add(ARBITER); roles.add(KOBE);roles.add(JUDGELORD);roles.add(CLEANER); roles.add(COOK); roles.add(DREAMER); roles.add(DRUGMAKER); roles.add(HUNTER); roles.add(JUDGE); roles.add(KIDNAPPER);
-        if (KinsWatheConfig.HANDLER.instance().HackerHasShop) roles.add(HACKER);
-        if (FabricLoader.getInstance().isModLoaded("noellesroles")) { roles.add(noellesrolesRoles("MIMIC")); roles.add(noellesrolesRoles("PHANTOM")); roles.add(noellesrolesRoles("SWAPPER")); roles.add(noellesrolesRoles("MORPHLING")); roles.add(noellesrolesRoles("NOISEMAKER")); roles.add(noellesrolesRoles("EXECUTIONER")); roles.add(noellesrolesRoles("THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES")); if (noellesrolesRoles("JESTER") != null) roles.add(noellesrolesRoles("JESTER")); }
-        return List.copyOf(roles);
+    List<Role> roles = new ArrayList<>();
+    roles.add(WatheRoles.KILLER);
+    roles.add(BODYMAKER);
+    roles.add(ARBITER);
+    roles.add(JUDGELORD);
+    roles.add(KOBE);
+    roles.add(CLEANER);
+    roles.add(COOK);
+    roles.add(DREAMER);
+    roles.add(DRUGMAKER);
+    roles.add(HUNTER);
+    roles.add(JUDGE);
+    roles.add(KIDNAPPER);
+    if (KinsWatheConfig.HANDLER.instance().HackerHasShop) roles.add(HACKER);
+    if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
+        roles.add(noellesrolesRoles("MIMIC"));
+        roles.add(noellesrolesRoles("PHANTOM"));
+        roles.add(noellesrolesRoles("SWAPPER"));
+        roles.add(noellesrolesRoles("MORPHLING"));
+        roles.add(noellesrolesRoles("NOISEMAKER"));
+        roles.add(noellesrolesRoles("EXECUTIONER"));
+        roles.add(noellesrolesRoles("THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES"));
+        if (noellesrolesRoles("JESTER") != null) roles.add(noellesrolesRoles("JESTER"));
     }
+    return List.copyOf(roles);
+}
 
     /// 阵营
     public static final ArrayList<Role> NEUTRAL_ROLES = new ArrayList<>();
