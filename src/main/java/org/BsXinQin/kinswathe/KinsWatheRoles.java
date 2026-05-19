@@ -195,9 +195,9 @@ public class KinsWatheRoles {
                 /* 初始物品留空 */ 
             }
             
-           if (role.equals(ROBOT)) {
+          if (role.equals(ROBOT)) {
     float multiplier = (float) KinsWatheConfig.HANDLER.instance().RobotSpeedMultiplier;
-    SpeedComponent.KEY.get(player).setPermanentMultiplier(multiplier);
+    SpeedComponent.KEY.get(player).setMultiplier(multiplier, 0); // 0 表示永久
 }
         });
     }
