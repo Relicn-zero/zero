@@ -2,7 +2,6 @@ package org.BsXinQin.kinswathe.mixin;
 
 import net.minecraft.entity.player.PlayerEntity;
 import org.BsXinQin.kinswathe.component.SpeedComponent;
-package org.BsXinQin.kinswathe.mixin;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
