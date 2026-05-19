@@ -197,9 +197,9 @@ public static void setDefaultEvents() {
 
         // 机器人：修改基础移动速度（永久）
         if (role.equals(ROBOT)) {
-            double speed = 0.12; // 追星族的行走速度
-            player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(speed);
-        }
+    double baseSpeed = 0.12;  // 追星族的行走速度，也可从配置读取
+    player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(baseSpeed);
+}
     });
 }
 
