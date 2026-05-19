@@ -57,10 +57,10 @@ public int BellringerAbilityPrice = 200;
 @SerialEntry
 public int BellringerAbilityCooldown = 120;
 
-@SerialEntry(comment = "Bellringer: speed boost duration (seconds) after using ability.")
+@SerialEntry(comment = "Bellringer: speed boost multiplier and duration.")
+public float BellringerSpeedMultiplier = 1.3f;
+@SerialEntry
 public int BellringerSpeedDuration = 10;
-@SerialEntry(comment = "Bellringer: speed boost multiplier (1.0 = no change).")
-public double BellringerSpeedMultiplier = 1.5;
 
     @SerialEntry(comment = "Bodymaker: modify cooldown of ability and whether to fake role of body.")
     public int BodymakerAbilityCooldown = GameConstants.getInTicks(1,30) / 20;
