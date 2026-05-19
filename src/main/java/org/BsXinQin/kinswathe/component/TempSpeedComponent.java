@@ -16,7 +16,7 @@ public class TempSpeedComponent implements AutoSyncedComponent, ServerTickingCom
             Identifier.of(KinsWathe.MOD_ID, "temp_speed"), TempSpeedComponent.class);
 
     private final PlayerEntity player;
-    private int activeTicks = 0;
+    private int activeTicks = 0;   // 剩余激活时间（tick），0 表示未激活
 
     public TempSpeedComponent(PlayerEntity player) { this.player = player; }
 
