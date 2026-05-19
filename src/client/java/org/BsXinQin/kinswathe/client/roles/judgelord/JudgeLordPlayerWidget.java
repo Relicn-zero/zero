@@ -33,8 +33,7 @@ public class JudgeLordPlayerWidget extends ButtonWidget {
             AbilityPlayerComponent ability = AbilityPlayerComponent.KEY.get(MinecraftClient.getInstance().player);
             PlayerShopComponent playerShop = PlayerShopComponent.KEY.get(MinecraftClient.getInstance().player);
             JudgeLordComponent lordData = JudgeLordComponent.KEY.get(MinecraftClient.getInstance().player);
-            if (ability.cooldown <= 0 && playerShop.balance >= ConfigWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld()).JudgeLordAbilityPrice
-                && lordData.getRemainingUses() > 0) {
+            if (ability.cooldown <= 0 && playerShop.balance >= ConfigWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld()).JudgeLordAbilityPrice) {
                 ClientPlayNetworking.send(new JudgeLordC2SPacket(targetUUID));
                 screen.close();
             }
@@ -50,10 +49,7 @@ public class JudgeLordPlayerWidget extends ButtonWidget {
         super.renderWidget(context, mouseX, mouseY, delta);
         AbilityPlayerComponent ability = AbilityPlayerComponent.KEY.get(MinecraftClient.getInstance().player);
         PlayerShopComponent playerShop = PlayerShopComponent.KEY.get(MinecraftClient.getInstance().player);
-        JudgeLordComponent lordData = JudgeLordComponent.KEY.get(MinecraftClient.getInstance().player);
-        boolean canUse = ability.cooldown <= 0 && playerShop.balance >= ConfigWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld()).JudgeLordAbilityPrice && lordData.getRemainingUses() > 0;
-
-        if (canUse) {
+        if (ability.cooldown <= 0 && playerShop.balance >= ConfigWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld()).JudgeLordAbilityPrice) {
             context.drawGuiTexture(ShopEntry.Type.POISON.getTexture(), this.getX() - 7, this.getY() - 7, 30, 30);
             PlayerSkinDrawer.draw(context, targetPlayerEntry.getSkinTextures().texture(), this.getX(), this.getY(), 16);
             if (this.isHovered()) {
@@ -73,8 +69,6 @@ public class JudgeLordPlayerWidget extends ButtonWidget {
                 this.drawShopSlotHighlight(context, this.getX(), this.getY());
                 if (ability.cooldown > 0) {
                     context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.of(targetPlayerEntry.getProfile().getName()), this.getX() - 4 - MinecraftClient.getInstance().textRenderer.getWidth(targetPlayerEntry.getProfile().getName()) / 2, this.getY() - 19);
-                } else if (lordData.getRemainingUses() <= 0) {
-                    context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.translatable("tip.kinswathe.judgelord.no_uses_left"), this.getX() - 4 - MinecraftClient.getInstance().textRenderer.getWidth(targetPlayerEntry.getProfile().getName()) / 2, this.getY() - 19);
                 } else {
                     context.drawTooltip(MinecraftClient.getInstance().textRenderer, Arrays.asList(
                         Text.of(targetPlayerEntry.getProfile().getName()),
@@ -87,8 +81,6 @@ public class JudgeLordPlayerWidget extends ButtonWidget {
             context.setShaderColor(1f, 1f, 1f, 1f);
             if (ability.cooldown > 0) {
                 context.drawText(MinecraftClient.getInstance().textRenderer, ability.cooldown / 20 + "", this.getX(), this.getY(), Color.RED.getRGB(), true);
-            } else if (lordData.getRemainingUses() > 0) {
-                context.drawText(MinecraftClient.getInstance().textRenderer, lordData.getRemainingUses() + "", this.getX(), this.getY(), Color.YELLOW.getRGB(), true);
             }
         }
     }
