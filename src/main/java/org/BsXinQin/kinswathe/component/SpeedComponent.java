@@ -17,19 +17,11 @@ public class SpeedComponent implements AutoSyncedComponent, ServerTickingCompone
 
     private final PlayerEntity player;
     private float multiplier = 1.0f;
-    private int remainingTicks = 0;
+    private int remainingTicks = 0;  // 剩余时间（tick），0 表示永久
 
     public SpeedComponent(PlayerEntity player) { this.player = player; }
 
-    // 永久倍率
-    public void setPermanentMultiplier(float mult) {
-        this.multiplier = mult;
-        this.remainingTicks = 0;
-        sync();
-    }
-
-    // 临时倍率
-    public void setTemporaryMultiplier(float mult, int durationTicks) {
+    public void setMultiplier(float mult, int durationTicks) {
         this.multiplier = mult;
         this.remainingTicks = durationTicks;
         sync();
