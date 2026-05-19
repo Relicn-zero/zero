@@ -55,7 +55,9 @@ public class KobeAbility {
             int extraPerHit = KinsWatheConfig.HANDLER.instance().KobeSpeedExtraPerHit;
             int maxDuration = KinsWatheConfig.HANDLER.instance().KobeSpeedMaxDuration;
             int durationSec = Math.min(baseDuration + hitCount * extraPerHit, maxDuration);
-            int durationTicks = durationSec * 20;
+            // 计算 durationSec 后
+int durationTicks = durationSec * 20;
+TempSpeedComponent.KEY.get(player).activate(durationTicks);
 
             // 速度倍率（可配置，例如 1.5 倍）
             float multiplier = (float) KinsWatheConfig.HANDLER.instance().KobeSpeedMultiplier;
