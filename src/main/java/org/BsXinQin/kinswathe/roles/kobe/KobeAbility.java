@@ -33,28 +33,35 @@ public class KobeAbility {
         if (gameWorld.isRole(player, KinsWatheRoles.KOBE) && GameFunctions.isPlayerAliveAndSurvival(player) && ability.cooldown <= 0) {
             if (playerShop.balance < KinsWatheConfig.HANDLER.instance().KobeAbilityPrice) return;
 
+            // 扣除金币
             playerShop.balance -= KinsWatheConfig.HANDLER.instance().KobeAbilityPrice;
             playerShop.sync();
 
+            // 检测范围内玩家（半径3格，同一楼层Y轴差≤1.5）
             double range = 3.0;
             Box area = player.getBoundingBox().expand(range);
             List<ServerPlayerEntity> nearby = player.getWorld().getEntitiesByClass(
-                    ServerPlayerEntity.class,
-                    area,
-                    target -> target != player
-                            && GameFunctions.isPlayerAliveAndSurvival(target)
-                            && Math.abs(target.getY() - player.getY()) <= 1.5
+                ServerPlayerEntity.class,
+                area,
+                target -> target != player
+                        && GameFunctions.isPlayerAliveAndSurvival(target)
+                        && Math.abs(target.getY() - player.getY()) <= 1.5
             );
 
             int hitCount = nearby.size();
 
+            // 速度持续时间计算（根据命中人数）
             int baseDuration = KinsWatheConfig.HANDLER.instance().KobeSpeedBaseDuration;
             int extraPerHit = KinsWatheConfig.HANDLER.instance().KobeSpeedExtraPerHit;
             int maxDuration = KinsWatheConfig.HANDLER.instance().KobeSpeedMaxDuration;
             int durationSec = Math.min(baseDuration + hitCount * extraPerHit, maxDuration);
-            float multiplier = (float) KinsWatheConfig.HANDLER.instance().KobeSpeedMultiplier;
-            SpeedComponent.KEY.get(player).setMultiplier(multiplier, durationSec * 20);
+            int durationTicks = durationSec * 20;
 
+            // 速度倍率（可配置，例如 1.5 倍）
+            float multiplier = (float) KinsWatheConfig.HANDLER.instance().KobeSpeedMultiplier;
+            SpeedComponent.KEY.get(player).setMultiplier(multiplier, durationTicks);
+
+            // 金币奖励和情绪
             if (hitCount > 0) {
                 int rewardPerPlayer = KinsWatheConfig.HANDLER.instance().KobeRewardPerPlayer;
                 int totalReward = rewardPerPlayer * hitCount;
@@ -63,8 +70,11 @@ public class KobeAbility {
                 player.sendMessage(Text.translatable("tip.kinswathe.kobe.reward", totalReward), true);
 
                 PlayerMoodComponent mood = PlayerMoodComponent.KEY.get(player);
-                if (mood != null) mood.setMood(mood.getMood() + 10 * hitCount);
+                if (mood != null) {
+                    mood.setMood(mood.getMood() + 10 * hitCount);
+                }
 
+                // 眩晕效果
                 int stunDuration = KinsWatheConfig.HANDLER.instance().KobeStunDuration * 20;
                 for (ServerPlayerEntity target : nearby) {
                     PlayerEffectComponent.KEY.get(target).setStunTicks(stunDuration);
@@ -73,11 +83,13 @@ public class KobeAbility {
                 }
             }
 
+            // 特效和音效
             if (player.getWorld() instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(ParticleTypes.SWEEP_ATTACK, player.getX(), player.getY() + 0.5, player.getZ(), 1, 0.5, 0.5, 0.5, 0);
             }
             player.playSoundToPlayer(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 1.2f);
 
+            // 冷却
             ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().KobeCooldown);
         }
     }
