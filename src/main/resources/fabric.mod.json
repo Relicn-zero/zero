@@ -44,7 +44,8 @@
         "kinswathe:physician",
         "kinswathe:technician",
         "kinswathe:arbiter",
-        "kinswathe:judgelord"
+        "kinswathe:judgelord",
+        "kinswathe:speed"
     ]
 },
   "mixins": [
