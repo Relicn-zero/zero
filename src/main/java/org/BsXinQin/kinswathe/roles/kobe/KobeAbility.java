@@ -53,9 +53,9 @@ public class KobeAbility {
             int hitCount = nearby.size();
 
             // 速度提升持续时间（秒）
-            int duration = KinsWatheConfig.HANDLER.instance().KobeSpeedDuration;
-float multiplier = 1.5f; // 速度倍率，可根据 hitCount 动态调整
-TempSpeedComponent.KEY.get(player).activate(duration * 20, multiplier);
+            float multiplier = KinsWatheConfig.HANDLER.instance().KobeSpeedMultiplier;
+int durationTicks = KinsWatheConfig.HANDLER.instance().KobeSpeedDuration * 20;
+TempSpeedComponent.KEY.get(player).activate(durationTicks, multiplier);
 
             if (hitCount > 0) {
                 // 金币奖励
