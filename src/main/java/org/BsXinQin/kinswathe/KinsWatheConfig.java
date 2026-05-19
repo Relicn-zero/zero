@@ -117,10 +117,10 @@ public int KobeCooldown = 30;
 public int KobeRewardPerPlayer = 25;
 @SerialEntry
 public int KobeStunDuration = 3;
-@SerialEntry(comment = "Kobe: speed multiplier when ability active.")
-public double KobeSpeedMultiplier = 1.5;
-@SerialEntry(comment = "Kobe: speed duration calculation.")
-public int KobeSpeedBaseDuration = 3;
+@SerialEntry(comment = "Kobe: speed boost multiplier and duration.")
+public float KobeSpeedMultiplier = 1.5f;
+@SerialEntry
+public int KobeSpeedDuration = 5;
 @SerialEntry
 public int KobeSpeedExtraPerHit = 3;
 @SerialEntry
