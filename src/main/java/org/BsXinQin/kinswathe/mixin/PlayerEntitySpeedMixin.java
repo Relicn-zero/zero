@@ -1,5 +1,6 @@
 package org.BsXinQin.kinswathe.mixin;
 
+package org.BsXinQin.kinswathe.mixin;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import org.BsXinQin.kinswathe.component.SpeedComponent;
