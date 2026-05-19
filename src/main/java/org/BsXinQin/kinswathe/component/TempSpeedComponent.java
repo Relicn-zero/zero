@@ -57,7 +57,7 @@ public class TempSpeedComponent implements AutoSyncedComponent, ServerTickingCom
     }
 
     private void applySpeedModifier() {
-        var instance = player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
+        var instance = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (instance != null) {
             originalSpeed = instance.getBaseValue();
             instance.setBaseValue(originalSpeed * speedMultiplier);
@@ -65,7 +65,7 @@ public class TempSpeedComponent implements AutoSyncedComponent, ServerTickingCom
     }
 
     private void removeSpeedModifier() {
-        var instance = player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
+        var instance = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (instance != null) {
             instance.setBaseValue(originalSpeed);
         }
