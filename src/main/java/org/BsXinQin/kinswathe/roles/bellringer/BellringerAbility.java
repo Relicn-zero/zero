@@ -37,9 +37,12 @@ public class BellringerAbility {
             // 音效
             player.playSoundToPlayer(SoundEvents.BLOCK_BELL_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
 
-            // 速度加成
-            int durationSec = KinsWatheConfig.HANDLER.instance().BellringerSpeedDuration;
-            TempSpeedComponent.KEY.get(player).activate(durationSec * 20);
+            // 原代码：TempSpeedComponent.KEY.get(player).activate(durationSec * 20);
+// 新代码：统一使用临时速度组件
+
+int duration = KinsWatheConfig.HANDLER.instance().BellringerSpeedDuration;
+float multiplier = 1.3f; // 速度倍率
+TempSpeedComponent.KEY.get(player).activate(duration * 20, multiplier);
 
             // 设置冷却
             ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().BellringerAbilityCooldown);
