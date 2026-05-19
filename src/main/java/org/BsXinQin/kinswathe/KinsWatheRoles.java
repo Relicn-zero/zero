@@ -69,7 +69,7 @@ public class KinsWatheRoles {
     public static Role TECHNICIAN = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "technician"), 0x003366, true, false, Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(), false));
     public static Role BANDIT = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "bandit"),0x8B4513, false, true, Role.MoodType.FAKE, -1, true));
     public static Role JUDGELORD = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "judgelord"),0xAA66FF, true, false, Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(), false));
-    public static Role KOBE = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "kobe"),0xFFD700, true, false, Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(), false));
+    public static Role KOBE = registerRole(new Role(Identifier.of(KinsWathe.MOD_ID, "kobe"),0xFFD700, true, false, Role.MoodType.REAL, -1, false));
 
     /// 新增词条
     public static Modifier MAGNATE = registerModifier(new Modifier(Identifier.of(KinsWathe.MOD_ID, "magnate"), 0xFFFF00, null, new ArrayList<>(rolesHavePassiveIncome()), false, false));
@@ -195,9 +195,11 @@ public class KinsWatheRoles {
                 /* 初始物品留空 */ 
             }
             
-          if (role.equals(ROBOT)) {
-    float multiplier = (float) KinsWatheConfig.HANDLER.instance().RobotSpeedMultiplier;
-    SpeedComponent.KEY.get(player).setMultiplier(multiplier, 0); // 0 表示永久
+          // 在 KinsWatheRoles.setDefaultEvents() 中
+if (role.equals(ROBOT)) {
+    double speed = 0.12; // 追星族的行走速度
+    player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(speed);
+}
 }
         });
     }
