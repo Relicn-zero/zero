@@ -57,6 +57,7 @@
     "host.UnlockDistanceMixin",
     "noellesroles.roles.conductor.ConductorInstinctMixin",
     "noellesroles.roles.coroner.CoronerInstinctMixin",
+    "roles.bellringer.BellringerHudMixin",
     "roles.cook.CookInstinctMixin",
     "roles.detective.DetectiveTargetHudMixin",
     "roles.dreamer.DreamerInstinctMixin",
