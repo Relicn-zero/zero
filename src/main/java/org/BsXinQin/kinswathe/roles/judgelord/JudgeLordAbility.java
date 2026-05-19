@@ -26,10 +26,10 @@ public class JudgeLordAbility {
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
         AbilityPlayerComponent ability = AbilityPlayerComponent.KEY.get(player);
         PlayerShopComponent playerShop = PlayerShopComponent.KEY.get(player);
-        JudgeLordComponent lordData = JudgeLordComponent.KEY.get(player); // 保留用于监控，无次数限制
+        JudgeLordComponent lordData = JudgeLordComponent.KEY.get(player);
 
         if (gameWorld.isRole(player, KinsWatheRoles.JUDGELORD) && GameFunctions.isPlayerAliveAndSurvival(player) && ability.cooldown <= 0) {
-            // 检查金币
+            // 无使用次数限制，移除次数检查
             if (playerShop.balance < KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice) {
                 player.sendMessage(Text.translatable("tip.kinswathe.ability.not_enough_money", KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice).withColor(Color.RED.getRGB()), true);
                 return;
@@ -49,11 +49,11 @@ public class JudgeLordAbility {
             playerShop.balance -= KinsWatheConfig.HANDLER.instance().JudgeLordAbilityPrice;
             playerShop.sync();
 
-            // 发光效果（从配置读取时长，单位秒）
+            // 发光效果
             int glowDuration = KinsWatheConfig.HANDLER.instance().JudgeLordGlowDuration * 20;
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, glowDuration, 0, false, true, true));
 
-            // 闪电
+            // 召唤视觉闪电
             LightningEntity lightning = new LightningEntity(net.minecraft.entity.EntityType.LIGHTNING_BOLT, target.getWorld());
             lightning.refreshPositionAfterTeleport(target.getPos());
             lightning.setCosmetic(true);
@@ -61,10 +61,10 @@ public class JudgeLordAbility {
 
             player.playSoundToPlayer(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.PLAYERS, 1.0f, 1.0f);
 
-            // 设置冷却（秒 -> tick）
-            ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().JudgeLordCooldown * 20);
+            // 冷却
+            ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().JudgeLordCooldown);
 
-            // 开始监控（杀人检测）
+            // 开始监控目标杀人
             lordData.startMonitoring(target.getUuid(), glowDuration);
         }
     }
