@@ -51,11 +51,11 @@ public class KobeAbility {
             int hitCount = nearby.size();
 
             // 速度持续时间：基础3秒 + 每命中一人+3秒，上限20秒（可配置）
-            int baseDuration = KinsWatheConfig.HANDLER.instance().KobeSpeedBaseDuration;
-            int extraPerHit = KinsWatheConfig.HANDLER.instance().KobeSpeedExtraPerHit;
-            int maxDuration = KinsWatheConfig.HANDLER.instance().KobeSpeedMaxDuration;
-            int durationSec = Math.min(baseDuration + hitCount * extraPerHit, maxDuration);
-            int durationTicks = durationSec * 20;
+            // 速度持续时间计算（根据命中人数）
+int durationSec = Math.min(baseDuration + hitCount * extraPerHit, maxDuration);
+float multiplier = 1.0f + amplifier * 0.25f; // 或者直接使用配置的固定速度值
+int durationTicks = durationSec * 20;
+SpeedComponent.KEY.get(player).setTemporaryMultiplier(multiplier, durationTicks);
 
             // 获取可配置的行走/冲刺速度（默认行走0.15，冲刺0.19）
             float walkSpeed = (float) KinsWatheConfig.HANDLER.instance().KobeCustomWalkSpeed;
