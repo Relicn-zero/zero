@@ -197,7 +197,7 @@ public static void setDefaultEvents() {
 
         // 机器人：修改基础移动速度（永久）
         if (role.equals(ROBOT)) {
-    double multiplier = KinsWatheConfig.HANDLER.instance().YourRoleSpeedMultiplier;
+    double multiplier = KinsWatheConfig.HANDLER.instance().RobotSpeedMultiplier;
     player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED)
           .setBaseValue(0.1 * multiplier);
 }
