@@ -31,7 +31,7 @@ public class JudgeLordComponent implements AutoSyncedComponent, ServerTickingCom
         this.player = player;
     }
 
-    // 无次数限制
+    // 无次数限制，返回一个很大的数表示无限
     public int getRemainingUses() {
         return Integer.MAX_VALUE;
     }
