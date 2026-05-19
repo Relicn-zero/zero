@@ -194,12 +194,10 @@ public class KinsWatheRoles {
                 /* 初始物品留空 */ 
             }
             
-            // 机器人：永久速度加成（修改基础移动速度属性）
-            if (role.equals(ROBOT)) {
-    player.removeStatusEffect(StatusEffects.SPEED);
-    double originalSpeed = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getBaseValue();
-    double boostedSpeed = originalSpeed * 1.2;
-    player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(boostedSpeed);
+           if (role.equals(ROBOT)) {
+    // 永久速度加成，倍率从配置读取（默认 1.2）
+    float multiplier = (float) KinsWatheConfig.HANDLER.instance().RobotSpeedMultiplier;
+    SpeedComponent.KEY.get(player).setPermanentMultiplier(multiplier);
 }
         });
     }
