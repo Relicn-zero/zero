@@ -52,10 +52,15 @@ public class KinsWatheConfig {
     public boolean PreventKillerDropRevolver = false;
 
     /// 关于KinsWathe修改
-    @SerialEntry(comment = "\n\n[Kin's Wathe] Modify:\nBellringer: modify price and cooldown of ability.")
-    public int BellringerAbilityPrice = 200;
-    @SerialEntry
-    public int BellringerAbilityCooldown = GameConstants.getInTicks(2,0) / 20;
+    @SerialEntry(comment = "Bellringer: modify price and cooldown of ability.")
+public int BellringerAbilityPrice = 200;
+@SerialEntry
+public int BellringerAbilityCooldown = 120;
+
+@SerialEntry(comment = "Bellringer: speed boost duration (seconds) after using ability.")
+public int BellringerSpeedDuration = 10;
+@SerialEntry(comment = "Bellringer: speed boost multiplier (1.0 = no change).")
+public double BellringerSpeedMultiplier = 1.5;
 
     @SerialEntry(comment = "Bodymaker: modify cooldown of ability and whether to fake role of body.")
     public int BodymakerAbilityCooldown = GameConstants.getInTicks(1,30) / 20;
