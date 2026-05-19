@@ -34,11 +34,9 @@ public class BellringerAbility {
             // 播放音效
             player.playSoundToPlayer(SoundEvents.BLOCK_BELL_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
 
-            // 临时速度加成
-            int durationSec = KinsWatheConfig.HANDLER.instance().BellringerSpeedDuration;
-            float multiplier = (float) KinsWatheConfig.HANDLER.instance().BellringerSpeedMultiplier;
-            int durationTicks = durationSec * 20;
-            SpeedComponent.KEY.get(player).setMultiplier(multiplier, durationTicks);
+            // 在扣除金币、减时、音效之后
+int durationTicks = KinsWatheConfig.HANDLER.instance().BellringerSpeedDuration * 20;
+TempSpeedComponent.KEY.get(player).activate(durationTicks);
 
             // 设置技能冷却
             ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().BellringerAbilityCooldown);
