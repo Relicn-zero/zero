@@ -152,57 +152,56 @@ public class KinsWatheRoles {
     }
 
     /// 初始事件
-    public static void setDefaultEvents() {
-        ModdedRoleAssigned.EVENT.register((player, role) -> {
-            AbilityPlayerComponent ability = AbilityPlayerComponent.KEY.get(player);
-            ability.cooldown = KinsWatheConfig.HANDLER.instance().StartingCooldown * 20;
-            GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
-            PlayerShopComponent playerShop = PlayerShopComponent.KEY.get(player);
-            DreamerKillerComponent playerDreamer = DreamerKillerComponent.KEY.get(player);
-            HackerPhoneComponent phone = HackerPhoneComponent.KEY.get(player);
+public static void setDefaultEvents() {
+    ModdedRoleAssigned.EVENT.register((player, role) -> {
+        AbilityPlayerComponent ability = AbilityPlayerComponent.KEY.get(player);
+        ability.cooldown = KinsWatheConfig.HANDLER.instance().StartingCooldown * 20;
+        GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
+        PlayerShopComponent playerShop = PlayerShopComponent.KEY.get(player);
+        DreamerKillerComponent playerDreamer = DreamerKillerComponent.KEY.get(player);
+        HackerPhoneComponent phone = HackerPhoneComponent.KEY.get(player);
 
-            // 阵营初始收入
-            if (KinsWatheConfig.HANDLER.instance().EnableWatheModify) {
-                if (gameWorld.isInnocent(player)) 
-                    playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialCivilianIncome);
-                if (!gameWorld.isInnocent(player) && !gameWorld.canUseKillerFeatures(player)) 
-                    playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialNeutralIncome);
-                if (gameWorld.canUseKillerFeatures(player)) 
-                    playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialKillerIncome - 100);
-            }
+        // 阵营初始收入
+        if (KinsWatheConfig.HANDLER.instance().EnableWatheModify) {
+            if (gameWorld.isInnocent(player))
+                playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialCivilianIncome);
+            if (!gameWorld.isInnocent(player) && !gameWorld.canUseKillerFeatures(player))
+                playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialNeutralIncome);
+            if (gameWorld.canUseKillerFeatures(player))
+                playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialKillerIncome - 100);
+        }
 
-            // 各角色初始物品/特殊效果
-            if (role.equals(CLEANER)) 
-                player.giveItemStack(KinsWatheItems.SULFURIC_ACID_BARREL.getDefaultStack());
-            if (role.equals(DREAMER)) { 
-                player.giveItemStack(new ItemStack(KinsWatheItems.DREAM_IMPRINT, KinsWatheConfig.HANDLER.instance().DreamerInitialItemQuantity)); 
-                playerDreamer.setDreamerRequired(); 
+        // 各角色初始物品/特殊效果
+        if (role.equals(CLEANER))
+            player.giveItemStack(KinsWatheItems.SULFURIC_ACID_BARREL.getDefaultStack());
+        if (role.equals(DREAMER)) {
+            player.giveItemStack(new ItemStack(KinsWatheItems.DREAM_IMPRINT, KinsWatheConfig.HANDLER.instance().DreamerInitialItemQuantity));
+            playerDreamer.setDreamerRequired();
+        }
+        if (role.equals(HACKER)) {
+            player.giveItemStack(phone.getPhone());
+            for (ServerPlayerEntity serverPlayer : player.getServer().getPlayerManager().getPlayerList()) {
+                if (serverPlayer != null && gameWorld.canUseKillerFeatures(serverPlayer))
+                    serverPlayer.giveItemStack(phone.getPhone());
             }
-            if (role.equals(HACKER)) {
-                player.giveItemStack(phone.getPhone());
-                for (ServerPlayerEntity serverPlayer : player.getServer().getPlayerManager().getPlayerList()) {
-                    if (serverPlayer != null && gameWorld.canUseKillerFeatures(serverPlayer)) 
-                        serverPlayer.giveItemStack(phone.getPhone());
-                }
-            }
-            if (role.equals(KIDNAPPER)) 
-                player.giveItemStack(KinsWatheItems.KNOCKOUT_DRUG.getDefaultStack());
-            if (role.equals(LICENSED_VILLAIN)) 
-                player.giveItemStack(WatheItems.LOCKPICK.getDefaultStack());
-            if (role.equals(PHYSICIAN)) 
-                player.giveItemStack(KinsWatheItems.MEDICAL_KIT.getDefaultStack());
-            if (role.equals(ARBITER)) { 
-                /* 初始物品留空 */ 
-            }
-            
-          // 在 KinsWatheRoles.setDefaultEvents() 中
-if (role.equals(ROBOT)) {
-    double speed = 0.12; // 追星族的行走速度
-    player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(speed);
+        }
+        if (role.equals(KIDNAPPER))
+            player.giveItemStack(KinsWatheItems.KNOCKOUT_DRUG.getDefaultStack());
+        if (role.equals(LICENSED_VILLAIN))
+            player.giveItemStack(WatheItems.LOCKPICK.getDefaultStack());
+        if (role.equals(PHYSICIAN))
+            player.giveItemStack(KinsWatheItems.MEDICAL_KIT.getDefaultStack());
+        if (role.equals(ARBITER)) {
+            /* 初始物品留空 */
+        }
+
+        // 机器人：修改基础移动速度（永久）
+        if (role.equals(ROBOT)) {
+            double speed = 0.12; // 追星族的行走速度
+            player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(speed);
+        }
+    });
 }
-}
-        });
-    }
 
     /// 注册身份技能
     public static void registerRolesAbility() {
