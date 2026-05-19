@@ -196,7 +196,6 @@ public class KinsWatheRoles {
             }
             
            if (role.equals(ROBOT)) {
-    // 永久速度加成，倍率从配置读取（默认 1.2）
     float multiplier = (float) KinsWatheConfig.HANDLER.instance().RobotSpeedMultiplier;
     SpeedComponent.KEY.get(player).setPermanentMultiplier(multiplier);
 }
