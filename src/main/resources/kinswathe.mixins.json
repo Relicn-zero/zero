@@ -12,6 +12,7 @@
     "host.MoneyIncreaseMixin",
     "host.PassiveIncomeMixin",
     "host.PlayerEffectMixin",
+    "host.PlayerEntitySpeedMixin",
     "host.SprintTimeFixMixin",
     "modifiers.magnate.MagnatePassiveIncomeMixin",
     "modifiers.taskmaster.TaskmasterGiveCoinsMixin",
