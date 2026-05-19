@@ -13,9 +13,6 @@ public abstract class PlayerEntitySpeedMixin {
     private float modifyMovementSpeed(float original) {
         PlayerEntity self = (PlayerEntity) (Object) this;
         SpeedComponent speedComp = SpeedComponent.KEY.get(self);
-        if (speedComp.hasCustomSpeed()) {
-            return self.isSprinting() ? speedComp.getCustomSprintSpeed() : speedComp.getCustomWalkSpeed();
-        }
         float multiplier = speedComp.getMultiplier();
         if (multiplier != 1.0f) {
             return original * multiplier;
