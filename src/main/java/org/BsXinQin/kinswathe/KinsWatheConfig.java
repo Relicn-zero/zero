@@ -189,6 +189,8 @@ public double KobeCustomSprintSpeed = 0.19;
     public int RobotAbilityDuration = GameConstants.getInTicks(0,10) / 20;
     @SerialEntry
     public int RobotAbilityCooldown = GameConstants.getInTicks(1,30) / 20;
+    @SerialEntry(comment = "Robot: permanent speed multiplier.")
+    public double RobotSpeedMultiplier = 1.2;
 
     @SerialEntry(comment = "Technician: modify price of props and Capture Device parameter.")
     public int TechnicianWrenchPrice = 100;
