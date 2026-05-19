@@ -41,6 +41,9 @@ public class KinsWatheComponents implements EntityComponentInitializer, WorldCom
         registry.beginRegistration(PlayerEntity.class, JudgeLordComponent.KEY)
     .respawnStrategy(RespawnCopyStrategy.NEVER_COPY)
     .end(JudgeLordComponent::new);
+        registry.beginRegistration(PlayerEntity.class, SpeedComponent.KEY)
+        .respawnStrategy(RespawnCopyStrategy.NEVER_COPY)
+        .end(SpeedComponent::new);
     }
     
 
