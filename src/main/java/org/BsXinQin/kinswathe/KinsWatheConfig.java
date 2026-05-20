@@ -52,15 +52,10 @@ public class KinsWatheConfig {
     public boolean PreventKillerDropRevolver = false;
 
     /// 关于KinsWathe修改
-    @SerialEntry(comment = "Bellringer: modify price and cooldown of ability.")
-public int BellringerAbilityPrice = 200;
-@SerialEntry
-public int BellringerAbilityCooldown = 120;
-
-@SerialEntry(comment = "Bellringer: speed boost multiplier and duration.")
-public float BellringerSpeedMultiplier = 1.3f;
-@SerialEntry
-public int BellringerSpeedDuration = 10;
+    // 敲钟人
+@SerialEntry public int BellringerAbilityPrice = 250;
+@SerialEntry public int BellringerCooldown = 90;
+@SerialEntry public int BellringerSpeedDuration = 10;
 
     @SerialEntry(comment = "Bodymaker: modify cooldown of ability and whether to fake role of body.")
     public int BodymakerAbilityCooldown = GameConstants.getInTicks(1,30) / 20;
@@ -108,28 +103,11 @@ public int JudgeLordAbilityPrice = 400;
 public int JudgeLordGlowDuration = 60;      // 发光时间（秒）
 @SerialEntry
 public int JudgeLordCooldown = 150;         // 冷却时间（秒）
-// 科比配置
-@SerialEntry(comment = "Kobe: ability settings.")
-public int KobeAbilityPrice = 150;
-@SerialEntry
-public int KobeCooldown = 30;
-@SerialEntry
-public int KobeRewardPerPlayer = 25;
-@SerialEntry
-public int KobeStunDuration = 3;
-@SerialEntry(comment = "Kobe: speed boost multiplier and duration.")
-public float KobeSpeedMultiplier = 1.5f;
-@SerialEntry
-public int KobeSpeedDuration = 5;
-@SerialEntry
-public int KobeSpeedExtraPerHit = 3;
-@SerialEntry
-public int KobeSpeedMaxDuration = 20;
-
-@SerialEntry(comment = "Kobe: custom walk speed (blocks/sec). Default civilian walk = 0.07")
-public double KobeCustomWalkSpeed = 0.15;
-@SerialEntry(comment = "Kobe: custom sprint speed (blocks/sec). Default civilian sprint = 0.1")
-public double KobeCustomSprintSpeed = 0.19;
+// 科比
+@SerialEntry public int KobeAbilityPrice = 200;
+@SerialEntry public int KobeCooldown = 35;
+@SerialEntry public int KobeRewardPerPlayer = 100;
+@SerialEntry public int KobeSpeedDuration = 10;
     
     @SerialEntry(comment = "Cook: modify price of Pan.")
     public int CookPanPrice = 250;
