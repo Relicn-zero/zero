@@ -50,14 +50,17 @@ public class KobeAbility {
         int reward = KinsWatheConfig.HANDLER.instance().KobeRewardPerPlayer * hitCount;
         shop.addToBalance(reward);
         shop.sync();
-        PlayerMoodComponent.KEY.get(player).addMood(10 * hitCount);
+
+        // 修复心情值增加
+        PlayerMoodComponent mood = PlayerMoodComponent.KEY.get(player);
+        mood.setMood(mood.getMood() + 10 * hitCount);
+        mood.sync();
 
         for (ServerPlayerEntity target : hitPlayers) {
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 2));
             target.sendMessage(Text.literal("你被科比扣晕了！"), true);
         }
 
-        // 使用 KobeComponent 激活速度加成
         if (kobeComp != null) {
             int durationTicks = KinsWatheConfig.HANDLER.instance().KobeSpeedDuration * 20;
             kobeComp.setSpeedTicks(durationTicks);
