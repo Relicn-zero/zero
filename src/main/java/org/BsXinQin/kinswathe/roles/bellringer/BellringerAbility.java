@@ -31,11 +31,9 @@ public class BellringerAbility {
         shop.balance -= price;
         shop.sync();
 
-        // 减少游戏时间（1200刻 = 1分钟）
         GameTimeComponent time = GameTimeComponent.KEY.get(player.getWorld());
         time.setTime(Math.max(0, time.getTime() - 1200));
 
-        // 激活速度加成
         if (bellringerComp != null) {
             int durationTicks = KinsWatheConfig.HANDLER.instance().BellringerSpeedDuration * 20;
             bellringerComp.setSpeedTicks(durationTicks);
@@ -43,6 +41,7 @@ public class BellringerAbility {
 
         player.playSoundToPlayer(SoundEvents.BLOCK_BELL_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
 
+        // 确保配置中有 BellringerCooldown 字段
         ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().BellringerCooldown);
     }
 }
