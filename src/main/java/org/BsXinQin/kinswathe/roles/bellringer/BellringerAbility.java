@@ -38,11 +38,12 @@ public class BellringerAbility {
             player.playSoundToPlayer(SoundEvents.BLOCK_BELL_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
 
             // 原代码：TempSpeedComponent.KEY.get(player).activate(durationSec * 20);
-// 新代码：统一使用临时速度组件
-
-float multiplier = KinsWatheConfig.HANDLER.instance().BellringerSpeedMultiplier;
-int durationTicks = KinsWatheConfig.HANDLER.instance().BellringerSpeedDuration * 20;
-TempSpeedComponent.KEY.get(player).activate(durationTicks, multiplier);
+// 获取敲钟人的专属组件
+BellringerComponent bellringerComp = BellringerComponent.KEY.get(player);
+if (bellringerComp != null) {
+    int durationTicks = StarryExpress.SERVER_CONFIG.bellringerConfig.speedDuration() * 20;
+    bellringerComp.setSpeedTicks(durationTicks);
+}
             // 设置冷却
             ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().BellringerAbilityCooldown);
         }
