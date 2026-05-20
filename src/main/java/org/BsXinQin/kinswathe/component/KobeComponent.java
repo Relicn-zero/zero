@@ -1,5 +1,6 @@
 package org.BsXinQin.kinswathe.component;
 
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -19,6 +20,8 @@ public class KobeComponent implements AutoSyncedComponent, ServerTickingComponen
 
     private final PlayerEntity player;
     public int speedTicks = 0;
+    private static final float BASE_SPEED = 0.1f;
+    private static final float SPEED_MULTIPLIER = 1.5f;
 
     public KobeComponent(PlayerEntity player) {
         this.player = player;
@@ -28,6 +31,12 @@ public class KobeComponent implements AutoSyncedComponent, ServerTickingComponen
     public void serverTick() {
         if (this.speedTicks > 0) {
             this.speedTicks--;
+            // 应用速度加成
+            var instance = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            if (instance != null && instance.getBaseValue() != BASE_SPEED * SPEED_MULTIPLIER) {
+                instance.setBaseValue(BASE_SPEED * SPEED_MULTIPLIER);
+            }
+            // 特效
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 serverPlayer.getServerWorld().spawnParticles(
                         ParticleTypes.SWEEP_ATTACK,
@@ -36,17 +45,27 @@ public class KobeComponent implements AutoSyncedComponent, ServerTickingComponen
                 );
             }
             this.sync();
+        } else {
+            // 恢复原始速度
+            var instance = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            if (instance != null && instance.getBaseValue() != BASE_SPEED) {
+                instance.setBaseValue(BASE_SPEED);
+            }
         }
     }
 
     public void setSpeedTicks(int ticks) {
         this.speedTicks = ticks;
+        if (ticks <= 0) {
+            // 立即恢复速度
+            var instance = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            if (instance != null) instance.setBaseValue(BASE_SPEED);
+        }
         this.sync();
     }
 
     public void reset() {
-        this.speedTicks = 0;
-        this.sync();
+        this.setSpeedTicks(0);
     }
 
     public void sync() {
@@ -61,5 +80,10 @@ public class KobeComponent implements AutoSyncedComponent, ServerTickingComponen
     @Override
     public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         this.speedTicks = tag.getInt("speedTicks");
+        if (this.speedTicks > 0) {
+            // 重读后重新应用速度
+            var instance = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            if (instance != null) instance.setBaseValue(BASE_SPEED * SPEED_MULTIPLIER);
+        }
     }
 }
