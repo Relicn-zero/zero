@@ -46,7 +46,9 @@
         "kinswathe:arbiter",
         "kinswathe:judgelord",
         "kinswathe:speed",
-        "kinswathe:temp_speed"
+        "kinswathe:temp_speed",
+      "kinswathe:kobe",
+"kinswathe:bellringer"
     ]
 },
   "mixins": [
