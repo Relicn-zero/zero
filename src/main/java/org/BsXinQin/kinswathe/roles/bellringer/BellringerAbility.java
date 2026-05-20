@@ -10,42 +10,39 @@ import net.minecraft.sound.SoundEvents;
 import org.BsXinQin.kinswathe.KinsWatheConfig;
 import org.BsXinQin.kinswathe.KinsWatheRoles;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
-import org.BsXinQin.kinswathe.component.TempSpeedComponent;
-import org.jetbrains.annotations.NotNull;
+import org.BsXinQin.kinswathe.component.BellringerComponent;
 
 public class BellringerAbility {
-    public static void register(@NotNull PlayerEntity player) {
+
+    public static void register(PlayerEntity player) {
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
         AbilityPlayerComponent ability = AbilityPlayerComponent.KEY.get(player);
-        GameTimeComponent time = GameTimeComponent.KEY.get(player.getWorld());
-        PlayerShopComponent playerShop = PlayerShopComponent.KEY.get(player);
+        PlayerShopComponent shop = PlayerShopComponent.KEY.get(player);
+        BellringerComponent bellringerComp = BellringerComponent.KEY.get(player);
 
-        if (gameWorld.isRole(player, KinsWatheRoles.BELLRINGER)
-                && GameFunctions.isPlayerAliveAndSurvival(player)
-                && ability.cooldown <= 0) {
-
-            // 金币检查
-            if (playerShop.balance < KinsWatheConfig.HANDLER.instance().BellringerAbilityPrice) return;
-
-            // 扣钱
-            playerShop.balance -= KinsWatheConfig.HANDLER.instance().BellringerAbilityPrice;
-            playerShop.sync();
-
-            // 核心效果：减少1分钟（1200刻）剩余时间
-            time.setTime(Math.max(0, time.getTime() - 1200));
-
-            // 音效
-            player.playSoundToPlayer(SoundEvents.BLOCK_BELL_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
-
-            // 原代码：TempSpeedComponent.KEY.get(player).activate(durationSec * 20);
-// 获取敲钟人的专属组件
-BellringerComponent bellringerComp = BellringerComponent.KEY.get(player);
-if (bellringerComp != null) {
-    int durationTicks = StarryExpress.SERVER_CONFIG.bellringerConfig.speedDuration() * 20;
-    bellringerComp.setSpeedTicks(durationTicks);
-}
-            // 设置冷却
-            ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().BellringerAbilityCooldown);
+        if (!gameWorld.isRole(player, KinsWatheRoles.BELLRINGER)
+                || !GameFunctions.isPlayerAliveAndSurvival(player)
+                || ability.cooldown > 0) {
+            return;
         }
+
+        int price = KinsWatheConfig.HANDLER.instance().BellringerAbilityPrice;
+        if (shop.balance < price) return;
+        shop.balance -= price;
+        shop.sync();
+
+        // 减少游戏时间（1200刻 = 1分钟）
+        GameTimeComponent time = GameTimeComponent.KEY.get(player.getWorld());
+        time.setTime(Math.max(0, time.getTime() - 1200));
+
+        // 激活速度加成
+        if (bellringerComp != null) {
+            int durationTicks = KinsWatheConfig.HANDLER.instance().BellringerSpeedDuration * 20;
+            bellringerComp.setSpeedTicks(durationTicks);
+        }
+
+        player.playSoundToPlayer(SoundEvents.BLOCK_BELL_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
+
+        ability.setAbilityCooldown(KinsWatheConfig.HANDLER.instance().BellringerCooldown);
     }
 }
