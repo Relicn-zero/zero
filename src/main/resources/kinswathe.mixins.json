@@ -16,7 +16,6 @@
     "host.PlayerEffectMixin",
     "host.PlayerEntitySpeedMixin",
     "host.SprintTimeFixMixin",
-    "host.KobeSpeedMixin",
     "host.BellringerSpeedMixin",
     "host.RobotSpeedMixin",
     "modifiers.magnate.MagnatePassiveIncomeMixin",
