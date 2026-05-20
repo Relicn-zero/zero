@@ -47,6 +47,12 @@ public class KinsWatheComponents implements EntityComponentInitializer, WorldCom
         registry.beginRegistration(PlayerEntity.class, TempSpeedComponent.KEY)
         .respawnStrategy(RespawnCopyStrategy.NEVER_COPY)
         .end(TempSpeedComponent::new);
+        registry.beginRegistration(PlayerEntity.class, KobeComponent.KEY)
+        .respawnStrategy(RespawnCopyStrategy.NEVER_COPY)
+        .end(KobeComponent::new);
+registry.beginRegistration(PlayerEntity.class, BellringerComponent.KEY)
+        .respawnStrategy(RespawnCopyStrategy.NEVER_COPY)
+        .end(BellringerComponent::new);
     }
     
 
