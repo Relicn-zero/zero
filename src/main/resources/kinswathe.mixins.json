@@ -4,8 +4,6 @@
   "package": "org.BsXinQin.kinswathe.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-
-    "PlayerEntitySpeedMixin",
     "host.AddDeathReasonMixin",
     "host.CustomWinnerCheckMixin",
     "host.GameFnctionsMixin",
@@ -14,10 +12,7 @@
     "host.MoneyIncreaseMixin",
     "host.PassiveIncomeMixin",
     "host.PlayerEffectMixin",
-    "host.PlayerEntitySpeedMixin",
     "host.SprintTimeFixMixin",
-    "host.BellringerSpeedMixin",
-    "host.RobotSpeedMixin",
     "modifiers.magnate.MagnatePassiveIncomeMixin",
     "modifiers.taskmaster.TaskmasterGiveCoinsMixin",
     "noellesroles.framing.DelusionVialApplyMixin",
