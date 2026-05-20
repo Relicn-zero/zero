@@ -52,10 +52,13 @@ public class KobeAbility {
             );
             int hitCount = nearby.size();
 
-            // 速度提升持续时间（秒）
-            float multiplier = KinsWatheConfig.HANDLER.instance().KobeSpeedMultiplier;
-int durationTicks = KinsWatheConfig.HANDLER.instance().KobeSpeedDuration * 20;
-TempSpeedComponent.KEY.get(player).activate(durationTicks, multiplier);
+            // 获取科比的专属组件
+KobeComponent kobeComp = KobeComponent.KEY.get(player);
+if (kobeComp != null) {
+    // 计算持续时间（秒 * 20 = tick），并设置到组件中
+    int durationTicks = StarryExpress.SERVER_CONFIG.kobeConfig.speedDuration() * 20;
+    kobeComp.setSpeedTicks(durationTicks);
+}
 
             if (hitCount > 0) {
                 // 金币奖励
