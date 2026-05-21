@@ -149,42 +149,17 @@ public class KinsWatheShops {
         return FRAMING_ROLES_SHOP;
     }
 
-    // 土匪商店（符合需求：仅手枪150、刀300，其他工具保留默认，但禁用武器类）
-    public static List<ShopEntry> getBanditShop(World world) {
+    // 土匪商店（符合需求：仅手枪150、刀300、手雷600，移除开锁器/疯魔/停电，允许部分工具）
+    public static List<ShopEntry> getBanditShop(@NotNull World world) {
         return Util.make(new ArrayList<>(), (entries) -> {
             entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), 150, ShopEntry.Type.WEAPON));
-entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
-entries.add(new ShopEntry(WatheItems.GRENADE.getDefaultStack(), 600, ShopEntry.Type.WEAPON));
-            // 以下为允许的工具（鞭炮、撬棍、尸袋、便条）-- 根据需求不包含停电
+            entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
+            entries.add(new ShopEntry(WatheItems.GRENADE.getDefaultStack(), 600, ShopEntry.Type.WEAPON));
+            // 以下为允许的工具（鞭炮、撬棍、尸袋、便条）
             entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
             entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
             entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
             entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
         });
-    }
-
-    
-
-        // 通用购买逻辑
-        if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
-            if (item == WatheItems.NOTE) player.giveItemStack((new ItemStack(WatheItems.NOTE, 4)));
-            else if (item == WatheItems.BLACKOUT) PlayerShopComponent.useBlackout(player);
-            else if (item == WatheItems.PSYCHO_MODE) PlayerShopComponent.usePsychoMode(player);
-            else if (item == KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH) HackerComponent.refreshWeaponCooldown(player);
-            else if (item == KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH) HackerComponent.refreshAbilityCooldown(player);
-            else if (item == KinsWatheItems.ICON_POTION_EFFECT_REFRESH) HackerComponent.refreshPotionEffect(player);
-            else if (item == KinsWatheItems.ICON_POWER_RESTORATION) TechnicianComponent.stopBlackout(player);
-            else player.giveItemStack(item.getDefaultStack());
-            if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
-                serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY, SoundCategory.PLAYERS, 1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
-            }
-            return true;
-        } else {
-            player.sendMessage(Text.translatable("shop.purchase_failed").withColor(0xAA0000), true);
-            if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
-                serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY_FAIL, SoundCategory.PLAYERS, 1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
-            }
-            return false;
-        }
     }
 }
