@@ -1,8 +1,6 @@
 package org.BsXinQin.kinswathe;
 
 import dev.doctor4t.wathe.cca.GameWorldComponent;
-import org.BsXinQin.kinswathe.KinsWatheRoles;
-import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.index.WatheItems;
@@ -151,33 +149,39 @@ public class KinsWatheShops {
         return FRAMING_ROLES_SHOP;
     }
 
-    // 在 KinsWatheShops.java 中
-
-// 土匪商店列表
-public static List<ShopEntry> getBanditShop(World world) {
-    return Util.make(new ArrayList<>(), (entries) -> {
-        entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), 150, ShopEntry.Type.WEAPON));
-        entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
-        entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
-        entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
-        entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
-        entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
-    });
-}
-
-// 在 handlePurchase 方法中，找到土匪处理逻辑（大约在第 200 行附近），替换为：
-if (gameWorld.isRole(player, KinsWatheRoles.BANDIT)) {
-    // 禁用物品：手雷、疯魔模式、开锁器、停电
-    if (item == WatheItems.GRENADE || item == WatheItems.PSYCHO_MODE || item == WatheItems.LOCKPICK || item == WatheItems.BLACKOUT) {
-        player.sendMessage(Text.translatable("shop.purchase_failed"), true);
-        return false;
+    // 土匪商店（符合需求：仅手枪150、刀300，其他工具保留默认，但禁用武器类）
+    public static List<ShopEntry> getBanditShop(World world) {
+        return Util.make(new ArrayList<>(), (entries) -> {
+            entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), 150, ShopEntry.Type.WEAPON));
+            entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
+            // 以下为允许的工具（鞭炮、撬棍、尸袋、便条）-- 根据需求不包含停电
+            entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
+            entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
+            entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
+            entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
+        });
     }
-    if (item == WatheItems.REVOLVER) {
-        price = 150;
-    } else if (item == WatheItems.KNIFE) {
-        price = 300;
-    }
-}
+
+    /// 商店处理方法（包含土匪特殊逻辑）
+    public static boolean handlePurchase(@NotNull PlayerEntity player, int balance, @NotNull Item item, int price) {
+        GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
+
+        // 土匪特殊处理：禁用物品 + 价格覆盖
+        if (gameWorld.isRole(player, KinsWatheRoles.BANDIT)) {
+            // 禁用物品：手雷、疯魔模式、开锁器、停电
+            if (item == WatheItems.GRENADE || item == WatheItems.PSYCHO_MODE || item == WatheItems.LOCKPICK || item == WatheItems.BLACKOUT) {
+                player.sendMessage(Text.translatable("shop.purchase_failed"), true);
+                return false;
+            }
+            // 价格覆盖
+            if (item == WatheItems.REVOLVER) {
+                price = 150;
+            } else if (item == WatheItems.KNIFE) {
+                price = 300;
+            }
+        }
+
+        // 通用购买逻辑
         if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
             if (item == WatheItems.NOTE) player.giveItemStack((new ItemStack(WatheItems.NOTE, 4)));
             else if (item == WatheItems.BLACKOUT) PlayerShopComponent.useBlackout(player);
