@@ -152,9 +152,9 @@ public class KinsWatheShops {
     // 土匪商店（符合需求）
     public static List<ShopEntry> getBanditShop(@NotNull World world) {
         return Util.make(new ArrayList<>(), (entries) -> {
-            entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), 150, ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.GRENADE.getDefaultStack(), 600, ShopEntry.Type.WEAPON));
+            entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), getItemPrice("KNIFE", 300), ShopEntry.Type.WEAPON));
+            entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), getItemPrice("REVOLVER", 150), ShopEntry.Type.WEAPON));
+            entries.add(new ShopEntry(WatheItems.GRENADE.getDefaultStack(), getItemPrice("GRENADE", 600), ShopEntry.Type.WEAPON));
             entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
             entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
             entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
