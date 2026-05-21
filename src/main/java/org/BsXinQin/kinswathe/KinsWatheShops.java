@@ -151,30 +151,27 @@ public class KinsWatheShops {
         return FRAMING_ROLES_SHOP;
     }
 
-    // 土匪商店
-    public static List<ShopEntry> getBanditShop(World world) {
-        return Util.make(new ArrayList<>(), (entries) -> {
-            entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), 150, ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.BLACKOUT.getDefaultStack(), getItemPrice("BLACKOUT", 200), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
-        });
-    }
+    // 在 KinsWatheShops.java 中
 
-    /// 商店处理方法（已移除土匪特殊逻辑）
-    public static boolean handlePurchase(@NotNull PlayerEntity player, int balance, @NotNull Item item, int price) {
-        // 土匪特殊处理
-GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
+// 土匪商店列表
+public static List<ShopEntry> getBanditShop(World world) {
+    return Util.make(new ArrayList<>(), (entries) -> {
+        entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), 150, ShopEntry.Type.WEAPON));
+        entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
+        entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
+        entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
+        entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
+        entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
+    });
+}
+
+// 在 handlePurchase 方法中，找到土匪处理逻辑（大约在第 200 行附近），替换为：
 if (gameWorld.isRole(player, KinsWatheRoles.BANDIT)) {
-    // 禁用物品：手雷、疯魔模式、撬锁器
-    if (item == WatheItems.GRENADE || item == WatheItems.PSYCHO_MODE || item == WatheItems.LOCKPICK) {
+    // 禁用物品：手雷、疯魔模式、开锁器、停电
+    if (item == WatheItems.GRENADE || item == WatheItems.PSYCHO_MODE || item == WatheItems.LOCKPICK || item == WatheItems.BLACKOUT) {
         player.sendMessage(Text.translatable("shop.purchase_failed"), true);
         return false;
     }
-    // 折扣价格
     if (item == WatheItems.REVOLVER) {
         price = 150;
     } else if (item == WatheItems.KNIFE) {
