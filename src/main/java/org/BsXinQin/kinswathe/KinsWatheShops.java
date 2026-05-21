@@ -155,7 +155,6 @@ public class KinsWatheShops {
             entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), 150, ShopEntry.Type.WEAPON));
             entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), 300, ShopEntry.Type.WEAPON));
             entries.add(new ShopEntry(WatheItems.GRENADE.getDefaultStack(), 600, ShopEntry.Type.WEAPON));
-            // 允许的工具
             entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
             entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
             entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
@@ -165,11 +164,10 @@ public class KinsWatheShops {
 
     // 通用购买处理逻辑（供 Mixin 调用）
     public static boolean handlePurchase(PlayerEntity player, int balance, Item item, int price) {
-        // 检查余额和冷却
         if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
-            // 先扣除金钱（使用组件）
+            // 扣除金钱（使用组件，直接设置新余额 = 当前余额 - 价格）
             PlayerShopComponent shopComp = PlayerShopComponent.KEY.get(player);
-            shopComp.setBalance(shopComp.getBalance() - price);
+            shopComp.setBalance(balance - price);
 
             // 处理特殊物品
             if (item == WatheItems.NOTE) {
@@ -190,7 +188,6 @@ public class KinsWatheShops {
                 player.giveItemStack(item.getDefaultStack());
             }
 
-            // 播放购买成功音效
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY, SoundCategory.PLAYERS, 1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
             }
